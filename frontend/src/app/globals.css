@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.springAnimation{
+    animation: springMotion 0.8s ;
+    transition: all;
+}
+@keyframes springMotion {
+    0%{
+        scale: 0;
+        rotate: -180deg;
+        display: block;
+    }
+    /* 80%{
+        rotate: 20deg;
+        scale: 1.05;
+    } */
+    100%{
+        scale: 1;
+        rotate: 0;
+    }
+}
