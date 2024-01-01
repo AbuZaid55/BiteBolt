@@ -15,7 +15,7 @@ const robotoSlab = Roboto_Slab({
 const Header = () => {
   const [openNav,setOpenNev]=useState(false)
   return (
-        <div className="h-[70px] shadow-md p-3 relative overflow-x-hidden ">
+        <div className="h-[70px] shadow-md p-3 overflow-x-hidden fixed top-0 left-0 w-full bg-white z-50 ">
       <div className="h-full flex items-center justify-between">
         <div className="h-full flex items-center">
           <img className="h-[70%] sm:h-[80%]" src="./logo.png" alt="logo" />
@@ -52,7 +52,7 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <ul className={` text-white fixed ${openNav?'right-0':'-right-52'} z-50 top-[70px] bg-slate-700 shadow-lg mt-[2px] w-48 h-[calc(100svh-70px-2px)] flex flex-col items-center justify-center text-xl transition-all ease-in-out duration-300`}>
+      <ul className={` text-white fixed ${openNav?'right-0':'-right-52'} z-50 top-[70px] bg-slate-700 shadow-lg mt-[2px] w-48 h-[calc(100vh-70px-2px)] flex flex-col items-center justify-center text-xl transition-all ease-in-out duration-300`}>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Home</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dishes</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Blog</li>

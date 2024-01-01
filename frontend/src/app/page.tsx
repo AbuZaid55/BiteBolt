@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import {Roboto_Slab} from 'next/font/google'
+import Card1 from "./components/Card1"
 
 const robotoSlab = Roboto_Slab({
   weight:"500",
@@ -25,7 +26,7 @@ export default function Home() {
   },[showImg])
   return (
     <div className="overflow-hidden">
-      <div className='h-[calc(100svh-72px)] w-[100vw] overflow-hidden flex items-center justify-center'>
+      <div className='h-[100vh] w-[100vw] overflow-hidden flex items-center justify-center'>
       <div className='sm:w-1/2 px-10'>
         <h1 className={`${robotoSlab.className} text-main-800 text-xl`}>ENJOY YOUR HEALTHY</h1>
         <h1 className="text-5xl font-bold text-slate-700 my-3"> DILICIOUS FOOD</h1>
@@ -38,7 +39,18 @@ export default function Home() {
         </div>
       </div>
     </div>
-    <div>sdfasdf</div>
+    <div className=" bg-slate-100 pt-10">
+      <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Dishes</h1>
+      <h1  className="text-4xl font-bold text-slate-700 my-3 text-center ">POPULAR DISHES</h1>
+      <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 max-w-[1000px] mx-auto px-3 pb-10">
+          <Card1/>
+          <Card1/>
+          <Card1/>
+          <Card1/>
+          <Card1/>
+          <Card1/>
+      </div>
+    </div>
     </div>
   )
 }
