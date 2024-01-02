@@ -26,7 +26,6 @@ const Header = () => {
           <ul className="hidden lg:flex items-center justify-center text-xl">
             <li className=" hover:bg-main-800 hover:text-white cursor-pointer w-28 border-2 border-slate-700 hover:border-main-800 text-center py-2 mx-2 rounded-md transition-all duration-200 ease-in-out">Home</li>
             <li className=" hover:bg-main-800 hover:text-white cursor-pointer w-28 border-2 border-slate-700 hover:border-main-800 text-center py-2 mx-2 rounded-md transition-all duration-200 ease-in-out">Dishes</li>
-            <li className=" hover:bg-main-800 hover:text-white cursor-pointer w-28 border-2 border-slate-700 hover:border-main-800 text-center py-2 mx-2 rounded-md transition-all duration-200 ease-in-out">Blog</li>
             <li className=" hover:bg-main-800 hover:text-white cursor-pointer w-28 border-2 border-slate-700 hover:border-main-800 text-center py-2 mx-2 rounded-md transition-all duration-200 ease-in-out">Order</li>
             <li className=" hover:bg-main-800 hover:text-white cursor-pointer w-28 border-2 border-slate-700 hover:border-main-800 text-center py-2 mx-2 rounded-md transition-all duration-200 ease-in-out">Contact</li>
           </ul>
@@ -55,7 +54,6 @@ const Header = () => {
       <ul className={` text-white fixed ${openNav?'right-0':'-right-52'} z-50 top-[70px] bg-slate-700 shadow-lg mt-[2px] w-48 h-[calc(100vh-70px-2px)] flex flex-col items-center justify-center text-xl transition-all ease-in-out duration-300`}>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Home</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dishes</li>
-        <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Blog</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Order</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dashboard</li>
         <li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Contact</li>
