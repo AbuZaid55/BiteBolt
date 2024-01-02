@@ -6,14 +6,7 @@ import Card2 from "./components/Card2"
 import { FaTruck } from "react-icons/fa"
 import { FaDollarSign } from "react-icons/fa"
 import { FaHeadset } from "react-icons/fa6"
-import Image from "next/image"
-
-import img1 from './Images/blog1.jpg'
-import img2 from './Images/blog2.webp'
-import img3 from './Images/blog3.jpg'
-import img4 from './Images/blog4.jpg'
-import img5 from './Images/blog5.jpg'
-import img6 from './Images/blog6.jpg'
+import Link from "next/link"
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -66,7 +59,7 @@ export default function Home() {
           <Card1 />
         </div>
         <div className="w-full flex itemc justify-center">
-          <button className=" bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</button>
+          <Link href="/populardishes" className="text-center bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</Link>
         </div>
       </section>
       {/* About Section  */}
@@ -110,7 +103,7 @@ export default function Home() {
           <Card2 />
         </div>
         <div className="w-full flex itemc justify-center">
-          <button className=" bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</button>
+          <Link href="/dishes" className="text-center bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</Link>
         </div>
       </section>
     </div>

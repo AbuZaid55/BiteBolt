@@ -4,6 +4,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6"
 import { MdShoppingCart } from "react-icons/md"
 import { FaRegHeart } from "react-icons/fa"
 import { MdOutlineRemoveRedEye } from "react-icons/md"
+import Link from 'next/link'
 
 const Card2 = () => {
     return (
@@ -13,7 +14,7 @@ const Card2 = () => {
                     <FaRegHeart />
                 </span>
                 <span className=" cursor-pointer bg-slate-200 rounded-full p-2 hover:scale-125 hover:bg-main-800 hover:text-white text-slate-700 transition-all duration-200 ease-in-out">
-                    <MdOutlineRemoveRedEye />
+                    <Link href={`/details`}><MdOutlineRemoveRedEye /></Link>
                 </span>
             </div>
             <img className="mx-auto border-2 w-full" src="./img/5.jpg" alt="Image" />
