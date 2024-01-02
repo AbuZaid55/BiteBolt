@@ -98,7 +98,7 @@ export default function Home() {
         </div>
       </section>
       {/* Menu Section  */}
-      <section className=" pt-10 bg-slate-200 ">
+      <section className=" pt-10 bg-slate-200 pb-80 sm:pb-64 md:pb-56 lg:pb-44">
         <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Menu</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center">TODAY'S SPECIALITY</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10">

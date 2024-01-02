@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${mukta.className} select-none text-slate-700`}>
+      <body className={`${mukta.className} select-none`}>
         <Header/>
         {children}
         <Footer/>
