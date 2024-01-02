@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Mukta } from 'next/font/google'
 import './globals.css'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 const mukta = Mukta({ weight:'400', subsets:["latin"], display:"swap" })
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={`${mukta.className} select-none text-slate-700`}>
         <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   )

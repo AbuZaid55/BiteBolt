@@ -46,7 +46,7 @@ export default function Home() {
           <button className=" bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Order Now</button>
         </div>
         <div className="hidden sm:flex w-1/2 h-full items-center justify-center bg-slate-700" style={{ borderRadius: "44% 56% 0% 100% / 63% 0% 100% 37% " }}>
-          <div className="w-[95%] md:w-[75%] h-full flex items-center justify-center relative">
+          <div className="w-[90%] md:w-[75%] h-full flex items-center justify-center relative">
             {imgPath.map((path: string, i: number) => (
               <img className={`${showImg === i + 1 ? "springAnimation" : "hidden"} w-full`} src={path} alt="Image" />
             ))}
@@ -54,7 +54,7 @@ export default function Home() {
         </div>
       </section>
       {/* Dishes Section  */}
-      <section className=" bg-slate-100 pt-10">
+      <section className=" bg-slate-200 pt-10">
         <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Dishes</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">POPULAR DISHES</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10">
