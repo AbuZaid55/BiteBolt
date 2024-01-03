@@ -12,7 +12,7 @@ const Footer = () => {
   const path = usePathname()
   const hidePath:string[] = ["/dishes"]
   return (
-    <div className='mt-[-350px]'>
+    <div>
       {
         (!hidePath.includes(path)) && <div className='w-full overflow-hidden'>
         <div className='m-[-5px] sm:mb-[-20px]'><Wave/></div> 

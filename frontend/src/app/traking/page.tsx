@@ -13,7 +13,7 @@ const page = () => {
     const [orderId, setOrderId] = useState('')
 
   return (
-    <div className='flex items-center justify-center flex-col pb-72 md:pb-60 bg-slate-200 pt-[90px]'>
+    <div className='flex items-center justify-center flex-col pb-[300px] mb-[-350px] bg-slate-200 pt-[90px]'>
       <h1 className='text-3xl text-main-800 mt-5 font-bold'>Track Your Order</h1>
       <div className={`${(status === "Cancelled" || status === 'Refund') ? 'hidden' : ''} w-80 h-80 border-2 relative m-10`}>
         <div className='bg-white h-72  w-1 relative left-5 top-5'>
