@@ -25,7 +25,7 @@ const Card2 = () => {
                 <FaStar className=" text-main-800" />
                 <FaStar className=" text-slate-700" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-700">Tasty Food</h1>
+            <h1 className="text-2xl font-bold text-slate-700 h-[35px] overflow-hidden">Tasty Food</h1>
             <p className="h-12 overflow-hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, autem neque nesciunt expedita aliquid quidem praesentium pariatur animi reprehenderit inventore.</p>
             <h1 className="flex items-center text-lg sm:text-2xl text-main-800">
                 <FaIndianRupeeSign />
