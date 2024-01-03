@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const page = () => {
   return (
-    <div className='flex items-center justify-center flex-col bg-slate-200 pb-[350px] mb-[-350px] pt-[90px]'>
+    <div className=' bg-slate-200 pb-[350px] mb-[-350px] pt-[90px]'>
         <div className='w-full md:w-1/2 mx-auto p-4 flex flex-col'>
           <h1 className='text-3xl text-center font-bold text-main-800 mb-3 mt-2'>Login</h1>
           <label className='mt-3 text-main-800 font-semibold' htmlFor="name">Name</label>
