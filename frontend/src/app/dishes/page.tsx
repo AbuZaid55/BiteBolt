@@ -26,7 +26,7 @@ const page = () => {
         <Card2/>
         <Card2/>
         <Card2/>
-      A</div>
+      </div>
     </div>
   )
 }
