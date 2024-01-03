@@ -15,12 +15,12 @@ const robotoSlab = Roboto_Slab({
 
 const page = () => {
     return (
-        <div className='pt-[80px] bg-slate-200 text-slate-700 pb-96'>
-            <div className={`w-full hidden items-center justify-center flex-col h-full min-h-[100vh]`}>
+        <div className='bg-slate-200 text-slate-700 pb-96'>
+            <div className={`w-full hidden items-center justify-center flex-col pt-52`}>
                 <h1 className="text-5xl font-bold text-main-800">No Orders</h1>
                 <Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Go to Shopping</Link>
             </div>
-            <div className='border-2 my-4'>
+            <div className='pt-[80px] border-2 my-4'>
                 <div className='bg-main-800 py-2 px-4 text-white flex items-center justify-between'>
                     <h1>Order Id: 658588cf6755edf71b5633f3</h1> 
                     <Link href="/traking" className='flex items-center border py-1 px-4 gap-1'><IoLocation/> Track</Link>

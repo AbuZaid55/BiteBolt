@@ -10,7 +10,7 @@ const robotoSlab = Roboto_Slab({
 
 const NotFound = () => {
   return (
-    <div className='h-[100vh] bg-slate-200 flex items-center justify-center flex-col pb-60 md:pb-48'>
+    <div className='bg-slate-200 flex items-center justify-center flex-col pb-96 pt-36'>
       <div className='flex items-center justify-center'>
         <img className='w-[2.25rem]' src="/logo.png" alt="logo" />
         <h1 className={` text-xl sm:text-3xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1>
