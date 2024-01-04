@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { IoSearchSharp } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdOutlineAccountCircle } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { Roboto_Slab } from 'next/font/google'
 import { RxCross1 } from "react-icons/rx";
@@ -20,9 +21,9 @@ const Header = () => {
   return (
     <div className="h-[70px] shadow-md p-3 overflow-x-hidden fixed top-0 left-0 w-full bg-white z-50 ">
       <div className={`fixed ${(showSearch)?'top-0':'-top-full'} left-0 w-full h-[100vh] bg-[#3341557f] flex items-center justify-center transition-all duration-500 ease-in-out`}>
-        <span className="text-white text-2xl absolute right-20 top-20 cursor-pointer bg-main-800 p-2 rounded-full hover:bg-[#399663] transition-all duration-300 ease-in-out" onClick={()=>{setShowSearch(false)}}><RxCross1/></span>
-        <input className="outline-none py-2 px-4 text-slate-700 text-xl max-w-[30rem] w-[50%] rounded-l-full" type="text" placeholder="Search..."/> 
-        <button className="bg-main-800 text-white py-2 px-8 rounded-r-full text-xl hover:bg-[#399663] transition-all duration-300 ease-in-out">Search</button> 
+        <span className="text-white text-2xl absolute right-20 top-20 cursor-pointer bg-main-800 p-2 rounded-full hover:bg-[#399663] transition-all duration-300 ease-in-out shadow-lg" onClick={()=>{setShowSearch(false)}}><RxCross1/></span>
+        <input className="outline-none py-2 px-4 text-slate-700 text-xl max-w-[30rem] w-[50%] rounded-l-full shadow-2xl" type="text" placeholder="Search..."/> 
+        <button className="bg-main-800 text-white py-2 px-8 rounded-r-full text-xl hover:bg-[#399663] transition-all duration-300 ease-in-out shadow-lg">Search</button> 
       </div>
       <div className="h-full flex items-center justify-between">
         <div className="h-full flex items-center">
@@ -50,6 +51,9 @@ const Header = () => {
             <Link href="/cart"><MdOutlineShoppingCart /></Link>
           </span>
           <span className=" hover:scale-125 bg-slate-200 font-bold  hover:bg-main-800 hover:text-white text-slate-700 p-2 rounded-full cursor-pointer transition-all duration-200 ease-in-out shadow-md ">
+            <Link href="/profile"><MdOutlineAccountCircle /></Link>
+          </span>
+          <span className="hidden lg:block hover:scale-125 bg-slate-200 font-bold  hover:bg-main-800 hover:text-white text-slate-700 p-2 rounded-full cursor-pointer transition-all duration-200 ease-in-out shadow-md ">
             <Link href="/dashboard"><RxDashboard /></Link>
           </span>
           <span className={`lg:hidden ${openNav ? "flex flex-col items-center justify-center rotate-90" : ""} cursor-pointer transition-all duration-200 ease-in-out`} onClick={() => { setOpenNev(!openNav) }}>

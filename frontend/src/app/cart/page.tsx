@@ -15,14 +15,14 @@ const robotoSlab = Roboto_Slab({
 const page = () => {
     return (
         <div className='pt-[80px] bg-slate-200 text-slate-700 pb-[350px] mb-[-350px]'>
-            <div className={`w-full hidden items-center justify-center flex-col h-full pt-52`}>
+            <div className={`w-full hidden items-center justify-center flex-col h-full pt-52 `}>
                 <h1 className="text-5xl font-bold text-main-800">No Cart Item</h1>
                 <Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Go to Shopping</Link>
             </div>
-            <div className='border-t-2 my-4 border-slate-400'>
-                <div className='flex items-center'>
+            <div className=' my-4'>
+                <div className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
                     <img className='w-[100px] h-full p-2' src="/img/1.png" alt="" />
-                    <div>
+                    <div >
                         <Link href="/details" className={`${robotoSlab.className} text-3xl`}>Testy Food</Link>
                         <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> 199 <RxCross1 /> 5 = 1000 </h1>
                         <div className="flex">
@@ -33,8 +33,8 @@ const page = () => {
                         </div>
                     </div>
                 </div>
-                <h1 className={`border-y-2 text-xl border-slate-400 py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> 1000</span></h1>
-                <div className="flex items-center justify-end pr-4"><Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">CHECK OUT</Link></div>
+                <h1 className={`border-2 text-xl border-slate-700 bg-white py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> 1000</span></h1>
+                <div className="flex items-center justify-end pr-4"><Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg">CHECK OUT</Link></div>
             </div>
         </div>
     )

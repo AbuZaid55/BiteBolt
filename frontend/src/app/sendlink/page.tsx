@@ -27,10 +27,7 @@ const page = () => {
           <label className='mt-3 text-main-800 font-semibold' htmlFor="email">Email</label>
           <input className='w-full border-b border-main-800 mb-3 text-slate-700 outline-none bg-slate-200' name='email' type="text" placeholder='Enter your email' id='email'/>
           <p className='text-slate-700 -mt-2 mb-2'>Otp is valid only for 2 minutes</p>
-          <div className='flex items-center justify-between'>
-            <button className=" bg-slate-700 text-white w-32 py-2 rounded-full my-4 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f]  transition-all duration-300 ease-in-out text-xl" disabled={startTimer} onClick={()=>{setStartTimer(true)}}>{(startTimer)?timer:"Resend Otp"}</button>
-            <button className='  bg-main-800 text-white w-32 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out text-xl' type='submit'>Send Otp</button>
-          </div>
+          <button className=" w-full bg-main-800 text-white py-2 rounded-full my-4  border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out text-xl" disabled={startTimer} onClick={()=>{setStartTimer(true)}}>{(startTimer)?timer:"Send Otp"}</button>
         </div>
         <div className='flex items-center justify-between w-full md:w-1/2 mx-auto px-4 pb-4'>
           <p className='text-slate-700 text-center'>New User? <Link className='text-main-800 font-semibold' href="/signup">Sign Up</Link></p>
