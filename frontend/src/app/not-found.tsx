@@ -21,7 +21,7 @@ const NotFound = () => {
         <p className='text-slate-500 text-2xl -mt-3'>Page Not Found</p>
       </div>
 
-      <Link href="/" className='text-center bg-main-800 px-4 py-2 text-white rounded-full mt-6 cursor-pointer border-2 border-main-800 hover:text-main-800  hover:bg-[#44b67721] transition-all duration-300 ease-in-out'>Go to Homepage</Link>
+      <Link href="/" className='text-center bg-main-800 px-4 py-2 text-white rounded-full mt-6 cursor-pointer border-2 border-main-800 hover:text-main-800  hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg'>Go to Homepage</Link>
     </div>
   )
 }
