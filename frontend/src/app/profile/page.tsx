@@ -36,6 +36,7 @@ const page = () => {
                     <Link href="/orders" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>My Orders</Link>
                     <Link href="/sendlink" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Change Password</Link>
                 </div>
+                <button className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Log Out</button>
             </div>
             <div className={` ${(showNameForm)?"flex":"hidden"} fixed top-0 left-0 w-[100%] h-[100vh] bg-[#0000008d] overflow-hidden items-center justify-center`}>
                 <div className='flex flex-col w-96 shadow-2xl p-4 bg-white rounded'>
@@ -52,7 +53,7 @@ const page = () => {
                 <AddressCard/>
                 <AddressCard/>
             </div>
-            <div className=' flex items-center justify-end pr-4'><button onClick={()=>{setShowAddressForm(!showAddressForm)}} className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Add Address</button></div>
+            <div className=' flex items-center justify-end pr-4'><button onClick={()=>{setShowAddressForm(!showAddressForm)}} className=' w-48 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Add Shipping Details</button></div>
             <div className={`${(showAddressForm) ? 'flex' : 'hidden'} items-center justify-center w-full`}>
             <div className='flex justify-center flex-col w-full'>
               <h1 className=' bg-main-800 text-white font-semibold text-xl py-2 px-4 my-5'>Add Shipping Details</h1>
@@ -69,7 +70,7 @@ const page = () => {
               <label className='text-lg px-4 font-semibold text-main-800 mt-2' htmlFor="state">State</label>
               <input className='border-b border-main-800 py-1 bg-slate-200 outline-none px-4' name='state' placeholder='Enter State' type="text" id='state'  />
               <label className='text-lg px-4 font-semibold text-main-800 mt-2' htmlFor="phoneNo">Phone No</label>
-              <input className='border-b border-main-800 py-1 bg-slate-200 outline-none' name='phoneNo' placeholder='Enter Phone No' type="number" id='phoneNo'  />
+              <input className='border-b border-main-800 py-1 bg-slate-200 outline-none px-4' name='phoneNo' placeholder='Enter Phone No' type="number" id='phoneNo'  />
               <button className=' bg-main-800 text-white text-xl font-semibold py-2 mt-4 hover:text-main-800 hover:bg-[#44b67721] border-2 border-main-800 transition-all duration-300 ease-in-out' >Submit</button>
             </div>
           </div>
