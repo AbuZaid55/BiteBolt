@@ -5,6 +5,7 @@ import { Roboto_Slab } from 'next/font/google'
 import { GoTrash } from "react-icons/go";
 import Link from 'next/link';
 
+
 const robotoSlab = Roboto_Slab({
     weight: "500",
     subsets: ["greek"],
@@ -34,8 +35,8 @@ const page = () => {
                     </div>
                 </div>
                 <h1 className={`border-2 text-xl border-slate-700 bg-white py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> 1000</span></h1>
-                <div className="flex items-center justify-end pr-4"><Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg">CHECK OUT</Link></div>
             </div>
+            <div className="flex items-center justify-end pr-4"><Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg">CHECK OUT</Link></div>
         </div>
     )
 }
