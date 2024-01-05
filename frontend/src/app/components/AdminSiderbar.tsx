@@ -16,7 +16,7 @@ const robotoSlab = Roboto_Slab({
 const AdminSiderbar = () => {
     const [open,setOpen]=useState(false)
   return (
-    <div className={`bg-white ${(open)?'w-72':"w-16 sm:w-20"} h-[100vh] p-2 sm:p-4 absolute z-30 md:relative transition-all duration-300 ease-in-out`}>
+    <div className={`bg-white ${(open)?'w-72':"w-16 sm:w-20"} h-[100vh] p-2 sm:p-4 fixed z-30 transition-all duration-300 ease-in-out`}>
         <span onClick={()=>{setOpen(!open)}} className={`absolute top-4 p-1 sm:p-2 rounded-full text-2xl right-0 translate-x-1/2 cursor-pointer hover:scale-110 hover:text-white hover:bg-main-800 transition-all ease-in-out duration-300 shadow-md bg-slate-100 ${(open)?"":" rotate-180"}`}><FaAngleLeft/></span>
         <Link href="/" className="flex items-center overflow-hidden pl-2 sm:pl-0 mt-10 gap-4">
           <img className="min-w-8 h-8 sm:min-w-12 sm:h-12" src="/logo.png" alt="logo" />

@@ -9,7 +9,7 @@ const Aside = () => {
   const [maxPrice, setMaxPrice] = useState(1000)
   const [filterPrice, setFilterPrice] = useState(maxPrice)
   const [filterRating, setFilterRating] = useState(0)
-  const [selectedCat,setSelectCat]=useState<string[]>([])
+  const [selectedCat,setSelectCat]=useState<{category:string;subCategory:string}[]>([])
 
   type Catrgory = {
     [key: string]: string[];
@@ -22,11 +22,11 @@ const Aside = () => {
     "Sports&More": ["Mobile", "Laptop", "Bluetooth"],
     "Baby&Kids": ["Mobile", "Laptop", "Bluetooth"],
   }
-  const handleFilterCat = (e:any,cat:string)=>{
+  const handleFilterCat = (e:any,object:{category:string;subCategory:string})=>{
     if(e.target.checked){
-      setSelectCat([...selectedCat,cat])
+      setSelectCat([...selectedCat,object])
     }else{
-      setSelectCat(selectedCat.filter((val) => val !== cat))
+      setSelectCat(selectedCat.filter((val) => val.category!==object.category && val.subCategory!==object.subCategory))
     }
   }
   return (
@@ -37,7 +37,7 @@ const Aside = () => {
 
         <div className={`text-white mt-5 ${(selectedCat.length==0 && filterPrice===maxPrice && filterRating===0)?"hidden":""}`}>
           <h1 className='text-3xl font-bold px-4 mb-2'>Applied Filters</h1>
-          {selectedCat.map((value,i)=><p key={i} className='mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700'>{value}</p>)}
+          {selectedCat.map((object,i)=><p key={i} className='mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700'>{object.subCategory}</p>)}
           <p className={`items-center mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700 ${(filterRating===0)?"hidden":"flex"}`}>{filterRating} <FaStar className='mx-1 text-base' /> & above</p>
           <p className={`items-center mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700 ${(filterPrice===maxPrice)?"hidden":"flex"}`}><FaRupeeSign />{filterPrice}</p>
         </div>
@@ -55,7 +55,7 @@ const Aside = () => {
                     return <div key={i}>
                       {
                         (showSubCat === key) && <label className='flex items-center bg-slate-300 text-xl text-slate-700 px-8 py-1 border-b border-slate-400 cursor-pointer' htmlFor={`checkbox${i}${index}`}>
-                          <input onChange={(e)=>{handleFilterCat(e,`${key}.${value}`)}} checked={selectedCat.includes(`${key}.${value}`)?true:false} className='mr-2 text-3xl w-4 h-4' type="checkbox" id={`checkbox${i}${index}`} />
+                          <input onChange={(e)=>{handleFilterCat(e,{category:key,subCategory:value})}} checked={selectedCat.some(item=>item.category===key && item.subCategory===value)} className='mr-2 text-3xl w-4 h-4' type="checkbox" id={`checkbox${i}${index}`} />
                           {value}
                         </label>
                       }

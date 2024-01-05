@@ -18,7 +18,7 @@ const page = () => {
   return (
     <div className='flex bg-slate-200'>
       <AdminSiderbar />
-      <div className='pl-20 md:pl-0 products w-full h-[100vh] overflow-hidden overflow-y-scroll text-slate-700' id='main'>
+      <div className='pl-16 sm:pl-20 w-full min-h-[100vh] overflow-hidden overflow-y-scroll text-slate-700' >
         <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Products</h1>
             <div className='w-full flex flex-col items-start p-4'>
               <input className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Products' />
