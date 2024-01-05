@@ -34,8 +34,8 @@ const page = () => {
                         </div>
                     </div>
                     <div className='flex items-center gap-3 border-2 border-b-0  border-slate-700 py-2 px-4'>
-                        <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href="/edit"><CiEdit /> Edit</Link>
-                        <Link className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3' href="/edit"><RxCross1 /> Cancle</Link>
+                        <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href="/editorder"><CiEdit /> Edit</Link>
+                        <button className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3'><RxCross1 /> Cancle</button>
                     </div>
                     <h1 className={`border-2 text-xl border-slate-700 py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Paid Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> 1000</span></h1>
                 </div>
