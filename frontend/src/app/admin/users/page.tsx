@@ -18,7 +18,7 @@ const page = () => {
       <div className='pl-16 sm:pl-20 w-full min-h-[100vh] overflow-hidden overflow-y-scroll text-slate-700' >
         <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Users</h1>
             <div className='w-full flex flex-col items-start p-4'>
-              <input className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Products' />
+              <input className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Users' />
               <label className='bg-main-800 text-white py-1 px-2 sm:px-4 rounded-b-md sm:text-xl shadow-md'>Search Type:- 
                 <select className='text-slate-700 sm:px-4 ml-2 outline-none rounded-md cursor-pointer'>
                   <option value={"All"}>All</option>
@@ -66,7 +66,7 @@ const page = () => {
           <h1 className=' text-center text-2xl'>Are your sure you want to delete?</h1>
           <div className='flex items-center justify-between'>
             <button className=' bg-red-700 text-white px-3 py-2 rounded hover:bg-[#3341551f] border-2 border-red-700 hover:text-red-700 transition-all duration-300 ease-in-out'>YES</button>
-            <button className=' bg-main-800 text-white px-3 py-2 rounded hover:bg-[#44b67721] border-2 border-main-800 hover:text-main-800 transition-all duration-300 ease-in-out'>NO</button>
+            <button className=' bg-main-800 text-white px-3 py-2 rounded hover:bg-[#44b67721] border-2 border-main-800 hover:text-main-800 transition-all duration-300 ease-in-out' onClick={()=>{setShowConfirm(false)}}>NO</button>
           </div>
         </div>
       </div>

@@ -71,7 +71,7 @@ const page = () => {
           <h1 className=' text-center text-2xl'>Are your sure you want to delete?</h1>
           <div className='flex items-center justify-between'>
             <button className=' bg-red-700 text-white px-3 py-2 rounded hover:bg-[#3341551f] border-2 border-red-700 hover:text-red-700 transition-all duration-300 ease-in-out'>YES</button>
-            <button className=' bg-main-800 text-white px-3 py-2 rounded hover:bg-[#44b67721] border-2 border-main-800 hover:text-main-800 transition-all duration-300 ease-in-out'>NO</button>
+            <button className=' bg-main-800 text-white px-3 py-2 rounded hover:bg-[#44b67721] border-2 border-main-800 hover:text-main-800 transition-all duration-300 ease-in-out' onClick={()=>{setShowConfirm(false)}}>NO</button>
           </div>
         </div>
       </div>
