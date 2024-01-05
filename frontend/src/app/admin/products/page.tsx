@@ -59,7 +59,7 @@ const page = () => {
               <td className='border border-main-800' aria-label={"Rating"}>
                 <span className={`${(rat > 3) ? 'bg-green-700' : ""} ${(rat <= 3 && rat > 1) ? 'bg-yellow-500' : ""} ${(rat <= 1) ? 'bg-red-700' : ""} text-white flex m-auto items-center justify-evenly`} style={{ width: '50px', height: "30px", borderRadius: '8px' }}>{rat}<FaStar /></span>
               </td>
-              <td className='border border-main-800' aria-label={"Edit"}><Link href={`/admin/dashboard/updateproduct`}><FaEdit className='icon edit' /></Link></td>
+              <td className='border border-main-800' aria-label={"Edit"}><Link href={`/admin/updateproduct`}><FaEdit className='icon edit' /></Link></td>
               <td className='border border-main-800' aria-label={"Delete"}><FaTrash className='icon delete' onClick={() => { setShowConfirm(true) }} /></td>
             </tr>
             
