@@ -1,0 +1,101 @@
+table{
+    width: 96%;
+    margin: 20px;
+    border-radius: 20px;
+}
+table tbody tr{
+    height: 80px;
+}
+table thead tr th{
+    color: white;
+    font-size: 1.1rem;
+    padding: 0.5rem 0 !important;
+    border: 1px solid white;
+    width: 7rem;
+}
+table tbody tr td{
+    border: 1px solid #86198f;
+    text-align: center;
+    width: 7rem;
+}
+table .name{
+    width: unset;
+}
+table tbody .icon{
+    margin: auto;
+    font-size: 1.3rem;
+    cursor: pointer;
+    
+    
+}
+table tbody .icon.edit{
+    color: #15803d;
+}
+table tbody .icon.edit:hover{
+    color: rgb(0, 81, 0);
+}
+table tbody .icon.delete{
+    color: red;
+}
+table tbody .icon.delete:hover{
+    color: rgb(221, 0, 0);
+}
+
+
+@media screen and (max-width:1100px) {
+    table thead {
+     display: none;
+    }
+    table tbody tr{
+     height: unset;
+    }
+    table {
+     width: 95%;
+     margin: auto;
+    }
+     table tr{
+     display: block;
+     width: 100%;
+     margin-bottom: 15px;
+     background-color: white;
+    }
+    table tbody tr td{
+     display: block;
+     width: 100%;
+     text-align: right;
+     padding:0.8rem 0;
+     padding-right: 15px;
+     position: relative;
+     font-size: 1.3rem;
+ 
+    }
+    table tbody .icon{
+     margin: unset;
+     margin-left: auto;
+    }
+    table td::before{
+     content: attr(aria-label);
+     position: absolute;
+     left: 15px;
+     font-weight: 500;
+    }
+    table tbody td .m-auto{
+     margin: unset;
+     margin-left: auto;
+    }
+    table img{
+     margin: unset !important;
+     margin-left: auto !important;
+    }
+    .add{
+     margin-top: 1rem;
+    }
+    table .name{
+        padding-left: 70px;
+    }
+ }
+ @media screen and (max-width:500px) {
+    table tbody tr td{
+        font-size: 1.1rem;
+    }
+}

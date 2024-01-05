@@ -13,10 +13,6 @@
         rotate: -180deg;
         display: block;
     }
-    /* 80%{
-        rotate: 20deg;
-        scale: 1.05;
-    } */
     100%{
         scale: 1;
         rotate: 0;
