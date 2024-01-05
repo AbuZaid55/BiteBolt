@@ -21,9 +21,9 @@ const page = () => {
               <input className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Products' />
               <label className='bg-main-800 text-white py-1 px-2 sm:px-4 rounded-b-md sm:text-xl shadow-md'>Search Type:- 
                 <select className='text-slate-700 sm:px-4 ml-2 outline-none rounded-md cursor-pointer'>
-                  <option value={"all"}>All</option>
-                  <option value={"user"}>User</option>
-                  <option value={"admin"}>Admin</option>
+                  <option value={"All"}>All</option>
+                  <option value={"User"}>User</option>
+                  <option value={"Admin"}>Admin</option>
                 </select>
               </label>
             </div>
