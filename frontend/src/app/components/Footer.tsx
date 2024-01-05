@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <div>
       {
-        (!hidePath.includes(path)) && <div className='w-full overflow-hidden'>
+        (!hidePath.includes(path)) && !path.includes('/admin/') && <div className='w-full overflow-hidden'>
         <div className='m-[-5px] sm:mb-[-20px]'><Wave/></div> 
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-10  md:grid-cols-4 lg:px-20 mx-auto py-7 bg-white'>
           <div className='flex items-center flex-col'>
