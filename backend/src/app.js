@@ -14,7 +14,7 @@ app.use(cors({
     credentials:true
 }))
 
-app.use("/",require('./routes/user.js'))
+app.use("/",require('./routes/userRoutes.js'))
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

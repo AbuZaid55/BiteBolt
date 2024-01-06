@@ -41,7 +41,7 @@ export default function Home() {
         <div className="hidden sm:flex w-1/2 h-full items-center justify-center bg-slate-700" style={{ borderRadius: "44% 56% 0% 100% / 63% 0% 100% 37% " }}>
           <div className="w-[90%] md:w-[75%] h-full flex items-center justify-center relative">
             {imgPath.map((path: string, i: number) => (
-              <img className={`${showImg === i + 1 ? "springAnimation" : "hidden"} w-full`} src={path} alt="Image" />
+              <img key={i} className={`${showImg === i + 1 ? "springAnimation" : "hidden"} w-full`} src={path} alt="Image" />
             ))}
           </div>
         </div>

@@ -5,12 +5,17 @@ import './CSS/table.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
-const mukta = Mukta({ weight:'400', subsets:["latin"], display:"swap" })
+import Providers from './Providers'
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const mukta = Mukta({ weight: '400', subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
   title: 'BiteBolt',
   description: 'Food Website',
-  keywords:["Bite","Bolt","Food"]
+  keywords: ["Bite", "Bolt", "Food"]
 }
 
 export default function RootLayout({
@@ -21,9 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mukta.className} select-none`}>
-        <Header/>
-        {children}
-        <Footer/>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+          <ToastContainer />
+        </Providers>
       </body>
     </html>
   )

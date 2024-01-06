@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import { Roboto_Slab } from "next/font/google"
 import { FaTrash} from "react-icons/fa";
-import AdminSiderbar from '@/app/components/AdminSiderbar'
+import AdminSiderbar from '../../components/AdminSiderbar'
 import { FaAngleDown, FaAngleUp} from 'react-icons/fa';
 import Link from 'next/link';
 

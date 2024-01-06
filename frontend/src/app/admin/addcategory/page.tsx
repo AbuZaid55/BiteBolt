@@ -1,6 +1,6 @@
 import React from 'react'
 import { Roboto_Slab } from "next/font/google"
-import AdminSiderbar from '@/app/components/AdminSiderbar'
+import AdminSiderbar from '../../components/AdminSiderbar'
 
 const robotoSlab = Roboto_Slab({
   weight: "500",

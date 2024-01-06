@@ -25,19 +25,12 @@ const userSchema = mongoose.Schema({
         },
         secure_url: {
             type: String,
-            default: '',
+            default: 'https://res.cloudinary.com/dq25thxp1/image/upload/v1704540379/BiteBolt/DefaultProfile/pjkfmlawexntfufbnzte.png',
         }
     },
-    validated: {
+    admin: {
         type: Boolean,
         default: false,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true,
-        enum: ['User', 'Admin'],
-        default: 'User',
     },
     shippingDetails: [
         {

@@ -1,4 +1,4 @@
-import AdminSiderbar from '@/app/components/AdminSiderbar'
+import AdminSiderbar from '../../components/AdminSiderbar'
 import React from 'react'
 import { Roboto_Slab } from "next/font/google"
 

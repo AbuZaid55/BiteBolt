@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { FaTrash} from "react-icons/fa";
-import AdminSiderbar from '@/app/components/AdminSiderbar';
+import AdminSiderbar from '../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
 
 const robotoSlab = Roboto_Slab({

@@ -1,4 +1,4 @@
-import AdminSiderbar from "@/app/components/AdminSiderbar";
+import AdminSiderbar from "../../components/AdminSiderbar";
 
 const page = () => {
   return (
