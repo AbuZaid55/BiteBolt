@@ -1,13 +1,15 @@
 "use client"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import { SendOtp } from "../../../Redux/asyncThunk"
+import { SendOtp,SignUp } from "../../../Redux/asyncThunk"
 import { useAppDispatch } from "../../../Redux/hook"
+import {useRouter} from 'next/navigation'
  
 
 const page = () => {
 
   const dispatch = useAppDispatch()
+  const router = useRouter()
   const [timer, setTimer] = useState(60)
   const [startTimer, setStartTimer] = useState(false)
   const [input, setInput] = useState({ name: "", email: "", password: "", confirm_pass: "", otp: "" })
@@ -18,6 +20,13 @@ const page = () => {
 
   const sendOtp = async()=>{
       dispatch(SendOtp({email:input.email,setStartTimer}))
+  }
+  const submitForm = async() =>{
+      const result = await dispatch(SignUp(input))
+      if(result.meta.requestStatus==="fulfilled"){
+        setInput({ name: "", email: "", password: "", confirm_pass: "", otp: "" })
+        router.push('/login')
+      }
   }
 
   useEffect(() => {
@@ -121,7 +130,7 @@ const page = () => {
             {startTimer ? timer : "Send Otp"}
           </button>
         </div>
-        <button className=" bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out text-xl" type="submit">
+        <button onClick={()=>{submitForm()}} className=" bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out text-xl" type="submit">
           Submit
         </button>
       </div>

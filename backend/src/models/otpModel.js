@@ -23,8 +23,8 @@ otpSchema.pre("save",async function(next){
     next()
 })
 
-otpSchema.methodes = {
-    async compareOtp (otp){
+otpSchema.methods = {
+    compareOtp (otp){
         return bcrypt.compare(otp,this.otp)
     }
 }

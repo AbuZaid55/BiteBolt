@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SendOtp } from "../asyncThunk";
+import { SendOtp ,SignUp} from "../asyncThunk";
 
 
 const userSlice = createSlice({
@@ -7,7 +7,8 @@ const userSlice = createSlice({
     initialState:{},
     reducers:{},
     extraReducers: (builder) => {
-        builder.addCase(SendOtp.fulfilled, (state, action) => {''});
+        builder.addCase(SendOtp.fulfilled, (state, action) => {});
+        builder.addCase(SignUp.fulfilled,(state,action) => {})
     },
 })
 

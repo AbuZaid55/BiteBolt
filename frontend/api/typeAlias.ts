@@ -4,3 +4,11 @@ export type API_SEND_OTP = {
     setStartTimer:Dispatch<SetStateAction<boolean>>
 
 }
+
+export type API_SING_UP = {
+    name:string,
+    email:string,
+    password:string,
+    confirm_pass:string,
+    otp:string,
+}
