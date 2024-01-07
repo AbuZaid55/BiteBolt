@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
         if(!otpExist){
             return throwError("Invalid Otp!")
         }
-        const isMatch = otpExist.compareOtp(otp)
+        const isMatch = await otpExist.compareOtp(otp)
         if(!isMatch){
             return throwError("Enter correct Otp!")
         }
@@ -39,7 +39,41 @@ const signUp = async (req, res) => {
     }
 }
 
+const logIn = async(req,res) =>{
+    try {
+        const {email,password}=req.body
+        if(!email || !password){
+            return throwError("All field are required!")
+        }
+        if(!validator.validate(email)){
+            return throwError("Invalid email or password")
+        }
+        const user = await userModel.findOne({email})
+        if(!user){
+            return throwError("Invalid email or password")
+        }
+        const matchPass = await user.comparePass(password)
+        if(!matchPass){
+            return throwError("Invalid email or password")
+        }
+        user.password=undefined
+        const token = user.generateToken()
+        res.cookie('BiteBoltToken',token,{
+            expires:new Date(Date.now() + Number(process.env.EXPIRE_COOKIE_TIME)),
+            httpOnly:true
+        })
+        sendSuccess(res,"Login successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const getUser = async(req,res) => {
+    sendSuccess(res,"Authorized User",req.rootUser)
+}
 
 module.exports = {
     signUp,
+    logIn,
+    getUser,
 }

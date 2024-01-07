@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const dbConnect = require('./db/db_conn.js')
+const cookie = require('cookie-parser')
 const cors = require('cors')
 const app = express()
 
@@ -10,12 +11,13 @@ const HOSTNAME = process.env.HOSTNAME
 dbConnect()
 
 app.use(express.json())
+app.use(cookie())
 app.use(cors({
     origin:[process.env.FRONTEND],
     credentials:true
 }))
 
-app.use("/user",require('./routes/userRoutes.js'))
+app.use("/user",require('./routes/userRoutes.js')) 
 app.use("/otp",require('./routes/otpRoutes.js')) 
 
 app.get('*',(req,res)=>{

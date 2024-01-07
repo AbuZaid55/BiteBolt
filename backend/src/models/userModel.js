@@ -76,7 +76,8 @@ const userSchema = mongoose.Schema({
         {
             _id: false,
             productId: {
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
+                ref:"product",
                 required: true
             },
             qty: {
@@ -84,6 +85,13 @@ const userSchema = mongoose.Schema({
                 require: true
             },
         }
+    ],
+    wishlist: [
+       {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"product",
+        required:true
+       }
     ],
     date: {
         type: Date,
@@ -102,9 +110,9 @@ userSchema.pre('save', async function(next){
 
 userSchema.methods = {
     async comparePass (password){
-        return bcrypt.compare(password,this.password)
+        return await bcrypt.compare(password,this.password)
     },
-    genrateToken(){
+    generateToken(){
         return JWT.sign({_id:this._id,email:this.email},process.env.JWT_KEY)
     }
 }

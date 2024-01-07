@@ -12,3 +12,8 @@ export type API_SING_UP = {
     confirm_pass:string,
     otp:string,
 }
+
+export type API_LOGIN = {
+    email:string,
+    password:string,
+}

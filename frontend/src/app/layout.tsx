@@ -4,6 +4,7 @@ import './globals.css'
 import './CSS/table.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import GetUser from './GetUser'
 
 import Providers from './Providers'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${mukta.className} select-none`}>
         <Providers>
+          <GetUser/>
           <Header />
           {children}
           <Footer />
