@@ -7,14 +7,16 @@ const app = express()
 const PORT = process.env.PORT  
 const HOSTNAME = process.env.HOSTNAME 
 
-// dbConnect()
+dbConnect()
 
+app.use(express.json())
 app.use(cors({
     origin:[process.env.FRONTEND],
     credentials:true
 }))
 
-app.use("/",require('./routes/userRoutes.js'))
+app.use("/user",require('./routes/userRoutes.js'))
+app.use("/otp",require('./routes/otpRoutes.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

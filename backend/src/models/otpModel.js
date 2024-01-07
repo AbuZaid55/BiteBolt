@@ -13,11 +13,11 @@ const otpSchema = mongoose.Schema({
     }
 },{timestamps:true})
 
-otpSchema.index({createdAt:1},{expireAfterSecondss:Number(process.env.EXPIRE_TOKEN_TIME )})
+otpSchema.index({createdAt:1},{expireAfterSeconds:Number(process.env.EXPIRE_TOKEN_TIME )})
 
 otpSchema.pre("save",async function(next){
     if(this.isModified("otp")){
-        const hashOtp = await bcrypt.hash({otp:this.otp},8)
+        const hashOtp = await bcrypt.hash(this.otp,8)
         this.otp = hashOtp
     }
     next()

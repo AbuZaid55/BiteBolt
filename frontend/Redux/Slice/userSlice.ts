@@ -1,15 +1,14 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {API_SEND_OTP} from '../../api/userApi'
+import { createSlice } from "@reduxjs/toolkit";
+import { SendOtp } from "../asyncThunk";
+
 
 const userSlice = createSlice({
     name:"user",
     initialState:{},
-    reducers:{
-        SendOtp(state,action:PayloadAction<string>){
-            const res = API_SEND_OTP()
-        }
-    }
+    reducers:{},
+    extraReducers: (builder) => {
+        builder.addCase(SendOtp.fulfilled, (state, action) => {''});
+    },
 })
 
 export default userSlice;
-export const {SendOtp} = userSlice.actions

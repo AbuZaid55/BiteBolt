@@ -1,13 +1,13 @@
 "use client"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import {SendOtp} from '../../../Redux/Slice/userSlice'
-import { useDispatch } from "react-redux"
+import { SendOtp } from "../../../Redux/asyncThunk"
+import { useAppDispatch } from "../../../Redux/hook"
  
 
 const page = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [timer, setTimer] = useState(60)
   const [startTimer, setStartTimer] = useState(false)
   const [input, setInput] = useState({ name: "", email: "", password: "", confirm_pass: "", otp: "" })
@@ -17,8 +17,7 @@ const page = () => {
   }
 
   const sendOtp = async()=>{
-      setStartTimer(true)
-      dispatch(SendOtp(input.email))
+      dispatch(SendOtp({email:input.email,setStartTimer}))
   }
 
   useEffect(() => {
