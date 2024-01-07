@@ -7,7 +7,7 @@ const robotoSlab = Roboto_Slab({
     display: "swap",
   })
 
-const AddressCard = () => {
+const AddressCard = (props:any) => {
     return (
         <div className='bg-white text-slate-700 border-2 border-slate-700 shadow-lg p-4 rounded-md'>
             <h1 className={`text-2xl font-bold ${robotoSlab.className}`}>Abu Zaid</h1>

@@ -4,10 +4,11 @@ import {toast} from 'react-toastify'
 import {
    API_SEND_OTP,
    API_SING_UP,
-   API_LOGIN
+   API_LOGIN,
+   API_CHANGE_NAME
 } from './typeAlias'
 
-const URL = process.env.NEXT_PUBLIC_BACKEND
+const URL = process.env.NEXT_PUBLIC_BACKEND 
 
 const API_SEND_OTP = async ({email,setStartTimer}:API_SEND_OTP) =>{
    try {
@@ -49,8 +50,19 @@ const API_GET_USER = async() => {
    }
 }
 
+const API_CHANGE_NAME = async(data:API_CHANGE_NAME) => {
+   try {
+      const response = await axios.post(`${URL}/user/changename`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
-   API_GET_USER
+   API_GET_USER,
+   API_CHANGE_NAME
 }

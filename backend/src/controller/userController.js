@@ -72,8 +72,29 @@ const getUser = async(req,res) => {
     sendSuccess(res,"Authorized User",req.rootUser)
 }
 
+const changeName = async(req,res) => {
+    try {
+        const {_id,name} = req.body
+        if(!name){
+            return throwError("Enter your name")
+        }
+        if(!_id){
+            return throwError("Unauthorized User!")
+        }
+        const user = await userModel.findById(_id)
+        if(!user){
+            return throwError("Unauthorized User!")
+        }
+        user.name=name
+        await user.save()
+        sendSuccess(res,"Name change successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
 module.exports = {
     signUp,
     logIn,
     getUser,
+    changeName,
 }

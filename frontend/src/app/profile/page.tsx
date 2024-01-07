@@ -1,11 +1,14 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsFillCameraFill } from 'react-icons/bs'
 import { MdOutlineEditNote } from 'react-icons/md'
 import Link from 'next/link'
 import { Roboto_Slab } from "next/font/google"
 import AddressCard from '../components/AddressCard'
 import AddAddressForm from '../components/AddAddressForm'
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
+import { useRouter } from 'next/navigation'
+import { ChangeName, GetUser } from '../../../Redux/asyncThunk'
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -14,15 +17,29 @@ const robotoSlab = Roboto_Slab({
   })
 
 const page = () => {
+    const router = useRouter()
+    const dispatch = useAppDispatch()
+    const user = useAppSelector((state)=>state.user)
     const [showNameForm, setShowNameForm] = useState(false)
+    const [name,setName]=useState('')
+
+    const submitForm = async() =>{
+        const result = await dispatch(ChangeName({_id:user._id,name}))
+        if(result.meta.requestStatus==="fulfilled"){
+            dispatch(GetUser())
+            setShowNameForm(false)
+        }
+    }
+
+    useEffect(()=>(user._id)?setName(user.name):router.push('/login'),[user])
     return (
         <div className='bg-slate-200 pb-[350px] mb-[-350px] text-slate-700 '>
             <div className=' relative flex items-center justify-center h-[100vh] w-full border-b-2 border-main-800'>
                 <div className='w-1/2 h-full bg-main-800 flex items-center justify-center'></div>
                 <div className=' absolute pt-[75px]'>
-                    <div className=' shadow-2xl w-72 h-72 md:w-96 md:h-96 rounded-2xl  hover:scale-110 transition ease-in-out duration-300 cursor-pointer bg-center bg-cover bg-no-repeat' style={{ backgroundImage: `url('/img/5.jpg')` }}></div>
+                    <div className=' shadow-2xl w-72 h-72 md:w-96 md:h-96 rounded-2xl  hover:scale-110 transition ease-in-out duration-300 cursor-pointer bg-center bg-cover bg-no-repeat' style={{ backgroundImage: `url('${user.profile.secure_url}')` }}></div>
                     <div className='flex items-center justify-between mt-20'>
-                        <input type="file" className='hidden' id='file' />
+                        <input  type="file" className='hidden' id='file' />
                         <label htmlFor='file' className={` bg-slate-200 text-4xl px-10 py-2 border-2 shadow-lg border-main-800 my-5 rounded-md cursor-pointer hover:scale-110 transition ease-in-out duration-300`}><BsFillCameraFill /></label>
                         <button className={` bg-slate-200 text-4xl px-10 py-2 border-2 shadow-lg border-main-800 my-5 rounded-md cursor-pointer hover:scale-110 transition ease-in-out duration-300`} onClick={()=>{setShowNameForm(true)}}><MdOutlineEditNote /></button>
                     </div>
@@ -30,8 +47,8 @@ const page = () => {
                 <div className='w-1/2 overflow-y-auto h-full'></div>
             </div>
             <div className='flex items-center justify-center flex-col py-10'>
-                <h1 className={`text-4xl md:text-6xl font-semibold text-main-800 ${robotoSlab.className}`}>Abu Zaid</h1>
-                <h1 className='md:text-xl mt-2'>zaid70979@gmail.com</h1>
+                <h1 className={`text-4xl md:text-6xl font-semibold text-main-800 ${robotoSlab.className}`}>{user.name}</h1>
+                <h1 className='md:text-xl mt-2'>{user.email}</h1>
                 <div className='flex items-center justify-center'>
                     <Link href="/orders" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>My Orders</Link>
                     <Link href="/sendlink" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Change Password</Link>
@@ -42,16 +59,13 @@ const page = () => {
                 <div className='flex flex-col w-96 shadow-2xl p-4 bg-white rounded'>
                     <p className='text-end cursor-pointer text-xl text-main-800' onClick={()=>{setShowNameForm(false)}}>X</p>
                     <label className='mt-2 text-xl' htmlFor="name">Change your name:- </label>
-                    <input value="Abu Zaid" className='border-2 border-main-800 px-4  py-2' type="text" id='name' />
-                    <button className=" mt-4 bg-main-800 text-white text-md font-semibold py-2 transition duration-300 ease-in-out border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] rounded">Submit</button>
+                    <input value={name} onChange={(e)=>{setName(e.target.value)}} className='border-2 border-main-800 px-4  py-2' type="text" id='name' />
+                    <button onClick={()=>{submitForm()}} className=" mt-4 bg-main-800 text-white text-md font-semibold py-2 transition duration-300 ease-in-out border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] rounded">Submit</button>
                 </div>
             </div>
             <h1 className={`bg-main-800 text-xl py-2 px-4 text-white ${robotoSlab.className}`}>Shipping Details</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 p-4 gap-4'>
-                <AddressCard/>
-                <AddressCard/>
-                <AddressCard/>
-                <AddressCard/>
+               {user.shippingDetails.map((data,i)=><span key={i}><AddressCard data={data}/></span>)}
             </div>
            <AddAddressForm/>
         </div>

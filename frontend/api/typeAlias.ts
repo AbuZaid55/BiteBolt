@@ -17,3 +17,8 @@ export type API_LOGIN = {
     email:string,
     password:string,
 }
+
+export type API_CHANGE_NAME = {
+    _id:string,
+    name:string
+}
