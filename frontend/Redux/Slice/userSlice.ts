@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {    
-    SendOtp,
-    SignUp,
-    LogIn,
     GetUser,
-    ChangeName,
     AddAddress,
     UploadFile,
-    SendLink,
-    ChangePass
 } from "../asyncThunk";
 
 interface initialState {
@@ -32,12 +26,6 @@ const userSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers: (builder) => {
-        builder.addCase(SendOtp.fulfilled, (state, action) => {});
-        builder.addCase(SignUp.fulfilled,(state,action) => {})
-        builder.addCase(LogIn.fulfilled,(state,action) => {})
-        builder.addCase(ChangeName.fulfilled,(state,action) => {})
-        builder.addCase(SendLink.fulfilled,(state,action) => {})
-        builder.addCase(ChangePass.fulfilled,(state,action) => {console.log(action)})
         builder.addCase(GetUser.fulfilled,(state,action) => {
             return state = action.payload.data
         })

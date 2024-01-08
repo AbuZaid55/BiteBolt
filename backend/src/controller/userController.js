@@ -150,6 +150,15 @@ const uploadFile = async(req,res) => {
     }
 }
 
+const logOut = async(req,res)=>{
+    try {
+        res.clearCookie("BiteBoltToken")
+        sendSuccess(res,"Logout successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     signUp,
     logIn,
@@ -157,4 +166,5 @@ module.exports = {
     changeName,
     addAddress,
     uploadFile,
+    logOut,
 }

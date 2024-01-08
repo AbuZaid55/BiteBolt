@@ -1,9 +1,9 @@
 "use client"
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import store from '../../Redux/store'
 
-const Providers = ({children}:any) => {
+const Providers = ({children}:{children:ReactNode}) => {
   return (
     <Provider store={store}>
        {children}

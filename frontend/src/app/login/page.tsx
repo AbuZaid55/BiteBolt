@@ -4,17 +4,21 @@ import Link from 'next/link'
 import { GetUser, LogIn } from '../../../Redux/asyncThunk'
 import { useAppDispatch } from '../../../Redux/hook'
 import {useRouter} from 'next/navigation'
+import { useMyContext } from '../MyContextProvider'
 
 const page = () => {
   const router = useRouter()
+  const { setLoader } = useMyContext()
   const dispatch = useAppDispatch()
-  const [input,setInput]=useState({email:"",password:""})
-  const submitForm = async()=>{
-      const result = await dispatch(LogIn(input))
-      if(result.meta.requestStatus==="fulfilled"){
-        dispatch(GetUser())
-        router.push('/')
-      }
+  const [input, setInput] = useState({ email: "", password: "" })
+  const submitForm = async () => {
+    setLoader(true)
+    const result = await dispatch(LogIn(input))
+    if (result.meta.requestStatus === "fulfilled") {
+      dispatch(GetUser())
+      router.push("/")
+    }
+    setLoader(false)
   }
   return (
     <div className=' bg-slate-200 pb-[350px] mb-[-350px] pt-[90px]'>  

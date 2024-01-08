@@ -3,19 +3,24 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { SendLink } from '../../../Redux/asyncThunk'
+import { useMyContext } from '../MyContextProvider'
 
 const page = () => {
-  const dispatch = useAppDispatch()
-  const [timer,setTimer]=useState(60)
-  const [startTimer,setStartTimer]=useState(false)
-  const [email,setEmail]=useState('')
 
-  const submitForm = async() =>{
-    const result = await dispatch(SendLink({email}))
-    if(result.meta.requestStatus==="fulfilled"){
-      setEmail('')
+  const { setLoader } = useMyContext()
+  const dispatch = useAppDispatch()
+  const [timer, setTimer] = useState(60)
+  const [startTimer, setStartTimer] = useState(false)
+  const [email, setEmail] = useState("")
+
+  const submitForm = async () => {
+    setLoader(true)
+    const result = await dispatch(SendLink({ email }))
+    if (result.meta.requestStatus === "fulfilled") {
+      setEmail("")
       setStartTimer(true)
     }
+    setLoader(false)
   }
 
   useEffect(()=>{

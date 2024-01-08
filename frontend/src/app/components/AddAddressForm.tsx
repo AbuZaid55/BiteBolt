@@ -2,22 +2,27 @@
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { AddAddress } from '../../../Redux/asyncThunk'
+import { useMyContext } from '../MyContextProvider'
 
 const AddAddressForm = () => {
-    const dispatch = useAppDispatch()
-    const _id = useAppSelector((state)=>state.user._id)
-    const [showAddressForm, setShowAddressForm] = useState(false)
-    const [input,setInput]=useState({name:"",houseNo:"",address:"", pinCode:0,city:"",state:"",phoneNo:0})
-    const handleForm = (e:any) => {
-      setInput({...input,[e.target.name]:e.target.value})
+
+  const { setLoader } = useMyContext()
+  const dispatch = useAppDispatch()
+  const _id = useAppSelector((state) => state.user._id)
+  const [showAddressForm, setShowAddressForm] = useState(false)
+  const [input, setInput] = useState({ name: "", houseNo: "", address: "", pinCode: 0, city: "", state: "", phoneNo: 0 })
+  const handleForm = (e: any) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
+  }
+  const submitForm = async () => {
+    setLoader(true)
+    const result = await dispatch(AddAddress({ _id, ...input }))
+    if (result.meta.requestStatus === "fulfilled") {
+      setShowAddressForm(false)
+      setInput({ name: "", houseNo: "", address: "", pinCode: 0, city: "", state: "", phoneNo: 0 })
     }
-    const submitForm = async() => {
-      const result = await dispatch(AddAddress({_id,...input}))
-      if(result.meta.requestStatus==="fulfilled"){
-        setShowAddressForm(false)
-        setInput({name:"",houseNo:"",address:"", pinCode:0,city:"",state:"",phoneNo:0})
-      }
-    }
+    setLoader(false)
+  }
   return (
    <div>
      <div className=' flex items-center justify-end pr-4'><button onClick={() => { setShowAddressForm(!showAddressForm) }} className=' w-48 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Add Shipping Details</button></div>

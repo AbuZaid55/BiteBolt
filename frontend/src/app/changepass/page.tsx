@@ -3,27 +3,32 @@ import React, { useEffect,useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '../../../Redux/hook'
 import { ChangePass } from '../../../Redux/asyncThunk'
+import { useMyContext } from '../MyContextProvider'
 
 const page = () => {
+
   const router = useRouter()
+  const { setLoader } = useMyContext()
   const dispatch = useAppDispatch()
   const search = useSearchParams()
-  const [input,setInput]=useState({password:"",confirm_pass:"",token:""})
+  const [input, setInput] = useState({ password: "", confirm_pass: "", token: "" })
 
-  const submitForm = async() => {
+  const submitForm = async () => {
+    setLoader(true)
     const result = await dispatch(ChangePass(input))
-    if(result.meta.requestStatus==="fulfilled"){
-      setInput({password:"",confirm_pass:"",token:""})
+    if (result.meta.requestStatus === "fulfilled") {
+      setInput({ password: "", confirm_pass: "", token: "" })
       router.push('/')
     }
+    setLoader(false)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const tokenn = search.get("token")
-    if(search && tokenn){
-      setInput({...input,token:tokenn})
+    if (search && tokenn) {
+      setInput({ ...input, token: tokenn })
     }
-  },[])
+  }, [])
   return (
     <div className='pt-[120px] bg-slate-200 pb-[350px] mb-[-350px] '>
         <div className='w-full md:w-1/2 p-4 flex flex-col mx-auto'>

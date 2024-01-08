@@ -103,6 +103,16 @@ const API_CHANGE_PASS = async(data:API_CHANGE_PASS) => {
    }
 }
 
+const API_LOGOUT = async() => {
+   try { 
+      const response = await axios.post(`${URL}/user/logout`)
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
@@ -112,4 +122,5 @@ export {
    API_UPLOAD_FILE,
    API_SEND_LINK,
    API_CHANGE_PASS,
+   API_LOGOUT,
 }

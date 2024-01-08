@@ -1,39 +1,39 @@
-import type { Metadata } from 'next'
-import { Mukta } from 'next/font/google'
-import './globals.css'
-import './CSS/table.css'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import GetUser from './GetUser'
+import type { Metadata } from "next"
+import { Mukta } from "next/font/google"
+import "./CSS/globals.css"
+import "./CSS/table.css"
+import "./CSS/loader.css"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import GetUser from "./GetUser"
 
-import Providers from './Providers'
+import MyContextProvider from "./MyContextProvider"
+import Providers from "./Providers"
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-const mukta = Mukta({ weight: '400', subsets: ["latin"], display: "swap" })
+const mukta = Mukta({ weight: "400", subsets: ["latin"], display: "swap" })
 
 export const metadata: Metadata = {
-  title: 'BiteBolt',
-  description: 'Food Website',
-  keywords: ["Bite", "Bolt", "Food"]
+  title: "BiteBolt",
+  description: "Food Website",
+  keywords: ["Bite", "Bolt", "Food"],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${mukta.className} select-none`}>
-        <Providers>
-          <GetUser/>
-          <Header />
-          {children}
-          <Footer />
+        <MyContextProvider>
+          <Providers>
+            <GetUser />
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
           <ToastContainer />
-        </Providers>
+        </MyContextProvider>
       </body>
     </html>
   )

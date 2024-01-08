@@ -9,6 +9,7 @@ import {
     API_UPLOAD_FILE,
     API_SEND_LINK,
     API_CHANGE_PASS,
+    API_LOGOUT,
 } from '../api/userApi'
 
 
@@ -21,3 +22,4 @@ export const AddAddress = createAsyncThunk('user/addaddress', API_ADD_ADDRESS);
 export const UploadFile = createAsyncThunk('user/uploadfile', API_UPLOAD_FILE);
 export const SendLink = createAsyncThunk('user/sendlink', API_SEND_LINK);
 export const ChangePass = createAsyncThunk('user/updatepass', API_CHANGE_PASS);
+export const LogOut = createAsyncThunk('user/updatepass', API_LOGOUT);

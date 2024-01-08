@@ -3,7 +3,7 @@ const otpModel = require("../models/otpModel")
 const userModel = require("../models/userModel")
 const generateOtp = require('../utils/generateOtp')
 const { otpMail } = require('../utils/mail')
-const throwError = require('../utils/sendResponse')
+const throwError = require('../utils/throwError')
 const {sendError,sendSuccess} = require('../utils/sendResponse')
 
 

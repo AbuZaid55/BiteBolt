@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react"
 import { SendOtp,SignUp } from "../../../Redux/asyncThunk"
 import { useAppDispatch } from "../../../Redux/hook"
 import {useRouter} from 'next/navigation'
+import { useMyContext } from "../MyContextProvider"
  
 
 const page = () => {
 
-  const dispatch = useAppDispatch()
   const router = useRouter()
+  const {setLoader} = useMyContext()
+  const dispatch = useAppDispatch()
   const [timer, setTimer] = useState(60)
   const [startTimer, setStartTimer] = useState(false)
   const [input, setInput] = useState({ name: "", email: "", password: "", confirm_pass: "", otp: "" })
@@ -19,14 +21,18 @@ const page = () => {
   }
 
   const sendOtp = async()=>{
-      dispatch(SendOtp({email:input.email,setStartTimer}))
+      setLoader(true)
+      await dispatch(SendOtp({email:input.email,setStartTimer}))
+      setLoader(false)
   }
   const submitForm = async() =>{
+      setLoader(true)
       const result = await dispatch(SignUp(input))
       if(result.meta.requestStatus==="fulfilled"){
         setInput({ name: "", email: "", password: "", confirm_pass: "", otp: "" })
         router.push('/login')
       }
+      setLoader(false)
   }
 
   useEffect(() => {

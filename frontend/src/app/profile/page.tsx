@@ -8,7 +8,8 @@ import AddressCard from '../components/AddressCard'
 import AddAddressForm from '../components/AddAddressForm'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { useRouter } from 'next/navigation'
-import { ChangeName, GetUser, UploadFile } from '../../../Redux/asyncThunk'
+import { ChangeName, GetUser, LogOut, UploadFile } from '../../../Redux/asyncThunk'
+import { useMyContext } from '../MyContextProvider'
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -18,27 +19,41 @@ const robotoSlab = Roboto_Slab({
 
 const page = () => {
     const router = useRouter()
+    const {setLoader} = useMyContext()
     const dispatch = useAppDispatch()
     const user = useAppSelector((state)=>state.user)
     const [showNameForm, setShowNameForm] = useState(false)
     const [name,setName]=useState('')
 
     const submitForm = async() =>{
+        setLoader(true)
         const result = await dispatch(ChangeName({_id:user._id,name}))
         if(result.meta.requestStatus==="fulfilled"){
-            dispatch(GetUser())
+            await dispatch(GetUser())
             setShowNameForm(false)
         }
+        setLoader(false)
     }
 
-    const uploadFile = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const uploadFile = async(e:React.ChangeEvent<HTMLInputElement>) =>{
+        setLoader(true)
         const file = e.target.files? e.target.files[0]:null
         if(file){
             const formdata = new FormData()
             formdata.append("_id",user._id) 
             formdata.append("file",file)
-            dispatch(UploadFile(formdata))
+            await dispatch(UploadFile(formdata))
         }
+        setLoader(false)
+    }
+
+    const logOut = async() => {
+        setLoader(true)
+        const result = await dispatch(LogOut())
+        if(result.meta.requestStatus==="fulfilled"){
+            router.push('/')
+        }
+        setLoader(false)
     }
 
     useEffect(()=>(!user._id)?router.push('/login'):setName(user.name),[user])
@@ -63,7 +78,7 @@ const page = () => {
                     <Link href="/orders" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>My Orders</Link>
                     <Link href="/sendlink" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Change Password</Link>
                 </div>
-                <button className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Log Out</button>
+                <button onClick={()=>{logOut()}} className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Log Out</button>
             </div>
             <div className={` ${(showNameForm)?"flex":"hidden"} fixed top-0 left-0 w-[100%] h-[100vh] bg-[#0000008d] overflow-hidden items-center justify-center`}>
                 <div className='flex flex-col w-96 shadow-2xl p-4 bg-white rounded'>
