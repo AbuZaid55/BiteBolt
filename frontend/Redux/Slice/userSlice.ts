@@ -5,7 +5,10 @@ import {
     LogIn,
     GetUser,
     ChangeName,
-    AddAddress
+    AddAddress,
+    UploadFile,
+    SendLink,
+    ChangePass
 } from "../asyncThunk";
 
 interface initialState {
@@ -33,16 +36,22 @@ const userSlice = createSlice({
         builder.addCase(SignUp.fulfilled,(state,action) => {})
         builder.addCase(LogIn.fulfilled,(state,action) => {})
         builder.addCase(ChangeName.fulfilled,(state,action) => {})
+        builder.addCase(SendLink.fulfilled,(state,action) => {})
+        builder.addCase(ChangePass.fulfilled,(state,action) => {console.log(action)})
         builder.addCase(GetUser.fulfilled,(state,action) => {
             return state = action.payload.data
         })
         builder.addCase(GetUser.rejected,(state,action) => {
             state._id = ""
-            return state
+            return state;
         })
         builder.addCase(AddAddress.fulfilled,(state,action) => {
             state.shippingDetails.push(action.payload.data)
-            return state
+            return state;
+        })
+        builder.addCase(UploadFile.fulfilled,(state,action) => {
+            state.profile.secure_url=action.payload.data
+            return state;
         })
     },
 })

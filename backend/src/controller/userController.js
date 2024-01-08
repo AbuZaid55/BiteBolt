@@ -1,8 +1,10 @@
 const userModel = require('../models/userModel')
 const otpModel = require('../models/otpModel')
-const throwError = require('../throwError')
-const {sendError,sendSuccess} = require("../sendResponse")
+const throwError = require('../utils/throwError')
+const {sendError,sendSuccess} = require("../utils/sendResponse")
 const validator = require("email-validator")
+const cloudinary = require("cloudinary")
+const fs = require("fs/promises")
 
 const signUp = async (req, res) => {
     try {
@@ -11,7 +13,7 @@ const signUp = async (req, res) => {
             return throwError("All field are required!")
         }
         if(password !== confirm_pass){
-            return throwError("Confirm password is not matching")
+            return throwError("Password is not matching")
         }
         if(password.length < 8 && password.length > 12){
             return throwError("Password should be 8 to 12 characters!")
@@ -114,10 +116,45 @@ const addAddress = async(req,res)=>{
     }
 }
 
+const uploadFile = async(req,res) => {
+    if(req.fileError){
+        return sendError(res,req.fileError) 
+    }
+    try {
+        const _id = (req.body && req.body._id) ? req.body._id : ""
+        const file = (req.file && req.file.filename)? req.file :""
+        if(!file){
+            return throwError("Select your profile pic")
+        }
+        if(!_id){
+            return throwError("Unauthorized User!")
+        }
+        const user = await userModel.findById(_id)
+        if(!user){
+            return throwError("Unauthorized User!")
+        }
+        if(user.profile.public_id){
+            await cloudinary.uploader.destroy(user.profile.public_id)
+        }
+        const result = await cloudinary.v2.uploader.upload(file.path,{folder:"BiteBolt/profile",gravity:"faces"})
+        if(!result){
+            return throwError("Cloudinary Error!")
+        }
+        user.profile.public_id=result.public_id
+        user.profile.secure_url=result.secure_url
+        await user.save()
+        fs.rm(file.path)
+        sendSuccess(res,"Profile uploaded successfully",result.secure_url)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     signUp,
     logIn,
     getUser,
     changeName,
     addAddress,
+    uploadFile,
 }

@@ -1,6 +1,6 @@
 const userModel = require("../models/userModel")
-const { sendError } = require("../sendResponse")
-const throwError = require("../throwError")
+const { sendError } = require("../utils/sendResponse")
+const throwError = require("../utils/sendResponse")
 const JWT = require("jsonwebtoken")
 
 module.exports = async(req,res,next) => {
@@ -10,7 +10,7 @@ module.exports = async(req,res,next) => {
             return throwError("Unauthorized user!")
         }
         const verifyToken = JWT.verify(token,process.env.JWT_KEY)
-        if(!verifyToken._id && !verifyToken.email){
+        if(!verifyToken._id || !verifyToken.email){
             return throwError("Unauthorized user!")
         }
         const user = await userModel.findById(verifyToken._id)

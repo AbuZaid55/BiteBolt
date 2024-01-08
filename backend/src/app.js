@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 const dbConnect = require('./db/db_conn.js')
+const cloudinary = require("cloudinary")
 const cookie = require('cookie-parser')
 const cors = require('cors')
 const app = express()
@@ -17,8 +18,15 @@ app.use(cors({
     credentials:true
 }))
 
+cloudinary.v2.config({ 
+    cloud_name: process.env.CLOUDINARY_NAME, 
+    api_key: process.env.CLOUDINARY_KEY, 
+    api_secret: process.env.CLOUDINARY_SECRET 
+});
+
 app.use("/user",require('./routes/userRoutes.js')) 
 app.use("/otp",require('./routes/otpRoutes.js')) 
+app.use("/changepass",require('./routes/changePassRouter.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

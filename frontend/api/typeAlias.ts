@@ -33,3 +33,9 @@ export type API_ADD_ADDRESS = {
     state:string,
     phoneNo:number
 }
+
+export type API_CHANGE_PASS = {
+    password:string,
+    confirm_pass:string,
+    token:string,
+}
