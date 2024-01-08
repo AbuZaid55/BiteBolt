@@ -22,3 +22,14 @@ export type API_CHANGE_NAME = {
     _id:string,
     name:string
 }
+
+export type API_ADD_ADDRESS = {
+    _id:string,
+    name:string,
+    houseNo:string,
+    address:string,
+    pinCode:number,
+    city:string,
+    state:string,
+    phoneNo:number
+}

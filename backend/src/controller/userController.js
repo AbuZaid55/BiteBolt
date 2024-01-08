@@ -92,9 +92,32 @@ const changeName = async(req,res) => {
         sendError(res,error.message)
     }
 }
+const addAddress = async(req,res)=>{
+    try {
+        const {_id,name,houseNo,address,pinCode,city,state,phoneNo} = req.body
+        if(!name || !houseNo || !address || !pinCode || !city || !state || !phoneNo){
+            return throwError("All field are required!")
+        }
+        if(!_id){
+            return throwError("Unauthorized User!")
+        }
+        const user = await userModel.findById(_id)
+        if(!user){
+            return throwError("Unauthorized User!")
+        }
+        req.body._id=undefined
+        user.shippingDetails = [...user.shippingDetails,req.body]
+        await user.save()
+        sendSuccess(res,"Shipping details added successfully",req.body)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     signUp,
     logIn,
     getUser,
     changeName,
+    addAddress,
 }

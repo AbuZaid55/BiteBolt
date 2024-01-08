@@ -5,7 +5,8 @@ import {
    API_SEND_OTP,
    API_SING_UP,
    API_LOGIN,
-   API_CHANGE_NAME
+   API_CHANGE_NAME,
+   API_ADD_ADDRESS
 } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
@@ -60,9 +61,21 @@ const API_CHANGE_NAME = async(data:API_CHANGE_NAME) => {
    }
 }
 
+const API_ADD_ADDRESS = async(data:API_ADD_ADDRESS) => {
+   (data._id==="1") ? data._id="" :data._id
+   try { 
+      const response = await axios.post(`${URL}/user/addaddress`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
    API_GET_USER,
-   API_CHANGE_NAME
+   API_CHANGE_NAME,
+   API_ADD_ADDRESS
 }

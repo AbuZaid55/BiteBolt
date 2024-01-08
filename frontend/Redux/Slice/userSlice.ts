@@ -4,28 +4,22 @@ import {
     SignUp,
     LogIn,
     GetUser,
-    ChangeName
+    ChangeName,
+    AddAddress
 } from "../asyncThunk";
 
-const initialState = {
-    _id:"",
+interface initialState {
+    [key:string]:any
+}
+
+const initialState:initialState = {
+    _id:"1",
     name:"",
     email:"",
     admin:false, 
     profile:{secure_url:""},
-    shippingDetails:[{
-        name: "",
-        houseNo: "",
-        address: "",
-        pinCode: 0,
-        city: "",
-        state: "",
-        phoneNo: 0,
-    }],
-    cart:[{
-        productId:"",
-        qty:"",
-    }],
+    shippingDetails:[],
+    cart:[],
     wishlist:[],
     data:""
 }
@@ -41,6 +35,14 @@ const userSlice = createSlice({
         builder.addCase(ChangeName.fulfilled,(state,action) => {})
         builder.addCase(GetUser.fulfilled,(state,action) => {
             return state = action.payload.data
+        })
+        builder.addCase(GetUser.rejected,(state,action) => {
+            state._id = ""
+            return state
+        })
+        builder.addCase(AddAddress.fulfilled,(state,action) => {
+            state.shippingDetails.push(action.payload.data)
+            return state
         })
     },
 })

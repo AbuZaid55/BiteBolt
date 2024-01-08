@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
                 required: true,
                 trim: true
             },
-            houseNo: {
+            houseNo: {  
                 type: String,
                 required: true,
                 trim: true

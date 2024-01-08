@@ -5,6 +5,7 @@ import {
     API_SEND_OTP,
     API_SING_UP,
     API_CHANGE_NAME,
+    API_ADD_ADDRESS,
 } from '../api/userApi'
 
 
@@ -13,3 +14,4 @@ export const SignUp = createAsyncThunk('user/signup', API_SING_UP);
 export const LogIn = createAsyncThunk('user/login', API_LOGIN);
 export const GetUser = createAsyncThunk('user/getuser', API_GET_USER);
 export const ChangeName = createAsyncThunk('user/changename', API_CHANGE_NAME);
+export const AddAddress = createAsyncThunk('user/addaddress', API_ADD_ADDRESS);

@@ -31,13 +31,13 @@ const page = () => {
         }
     }
 
-    useEffect(()=>(user._id)?setName(user.name):router.push('/login'),[user])
+    useEffect(()=>(!user._id)?router.push('/login'):setName(user.name),[user])
     return (
         <div className='bg-slate-200 pb-[350px] mb-[-350px] text-slate-700 '>
             <div className=' relative flex items-center justify-center h-[100vh] w-full border-b-2 border-main-800'>
                 <div className='w-1/2 h-full bg-main-800 flex items-center justify-center'></div>
                 <div className=' absolute pt-[75px]'>
-                    <div className=' shadow-2xl w-72 h-72 md:w-96 md:h-96 rounded-2xl  hover:scale-110 transition ease-in-out duration-300 cursor-pointer bg-center bg-cover bg-no-repeat' style={{ backgroundImage: `url('${user.profile.secure_url}')` }}></div>
+                    <div className=' shadow-2xl w-72 h-72 md:w-96 md:h-96 rounded-2xl  hover:scale-110 transition ease-in-out duration-300 cursor-pointer bg-center bg-cover bg-no-repeat bg-slate-300' style={{ backgroundImage: `url('${user.profile.secure_url}')` }}></div>
                     <div className='flex items-center justify-between mt-20'>
                         <input  type="file" className='hidden' id='file' />
                         <label htmlFor='file' className={` bg-slate-200 text-4xl px-10 py-2 border-2 shadow-lg border-main-800 my-5 rounded-md cursor-pointer hover:scale-110 transition ease-in-out duration-300`}><BsFillCameraFill /></label>
@@ -65,7 +65,7 @@ const page = () => {
             </div>
             <h1 className={`bg-main-800 text-xl py-2 px-4 text-white ${robotoSlab.className}`}>Shipping Details</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 p-4 gap-4'>
-               {user.shippingDetails.map((data,i)=><span key={i}><AddressCard data={data}/></span>)}
+               {user.shippingDetails.map((data:any,i:number)=><span key={i}><AddressCard data={data}/></span>)}
             </div>
            <AddAddressForm/>
         </div>
