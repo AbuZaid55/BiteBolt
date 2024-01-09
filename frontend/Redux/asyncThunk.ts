@@ -12,7 +12,13 @@ import {
     API_LOGOUT,
 } from '../api/userApi'
 
+import { 
+    API_ADD_CATEGORY, 
+    API_ADD_SUBCATEGORY,
+    API_GET_CATEGORIES,
+ } from '../api/categoryApi';
 
+//user
 export const SendOtp = createAsyncThunk('user/sendOtp', API_SEND_OTP);
 export const SignUp = createAsyncThunk('user/signup', API_SING_UP);
 export const LogIn = createAsyncThunk('user/login', API_LOGIN);
@@ -23,3 +29,9 @@ export const UploadFile = createAsyncThunk('user/uploadfile', API_UPLOAD_FILE);
 export const SendLink = createAsyncThunk('user/sendlink', API_SEND_LINK);
 export const ChangePass = createAsyncThunk('user/updatepass', API_CHANGE_PASS);
 export const LogOut = createAsyncThunk('user/updatepass', API_LOGOUT);
+
+
+//category
+export const AddNewCategory = createAsyncThunk('category/addcategory', API_ADD_CATEGORY);
+export const AddSubCategory = createAsyncThunk('category/addsubcategory', API_ADD_SUBCATEGORY);
+export const GetCategories = createAsyncThunk('category/getcategories', API_GET_CATEGORIES);

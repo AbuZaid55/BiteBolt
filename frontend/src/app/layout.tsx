@@ -5,7 +5,7 @@ import "./CSS/table.css"
 import "./CSS/loader.css"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import GetUser from "./GetUser"
+import GetDetails from "./GetDetails"
 
 import MyContextProvider from "./MyContextProvider"
 import Providers from "./Providers"
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${mukta.className} select-none`}>
         <MyContextProvider>
           <Providers>
-            <GetUser />
+            <GetDetails />
             <Header />
             {children}
             <Footer />

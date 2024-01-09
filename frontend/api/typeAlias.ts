@@ -39,3 +39,11 @@ export type API_CHANGE_PASS = {
     confirm_pass:string,
     token:string,
 }
+export type API_ADD_CATEGORY = {
+    category:string,
+}
+export type API_ADD_SUBCATEGORY = {
+    category:string,
+    subCategory:string
+}
+

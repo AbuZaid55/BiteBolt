@@ -27,6 +27,7 @@ cloudinary.v2.config({
 app.use("/user",require('./routes/userRoutes.js')) 
 app.use("/otp",require('./routes/otpRoutes.js')) 
 app.use("/changepass",require('./routes/changePassRouter.js')) 
+app.use("/category",require('./routes/categoryRouter.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

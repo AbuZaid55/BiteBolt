@@ -17,9 +17,11 @@ module.exports = async(req,res,next) => {
         if(!user){
             return throwError("Unauthorized user!")
         }
-        user.profile.public_id=undefined
-        user.password=undefined
-        req.rootUser=user
+        if(!user.admin){
+            return throwError("Unauthorized User!")
+        }
+        user.password = undefined
+        req.admin = user
         next()
     } catch (error) {
         sendError(res,error.message)
