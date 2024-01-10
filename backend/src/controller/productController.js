@@ -1,5 +1,63 @@
+const {sendError,sendSuccess} = require("../utils/sendResponse")
+const throwError = require('../utils/throwError')
+const categoryModel = require('../models/categoryModel')
+const productModel = require('../models/productModel')
+const subCategoryModel = require('../models/subCategoryModel')
+const fs = require('fs/promises')
+const cloudinary = require("cloudinary")
+
 const addProduct = async(req,res)=>{
-    console.log("run..")
+    let subCatId=''
+    if(req.fileError){
+        return sendError(res,req.fileError) 
+    }
+    try {
+        const {name,stock,price,category,subCategory,description} = req.body 
+        const thumbnail = (req.files && req.files.thumbnail)?req.files.thumbnail[0]:""
+        const images = (req.files && req.files.images)?req.files.images:""
+        if(!name || !stock || !price || !category || !subCategory || !description || !thumbnail || images.length==0){
+            return throwError("All filed are required!")
+        }
+        const isCatExist = await categoryModel.findOne({name:category}).populate({path:"subCategories"})
+        if(!isCatExist){
+            return throwError("Invalid Categeory")
+        }
+        isCatExist.subCategories.map((object)=>{
+            if(object.name===subCategory){
+                subCatId=object._id
+            }
+        })
+        const subCat = await subCategoryModel.findById(subCatId)
+        if(!subCat){
+            return throwError("Invalid SubCategory")
+        }
+        const uploadThumbnail = await cloudinary.v2.uploader.upload(thumbnail.path,{folder:"BiteBolt/thumbnail"})
+        if(!uploadThumbnail){
+            return throwError("Cloudinary Error!")
+        }
+        let public_id=[]
+        let secure_url=[]
+        await Promise.all(images.map(async(image)=>{
+            const uploadImages = await cloudinary.v2.uploader.upload(image.path,{folder:"BiteBolt/images"})
+            if(uploadImages){
+                public_id.push(uploadImages.public_id)
+                secure_url.push(uploadImages.secure_url)
+            }
+        }))
+        const result = await productModel({name,stock,price,category,subCategory,description,thumbnail:{public_id:uploadThumbnail.public_id,secure_url:uploadThumbnail.secure_url},images:{public_id,secure_url}})
+        subCat.products.push(result._id)
+        await subCat.save()
+        await result.save()
+        result.images.public_id=undefined
+        result.thumbnail.public_id=undefined
+        sendSuccess(res,"Product upload successfully",result)
+        fs.rm(thumbnail.path)
+        images.map((object)=>{
+            fs.rm(object.path)
+        })
+    } catch (error) {
+        sendError(res,error.message)
+    }
 }
 
 module.exports = {

@@ -60,8 +60,10 @@ const productSchema = mongoose.Schema({
     reviews:[
         {
             _id:false,
-            userId:{type:mongoose.Schema.Types.ObjectId},
-            ref:"user",
+            userId:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"user"
+            },
             rating:{type:Number},
             comment:{type:String}
         }

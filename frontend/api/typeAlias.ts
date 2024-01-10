@@ -47,14 +47,14 @@ export type API_ADD_SUBCATEGORY = {
     subCategory:string
 }
 
-export type API_ADD_PRODUCT = {
-    name:string,
-    stock:number,
-    price:number,
-    category:string,
-    subCategory:string,
-    description:string,
-    thumbnail:File | {},
-    images:File[]
-}
+// export type API_ADD_PRODUCT = {
+//     name:string,
+//     stock:number,
+//     price:number,
+//     category:string,
+//     subCategory:string,
+//     description:string,
+//     thumbnail:File | {},
+//     images:File[]
+// }
 

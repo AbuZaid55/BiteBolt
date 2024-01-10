@@ -10,7 +10,7 @@ interface initialState {
     description:string,
     popularList:boolean,
     thumbnail:{secure_url:string},
-    images:string[],
+    images:{sceurl_url:string[]},
     reviews:{
         userId:string,
         name:string,
@@ -29,7 +29,8 @@ const productSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(AddProduct.fulfilled,(state,action)=>{
-            console.log(action)
+            state.push(action.payload.data)
+            return state;
         })
     }
 })

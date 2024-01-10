@@ -19,7 +19,7 @@ interface API_ADD_PRODUCT {
     category:string,
     subCategory:string,
     description:string,
-    thumbnail:File | {},
+    thumbnail:File,
     images:File[]
 }
 
@@ -29,7 +29,7 @@ const page = () => {
     const dispatch = useAppDispatch()
     const [clearForm,setClearForm]=useState(false)
     const categories = useAppSelector((state) => state.category.categories)
-    const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{},images:[]})
+    const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{} as File,images:[]})
 
     const handleInput = (e:any) => {
         setInput({...input,[e.target.name]:e.target.value})
@@ -48,11 +48,22 @@ const page = () => {
         }
     }
     const resetForm = () => {
-        setInput({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{},images:[]})
+        setInput({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{} as File,images:[]})
     }
     const submitForm = async() => {
         setLoader(true)
-        const result = await dispatch(AddProduct(input))
+        const formdata = new FormData()
+        formdata.append("name",input.name)
+        formdata.append("stock",input.stock.toString())
+        formdata.append("price",input.price.toString())
+        formdata.append("category",input.category)
+        formdata.append("subCategory",input.subCategory)
+        formdata.append("description",input.description)
+        formdata.append("thumbnail",input.thumbnail)
+        for(let i=0; i<input.images.length; i++){
+            formdata.append("images",input.images[i])
+        }
+        const result = await dispatch(AddProduct(formdata))
         if(result.meta.requestStatus==="fulfilled" && clearForm){
             resetForm()
         }
@@ -88,7 +99,7 @@ const page = () => {
                                 <option value="">Select Category</option>
                                 {
                                     categories.map((object) => {
-                                        return <option key={object._id} value={object.name}>{object.name}</option>
+                                        return object.subCategories.length>0 && <option key={object._id} value={object.name}>{object.name}</option>
                                     })
                                 }
                             </select>
