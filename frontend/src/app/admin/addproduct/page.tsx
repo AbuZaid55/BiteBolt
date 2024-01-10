@@ -2,7 +2,9 @@
 import AdminSiderbar from '../../components/AdminSiderbar'
 import React, { useState } from 'react'
 import { Roboto_Slab } from "next/font/google"
-import { useAppSelector } from '../../../../Redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../../Redux/hook'
+import { useMyContext } from '@/app/MyContextProvider'
+import { AddProduct } from '../../../../Redux/asyncThunk'
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -10,11 +12,24 @@ const robotoSlab = Roboto_Slab({
     display: "swap",
 })
 
+interface API_ADD_PRODUCT {
+    name:string,
+    stock:number,
+    price:number,
+    category:string,
+    subCategory:string,
+    description:string,
+    thumbnail:File | {},
+    images:File[]
+}
+
 const page = () => {
 
+    const {setLoader} = useMyContext()
+    const dispatch = useAppDispatch()
     const [clearForm,setClearForm]=useState(false)
     const categories = useAppSelector((state) => state.category.categories)
-    const [input,setInput] = useState<{[key:string]:any}>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{},images:[]})
+    const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{},images:[]})
 
     const handleInput = (e:any) => {
         setInput({...input,[e.target.name]:e.target.value})
@@ -32,11 +47,16 @@ const page = () => {
             setInput({...input,"images":img})
         }
     }
-    const resentForm = () => {
+    const resetForm = () => {
         setInput({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{},images:[]})
     }
     const submitForm = async() => {
-        console.log(input)
+        setLoader(true)
+        const result = await dispatch(AddProduct(input))
+        if(result.meta.requestStatus==="fulfilled" && clearForm){
+            resetForm()
+        }
+        setLoader(false)
     }
     return (
         <div className='flex'>
@@ -110,7 +130,7 @@ const page = () => {
                     </div>
 
                     <div className='flex items-center justify-between w-full gap-4'>
-                        <button onClick={()=>{resentForm()}} className=' bg-red-800 text-white py-2 rounded-md flex items-center justify-center w-1/2 border-2 border-red-800  hover:text-red-800 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Reset</button>
+                        <button onClick={()=>{resetForm()}} className=' bg-red-800 text-white py-2 rounded-md flex items-center justify-center w-1/2 border-2 border-red-800  hover:text-red-800 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Reset</button>
                         <button onClick={()=>{submitForm()}} className=" text-center bg-main-800 text-white px-4 py-2 rounded-md my-4 cursor-pointer border-2 w-1/2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Submit</button>
                     </div>
                     <label className='flex items-center gap-1 mt-10' htmlFor="emptyFormInput"><input checked={clearForm} onChange={()=>{setClearForm(!clearForm)}} type="checkbox" id='emptyFormInput' />Clear From After Submit</label>

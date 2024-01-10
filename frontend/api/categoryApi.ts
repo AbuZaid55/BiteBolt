@@ -35,7 +35,7 @@ const API_GET_CATEGORIES = async() => {
     } catch (error) {
        throwError(error)
     }
- }
+}
 
 export {
     API_ADD_CATEGORY,

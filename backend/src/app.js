@@ -24,10 +24,11 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUDINARY_SECRET 
 });
 
-app.use("/user",require('./routes/userRoutes.js')) 
-app.use("/otp",require('./routes/otpRoutes.js')) 
+app.use("/user",require('./routes/userRouter.js')) 
+app.use("/otp",require('./routes/otpRouter.js')) 
 app.use("/changepass",require('./routes/changePassRouter.js')) 
 app.use("/category",require('./routes/categoryRouter.js')) 
+app.use("/product",require('./routes/productRouter.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

@@ -16,7 +16,11 @@ import {
     API_ADD_CATEGORY, 
     API_ADD_SUBCATEGORY,
     API_GET_CATEGORIES,
- } from '../api/categoryApi';
+} from '../api/categoryApi';
+
+import { 
+    API_ADD_PRODUCT 
+} from '../api/poductApi';
 
 //user
 export const SendOtp = createAsyncThunk('user/sendOtp', API_SEND_OTP);
@@ -35,3 +39,7 @@ export const LogOut = createAsyncThunk('user/updatepass', API_LOGOUT);
 export const AddNewCategory = createAsyncThunk('category/addcategory', API_ADD_CATEGORY);
 export const AddSubCategory = createAsyncThunk('category/addsubcategory', API_ADD_SUBCATEGORY);
 export const GetCategories = createAsyncThunk('category/getcategories', API_GET_CATEGORIES);
+
+
+//product
+export const AddProduct = createAsyncThunk('product/addproduct',API_ADD_PRODUCT)
