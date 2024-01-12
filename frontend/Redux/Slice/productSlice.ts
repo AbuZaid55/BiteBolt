@@ -24,18 +24,47 @@ interface initialStatetype {
 }
 
 let initialState: {
+    appliedFilter:{
+        selectedCat:{category:string,subCategory:string}[],
+        filterPrice:number,
+        filterRating:number,
+    }
     product: initialStatetype[];
     filterProducts: initialStatetype[];
+    popularProduct: initialStatetype[];
 } = {
+    appliedFilter:{
+        selectedCat:[],
+        filterPrice:0,
+        filterRating:0
+    },
     product: [],
     filterProducts: [],
+    popularProduct:[]
 };
 
 
 const productSlice = createSlice({
     name:"product",
     initialState,
-    reducers:{},
+    reducers:{
+        setFilterDetails(state,action){
+            state.filterProducts=[]
+            state.appliedFilter.selectedCat = action.payload.selectedCat
+            state.appliedFilter.filterPrice = action.payload.filterPrice
+            state.appliedFilter.filterRating = action.payload.filterRating
+            return state;
+        },
+        clearAllFilter(state){
+            state.appliedFilter={
+                selectedCat:[],
+                filterPrice:0,
+                filterRating:0
+            }
+            state.filterProducts=[]
+            return state;
+        }
+    },
     extraReducers:(builder)=>{
         builder.addCase(AddProduct.fulfilled,(state,action)=>{})
         builder.addCase(GetProducts.fulfilled,(state,action)=>{
@@ -43,10 +72,11 @@ const productSlice = createSlice({
             return state;
         })
         builder.addCase(GetFilterProducts.fulfilled,(state,action)=>{
-           state.filterProducts=action.payload.data
+           state.filterProducts=[...state.filterProducts,...action.payload.data]
            return state;
         })
     }
 })
 
 export default productSlice;
+export const {setFilterDetails,clearAllFilter} = productSlice.actions

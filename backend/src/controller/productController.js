@@ -72,18 +72,17 @@ const getProducts = async(req,res)=>{
 const getfilterproducts = async(req,res)=>{
     try {
         let {selectedCat} = req.body
-        const {filterPrice,filterRating} = req.body
+        const {filterPrice,filterRating,page} = req.body
         if(selectedCat.length==0){
             selectedCat=[{}]
         }
-        console.log(filterPrice)
         const result = await productModel.find({$and:[
             {price:{$lte:Number(filterPrice)}},
             {rating:{$gte:Number(filterRating)}},
             {
                 $or:selectedCat
             }
-        ]},{'images.public_id':0,'thumbnail.public_id':0})
+        ]},{'images.public_id':0,'thumbnail.public_id':0}).skip(5*(page-1)).limit(5)
         sendSuccess(res,"Filter Products",result) 
     } catch (error) {
         console.log(error.message)

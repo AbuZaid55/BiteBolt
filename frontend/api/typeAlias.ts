@@ -53,5 +53,6 @@ export type API_GET_FILTERPRODUCT = {
     }[]
     filterPrice:number,
     filterRating:number,
+    page:number
 }
 
