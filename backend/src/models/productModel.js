@@ -61,7 +61,8 @@ const productSchema = mongoose.Schema({
         type:Number,
         required:true,
         min:0,
-        max:5
+        max:5,
+        default:0
     },
     reviews:[
         {
@@ -78,7 +79,7 @@ const productSchema = mongoose.Schema({
     createdAt:{
         type:Date,
         required:true,
-        default:Date.now()
+        default:Date.now
     },
 })
 

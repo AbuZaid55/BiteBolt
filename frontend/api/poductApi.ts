@@ -33,9 +33,19 @@ const API_GET_FILTERPRODUCT = async(appliedFilters:API_GET_FILTERPRODUCT) => {
     }
 }
 
+const API_GET_POPULARPRODUCT = async(data:{page:number}) => {
+    try { 
+       const response = await axios.post(`${URL}/product/getpopularproducts`,data)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 export {
     API_ADD_PRODUCT,
     API_GET_PRODUCT,
     API_GET_FILTERPRODUCT,
+    API_GET_POPULARPRODUCT
 
 }

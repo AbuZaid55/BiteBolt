@@ -7,6 +7,7 @@ import { FaTruck } from "react-icons/fa"
 import { FaDollarSign } from "react-icons/fa"
 import { FaHeadset } from "react-icons/fa6"
 import Link from "next/link"
+import { useAppSelector } from "../../Redux/hook"
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -15,6 +16,10 @@ const robotoSlab = Roboto_Slab({
 })
 
 export default function Home() {
+
+  const state = useAppSelector((state)=>state.product)
+  const products = state.product
+  const popProduct = state.popularProduct
   const [showImg, setShowImg] = useState(1)
   const imgPath: string[] = ["./img/3.png", "./img/4.png", "./img/1.png", "./img/2.png"]
   useEffect(() => {
@@ -29,6 +34,8 @@ export default function Home() {
       clearInterval(interval)
     }
   }, [showImg])
+
+  
   return (
     <div className="overflow-hidden mb-[-350px]">
       <section className="h-[100vh] w-[100vw] overflow-hidden flex items-center justify-center">
@@ -51,12 +58,9 @@ export default function Home() {
         <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Dishes</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">POPULAR DISHES</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
-          <Card1 />
-          <Card1 />
-          <Card1 />
-          <Card1 />
-          <Card1 />
-          <Card1 />
+              {
+                popProduct.map((product,i)=>(i<6) && <Card1 key={product._id} product={product}/>)
+              }
         </div>
         <div className="w-full flex itemc justify-center">
           <Link href="/popdishes" className="text-center bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</Link>
@@ -95,12 +99,9 @@ export default function Home() {
         <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Menu</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center">TODAY'S SPECIALITY</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
-          {/* <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 />
-          <Card2 /> */}
+          {
+            products.map((product)=><Card2 key={product._id} product={product}/>)
+          }
         </div>
         <div className="w-full flex itemc justify-center">
           <Link href="/dishes" className="text-center bg-slate-700 text-white w-52 py-2 rounded-full my-4 cursor-pointer border-2 border-slate-700 hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out mb-10">See More</Link>

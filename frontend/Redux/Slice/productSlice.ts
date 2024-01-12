@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { AddProduct, GetFilterProducts, GetProducts } from '../asyncThunk'
+import { AddProduct, GetFilterProducts, GetPopularProducts, GetProducts } from '../asyncThunk'
 
 interface initialStatetype {
     _id:string,
@@ -32,6 +32,7 @@ let initialState: {
     product: initialStatetype[];
     filterProducts: initialStatetype[];
     popularProduct: initialStatetype[];
+    pageforpopularProduct:number
 } = {
     appliedFilter:{
         selectedCat:[],
@@ -40,7 +41,8 @@ let initialState: {
     },
     product: [],
     filterProducts: [],
-    popularProduct:[]
+    popularProduct:[],
+    pageforpopularProduct:0
 };
 
 
@@ -63,6 +65,10 @@ const productSlice = createSlice({
             }
             state.filterProducts=[]
             return state;
+        },
+        setPage(state,action){
+            state.pageforpopularProduct = action.payload
+            return state;
         }
     },
     extraReducers:(builder)=>{
@@ -75,8 +81,15 @@ const productSlice = createSlice({
            state.filterProducts=[...state.filterProducts,...action.payload.data]
            return state;
         })
+        builder.addCase(GetPopularProducts.fulfilled,(state,action)=>{
+           state.popularProduct=[...state.popularProduct,...action.payload.data]
+           if(action.payload.data.length==0){
+            state.pageforpopularProduct=-1
+           }
+           return state;
+        })
     }
 })
 
 export default productSlice;
-export const {setFilterDetails,clearAllFilter} = productSlice.actions
+export const {setFilterDetails,clearAllFilter,setPage} = productSlice.actions

@@ -62,7 +62,7 @@ const addProduct = async(req,res)=>{
 
 const getProducts = async(req,res)=>{
     try {
-        const data = await productModel.find({},{'images.public_id':0,'thumbnail.public_id':0})
+        const data = await productModel.find({},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).limit(6)
         sendSuccess(res,"Products",data)
     } catch (error) {
         sendError(res,error.message)
@@ -70,6 +70,7 @@ const getProducts = async(req,res)=>{
 }
 
 const getfilterproducts = async(req,res)=>{
+    const limit = process.env.PAGE_LIMIT
     try {
         let {selectedCat} = req.body
         const {filterPrice,filterRating,page} = req.body
@@ -82,10 +83,21 @@ const getfilterproducts = async(req,res)=>{
             {
                 $or:selectedCat
             }
-        ]},{'images.public_id':0,'thumbnail.public_id':0}).skip(5*(page-1)).limit(5)
+        ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
         sendSuccess(res,"Filter Products",result) 
     } catch (error) {
         console.log(error.message)
+        sendError(res,error.message)
+    }
+}
+
+const getPopProduct = async(req,res)=>{
+    const limit = process.env.PAGE_LIMIT
+    try {
+        const {page} = req.body
+        const result = await productModel.find({popularList:true},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
+        sendSuccess(res,"Populate Products",result)
+    } catch (error) {
         sendError(res,error.message)
     }
 }
@@ -94,4 +106,5 @@ module.exports = {
     addProduct,
     getProducts,
     getfilterproducts,
+    getPopProduct
 }
