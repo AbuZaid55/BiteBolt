@@ -19,7 +19,7 @@ import {
 } from '../api/categoryApi';
 
 import { 
-    API_ADD_PRODUCT 
+    API_ADD_PRODUCT, API_GET_FILTERPRODUCT, API_GET_PRODUCT 
 } from '../api/poductApi';
 
 //user
@@ -43,3 +43,5 @@ export const GetCategories = createAsyncThunk('category/getcategories', API_GET_
 
 //product
 export const AddProduct = createAsyncThunk('product/addproduct',API_ADD_PRODUCT)
+export const GetProducts = createAsyncThunk('product/getproducts',API_GET_PRODUCT)
+export const GetFilterProducts = createAsyncThunk('product/getfilterproducts',API_GET_FILTERPRODUCT)

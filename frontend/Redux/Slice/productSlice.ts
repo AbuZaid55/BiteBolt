@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { AddProduct } from '../asyncThunk'
+import { AddProduct, GetFilterProducts, GetProducts } from '../asyncThunk'
 
-interface initialState {
+interface initialStatetype {
+    _id:string,
     name:string,
     stock:number,
     price:number,
@@ -10,7 +11,8 @@ interface initialState {
     description:string,
     popularList:boolean,
     thumbnail:{secure_url:string},
-    images:{sceurl_url:string[]},
+    images:{secure_url:string[]},
+    rating:Number,
     reviews:{
         userId:string,
         name:string,
@@ -21,16 +23,28 @@ interface initialState {
     createdAt:Date,
 }
 
-const initialState:initialState[] = []
+let initialState: {
+    product: initialStatetype[];
+    filterProducts: initialStatetype[];
+} = {
+    product: [],
+    filterProducts: [],
+};
+
 
 const productSlice = createSlice({
     name:"product",
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
-        builder.addCase(AddProduct.fulfilled,(state,action)=>{
-            state.push(action.payload.data)
+        builder.addCase(AddProduct.fulfilled,(state,action)=>{})
+        builder.addCase(GetProducts.fulfilled,(state,action)=>{
+            state.product=action.payload.data
             return state;
+        })
+        builder.addCase(GetFilterProducts.fulfilled,(state,action)=>{
+           state.filterProducts=action.payload.data
+           return state;
         })
     }
 })

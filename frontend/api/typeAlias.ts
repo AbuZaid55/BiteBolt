@@ -46,15 +46,12 @@ export type API_ADD_SUBCATEGORY = {
     category:string,
     subCategory:string
 }
-
-// export type API_ADD_PRODUCT = {
-//     name:string,
-//     stock:number,
-//     price:number,
-//     category:string,
-//     subCategory:string,
-//     description:string,
-//     thumbnail:File | {},
-//     images:File[]
-// }
+export type API_GET_FILTERPRODUCT = {
+    selectedCat:{
+        category:string,
+        subCategory:string,
+    }[]
+    filterPrice:number,
+    filterRating:number,
+}
 

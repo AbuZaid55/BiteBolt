@@ -2,10 +2,23 @@
 import React, { useEffect, useState } from 'react'
 import { FaFilter } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp, FaStar, FaRupeeSign } from 'react-icons/fa';
-import { useAppSelector } from '../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
+import { useMyContext } from '../MyContextProvider';
+import { GetFilterProducts } from '../../../Redux/asyncThunk';
+
+interface GET_FILTERPRODUCT {
+  selectedCat:{
+      category:string,
+      subCategory:string,
+  }[]
+  filterPrice:number,
+  filterRating:number,
+}
 
 const Aside = () => {
 
+  const {setLoader} = useMyContext()
+  const dispatch = useAppDispatch()
   const category = useAppSelector((state)=>state.category)
   const categories = category.categories
   const highestPrice = category.highestPrice
@@ -24,11 +37,21 @@ const Aside = () => {
       }
     }
 
+  const getFilerProducts = async(appliedFilters:GET_FILTERPRODUCT)=>{
+    setLoader(true)
+    await dispatch(GetFilterProducts(appliedFilters))
+    setLoader(false)
+  }
+
   useEffect(()=>{
     if(highestPrice!=0){
       setFilterPrice(highestPrice)
     }
   },[highestPrice])
+  useEffect(()=>{
+    const appliedFilters = {selectedCat,filterPrice,filterRating}
+    getFilerProducts(appliedFilters)
+  },[selectedCat,filterPrice,filterRating])
   return (
     <div className={`lg:left-0 w-[260px] xl:w-[300px] h-full bg-slate-400 fixed top-0 z-40 ${(showFilter) ? "left-[0]" : "left-[-260px] lg:left-0"} transition-all duration-300 ease-in-out`}>
       <div className='lg:hidden text-white p-2 text-2xl absolute left-full top-[75px] bg-slate-400 rounded-r-md cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out' onClick={() => { setShowFilter(!showFilter) }}><FaFilter /></div>

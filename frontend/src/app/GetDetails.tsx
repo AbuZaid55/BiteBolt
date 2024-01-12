@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react"
 import { useAppDispatch } from "../../Redux/hook"
-import { GetCategories, GetUser } from "../../Redux/asyncThunk"
+import { GetCategories, GetProducts, GetUser } from "../../Redux/asyncThunk"
 import { useMyContext } from "./MyContextProvider"
 
 const GetDetails = () => {
@@ -18,9 +18,15 @@ const GetDetails = () => {
     await dispatch(GetCategories())
     setLoader(false)
   }
+  const getProduct = async() =>{
+    setLoader(true)
+    await dispatch(GetProducts())
+    setLoader(false)
+  }
   useEffect(() => {
     getUser()
     getCategories()
+    getProduct()
   }, [])
   return <></>
 }

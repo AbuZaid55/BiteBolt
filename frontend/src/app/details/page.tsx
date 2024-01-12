@@ -102,11 +102,11 @@ const page = () => {
       <section>
           <h1 className={`text-3xl font-bold text-slate-700 py-4 px-4 md:px-8 ${robotoSlab.className}`}>Similar Products</h1>
           <div className=' grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 lg:gap-10 place-items-center px-4'>
+            {/* <Card2/>
             <Card2/>
             <Card2/>
             <Card2/>
-            <Card2/>
-            <Card2/>
+            <Card2/> */}
           </div>
       </section>
     </div>

@@ -1,6 +1,7 @@
 const categoryModel = require("../models/categoryModel")
 const subCategoryMoel = require('../models/subCategoryModel')
 const userModel = require("../models/userModel")
+const productModel = require('../models/productModel')
 const throwError = require("../utils/throwError")
 const {sendError,sendSuccess} = require('../utils/sendResponse')
 
@@ -50,8 +51,13 @@ const addSubCategory = async(req,res)=>{
 
 const getCategories = async(req,res)=>{ 
     try {
+        let highestPrice=0
         const result = await categoryModel.find().populate({path:"subCategories",select:"name"})
-        sendSuccess(res,"Categories",{highestPrice:200,categories:result})
+        const highestPriceProduct = await productModel.findOne().sort({ price: -1 });
+        if(highestPriceProduct){
+            highestPrice = highestPriceProduct.price
+        }
+        sendSuccess(res,"Categories",{highestPrice,categories:result})
     } catch (error) {
         sendError(res,error.message)
     }

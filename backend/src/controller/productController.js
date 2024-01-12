@@ -60,6 +60,39 @@ const addProduct = async(req,res)=>{
     }
 }
 
+const getProducts = async(req,res)=>{
+    try {
+        const data = await productModel.find({},{'images.public_id':0,'thumbnail.public_id':0})
+        sendSuccess(res,"Products",data)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const getfilterproducts = async(req,res)=>{
+    try {
+        let {selectedCat} = req.body
+        const {filterPrice,filterRating} = req.body
+        if(selectedCat.length==0){
+            selectedCat=[{}]
+        }
+        console.log(filterPrice)
+        const result = await productModel.find({$and:[
+            {price:{$lte:Number(filterPrice)}},
+            {rating:{$gte:Number(filterRating)}},
+            {
+                $or:selectedCat
+            }
+        ]},{'images.public_id':0,'thumbnail.public_id':0})
+        sendSuccess(res,"Filter Products",result) 
+    } catch (error) {
+        console.log(error.message)
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addProduct,
+    getProducts,
+    getfilterproducts,
 }
