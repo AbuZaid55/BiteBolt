@@ -47,6 +47,7 @@ export type API_ADD_SUBCATEGORY = {
     subCategory:string
 }
 export type API_GET_FILTERPRODUCT = {
+    search:string,
     selectedCat:{
         category:string,
         subCategory:string,

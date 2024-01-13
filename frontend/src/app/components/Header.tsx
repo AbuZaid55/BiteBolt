@@ -8,7 +8,7 @@ import { RxDashboard } from "react-icons/rx";
 import { Roboto_Slab } from 'next/font/google'
 import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -17,18 +17,30 @@ const robotoSlab = Roboto_Slab({
 })
 
 const Header = () => {
+
+  const router = useRouter()
   const path = usePathname()
   const hidePath:string = "/admin/"
   const [openNav, setOpenNev] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [search,setSearch]=useState('')
+
+  const submitForm = async(e:any) => {
+    e.preventDefault()
+    router.push(`/dishes?search=${search}`);
+    setShowSearch(false)
+  }
+
   return (
    <div>
     {
       (!path.includes(hidePath) &&  <div className="h-[70px] shadow-md p-3 overflow-x-hidden fixed top-0 left-0 w-full bg-white z-50 ">
       <div className={`fixed ${(showSearch)?'top-0':'-top-full'} left-0 w-full h-[100vh] bg-[#3341557f] flex items-center justify-center transition-all duration-500 ease-in-out`}>
         <span className="text-white text-2xl absolute right-20 top-20 cursor-pointer bg-main-800 p-2 rounded-full hover:bg-[#399663] transition-all duration-300 ease-in-out shadow-lg" onClick={()=>{setShowSearch(false)}}><RxCross1/></span>
-        <input className="outline-none py-2 px-4 text-slate-700 text-xl max-w-[30rem] w-[50%] rounded-l-full shadow-2xl" type="text" placeholder="Search..."/> 
-        <button className="bg-main-800 text-white py-2 px-8 rounded-r-full text-xl hover:bg-[#399663] transition-all duration-300 ease-in-out shadow-lg">Search</button> 
+        <form className="w-full flex items-center justify-center" onSubmit={(e)=>{submitForm(e)}}>
+        <input className="outline-none py-2 px-4 text-slate-700 text-xl max-w-[30rem] w-[50%] rounded-l-full shadow-2xl" type="text" placeholder="Search..." value={search} onChange={(e)=>{setSearch(e.target.value)}}/> 
+        <button className="bg-main-800 text-white py-2 px-8 rounded-r-full text-xl hover:bg-[#399663] transition-all duration-300 ease-in-out shadow-lg" type="submit">Search</button> 
+        </form>
       </div>
       <div className="h-full flex items-center justify-between">
         <div className="h-full flex items-center">

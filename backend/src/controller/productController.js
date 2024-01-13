@@ -73,20 +73,36 @@ const getfilterproducts = async(req,res)=>{
     const limit = process.env.PAGE_LIMIT
     try {
         let {selectedCat} = req.body
-        const {filterPrice,filterRating,page} = req.body
-        if(selectedCat.length==0){
-            selectedCat=[{}]
-        }
-        const result = await productModel.find({$and:[
-            {price:{$lte:Number(filterPrice)}},
-            {rating:{$gte:Number(filterRating)}},
-            {
-                $or:selectedCat
+        const {filterPrice,filterRating,page,search} = req.body
+
+        if(search){
+            const result = await productModel.find({$and:[
+                {price:{$lte:Number(filterPrice)}},
+                {rating:{$gte:Number(filterRating)}},
+                {
+                    $or:[
+                        {name:{$regex:search,$options:"i"}},
+                        {category:{$regex:search,$options:"i"}},
+                        {subCategory:{$regex:search,$options:"i"}},
+                        {description:{$regex:search,$options:"i"}},
+                    ]
+                }
+            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Search Products",result) 
+        }else{
+            if(selectedCat.length==0){
+                selectedCat=[{}]
             }
-        ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
-        sendSuccess(res,"Filter Products",result) 
+            const result = await productModel.find({$and:[
+                {price:{$lte:Number(filterPrice)}},
+                {rating:{$gte:Number(filterRating)}},
+                {
+                    $or:selectedCat
+                }
+            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Filter Products",result) 
+        }
     } catch (error) {
-        console.log(error.message)
         sendError(res,error.message)
     }
 }

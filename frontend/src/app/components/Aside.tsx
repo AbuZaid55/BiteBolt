@@ -4,6 +4,7 @@ import { FaFilter } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp, FaStar, FaRupeeSign } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { clearAllFilter, setFilterDetails } from '../../../Redux/Slice/productSlice';
+import { useSearchParams } from 'next/navigation'
 
 interface GET_FILTERPRODUCT {
   page:number,
@@ -17,6 +18,7 @@ interface GET_FILTERPRODUCT {
 
 const Aside = () => {
 
+  const params = useSearchParams()
   const dispatch = useAppDispatch()
   const category = useAppSelector((state)=>state.category)
   const categories = category.categories
@@ -27,7 +29,9 @@ const Aside = () => {
   const [filterRating, setFilterRating] = useState(0)
   const [controlChange,setControlChage]=useState(0)
   const [itemId,setTimeId]=useState<any>('')
+  const [search,setSearch]=useState<string | null>(null)
   const [selectedCat,setSelectCat]=useState<{category:string;subCategory:string}[]>([])
+  const filter = useAppSelector((state)=>state.product.appliedFilter)
 
   const handleFilterCat = (e:any,object:{category:string;subCategory:string})=>{
     if(e.target.checked){
@@ -44,6 +48,7 @@ const Aside = () => {
     setControlChage(highestPrice),
     setFilterRating(0),
     setShowSubCat('')
+    setSearch('')
     dispatch(clearAllFilter())
   }
 
@@ -60,25 +65,30 @@ const Aside = () => {
     setTimeId(timeId)
   },[controlChange])
   useEffect(()=>{
-    const appliedFilters = {page:1,selectedCat,filterPrice,filterRating}
+    const appliedFilters = {search,selectedCat,filterPrice,filterRating}
     if(highestPrice!=0 ){
       dispatch(setFilterDetails(appliedFilters))
     }
-  },[selectedCat,filterRating,filterPrice])
+  },[selectedCat,filterRating,filterPrice,search])
+  useEffect(()=>{
+    const string = params.get("search")
+    setSearch(string)
+  },[params])
   return (
     <div className={`lg:left-0 w-[260px] xl:w-[300px] h-full bg-slate-400 fixed top-0 z-40 ${(showFilter) ? "left-[0]" : "left-[-260px] lg:left-0"} transition-all duration-300 ease-in-out`}>
       <div className='lg:hidden text-white p-2 text-2xl absolute left-full top-[75px] bg-slate-400 rounded-r-md cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out' onClick={() => { setShowFilter(!showFilter) }}><FaFilter /></div>
 
       <div className='h-full pt-[75px] scrollbar-hide overflow-y-scroll'>
 
-        <div className={`text-white mt-5 ${(selectedCat.length==0 && controlChange===highestPrice && filterRating===0)?"hidden":""}`}>
+        <div className={`text-white mt-5 ${(selectedCat.length==0 && controlChange===highestPrice && filterRating===0 && !filter.search)?"hidden":""}`}>
           <h1 className='text-3xl font-bold px-4 mb-2'>Applied Filters</h1>
+          <p className={` overflow-hidden items-center mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700 ${(!filter.search)?"hidden":"flex"}`}>{filter.search}</p>
           {selectedCat.map((object,i)=><p key={i} className='mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700'>{object.subCategory}</p>)}
           <p className={`items-center mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700 ${(filterRating===0)?"hidden":"flex"}`}>{filterRating} <FaStar className='mx-1 text-base' /> & above</p>
           <p className={`items-center mx-2 px-2 mt-1 bg-white py-1 rounded-full text-slate-700 ${(controlChange===highestPrice)?"hidden":"flex"}`}><FaRupeeSign />{filterPrice}</p>
         </div>
 
-        <div className={`text-white ${(categories.length==0)?"hidden":''}`}>
+        <div className={`text-white ${(categories.length==0 || filter.search)?"hidden":''}`}>
           <h1 className='text-3xl font-bold px-4 mt-3 mb-2'>Category</h1>
           {
             categories.map((object) => {

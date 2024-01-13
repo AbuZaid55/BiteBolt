@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
             <Footer />
           </Providers>
-          <ToastContainer />
+          <ToastContainer position="bottom-right"/>
         </MyContextProvider>
       </body>
     </html>

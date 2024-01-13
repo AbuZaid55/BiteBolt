@@ -25,6 +25,7 @@ interface initialStatetype {
 
 let initialState: {
     appliedFilter:{
+        search:string,
         selectedCat:{category:string,subCategory:string}[],
         filterPrice:number,
         filterRating:number,
@@ -32,9 +33,11 @@ let initialState: {
     product: initialStatetype[];
     filterProducts: initialStatetype[];
     popularProduct: initialStatetype[];
-    pageforpopularProduct:number
+    pageforpopularProduct:number,
+    hashMore:boolean
 } = {
     appliedFilter:{
+        search:'',
         selectedCat:[],
         filterPrice:0,
         filterRating:0
@@ -42,7 +45,8 @@ let initialState: {
     product: [],
     filterProducts: [],
     popularProduct:[],
-    pageforpopularProduct:0
+    pageforpopularProduct:0,
+    hashMore:true,
 };
 
 
@@ -52,6 +56,7 @@ const productSlice = createSlice({
     reducers:{
         setFilterDetails(state,action){
             state.filterProducts=[]
+            state.appliedFilter.search = action.payload.search
             state.appliedFilter.selectedCat = action.payload.selectedCat
             state.appliedFilter.filterPrice = action.payload.filterPrice
             state.appliedFilter.filterRating = action.payload.filterRating
@@ -59,6 +64,7 @@ const productSlice = createSlice({
         },
         clearAllFilter(state){
             state.appliedFilter={
+                search:'',
                 selectedCat:[],
                 filterPrice:0,
                 filterRating:0
@@ -68,6 +74,10 @@ const productSlice = createSlice({
         },
         setPage(state,action){
             state.pageforpopularProduct = action.payload
+            return state;
+        },
+        setHashMore(state,action){
+            state.hashMore=action.payload
             return state;
         }
     },
@@ -92,4 +102,4 @@ const productSlice = createSlice({
 })
 
 export default productSlice;
-export const {setFilterDetails,clearAllFilter,setPage} = productSlice.actions
+export const {setFilterDetails,clearAllFilter,setPage,setHashMore} = productSlice.actions
