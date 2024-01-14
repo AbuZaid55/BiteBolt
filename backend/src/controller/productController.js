@@ -112,7 +112,7 @@ const getPopProduct = async(req,res)=>{
     try {
         const {page} = req.body
         const result = await productModel.find({popularList:true},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
-        sendSuccess(res,"Populate Products",result)
+        sendSuccess(res,"Popular Products",result)
     } catch (error) {
         sendError(res,error.message)
     }
@@ -124,7 +124,10 @@ const getSingleProduct = async(req,res)=>{
         if(!_id){
             return throwError("Product Id not found!")
         }
-        const result = await productModel.findOne({_id:_id},{'images.public_id':0,'thumbnail.public_id':0})
+        const result = await productModel.findOne({_id:_id},{'images.public_id':0,'thumbnail.public_id':0}).populate({
+            path:'reviews.userId',
+            select:"name profile.secure_url"
+        })
         if(!result){
             return throwError("Product not found!")
         }
@@ -185,6 +188,54 @@ const submitReview = async(req,res)=>{
     }
 }
 
+const deleteReview = async(req,res)=>{
+    try {
+        const {userId,productId}=req.body 
+        if(!userId || !productId){
+            return throwError("User Id or Product Id not found!")
+        }
+        const dbProduct = await productModel.findById(productId)
+        if(!dbProduct){
+            return throwError("Product not found!")
+        }
+        const newList = dbProduct.reviews.filter((object)=>{
+            return object.userId!=userId
+        })
+        const totalRating = newList.reduce((total,current)=>{
+            total = total+current.rating 
+            return total
+        },0)
+        if(newList.length==0){
+            dbProduct.rating=0
+        }else{
+            dbProduct.rating = totalRating/newList.length
+        }
+        dbProduct.reviews = newList
+        await dbProduct.save()
+        sendSuccess(res,"Review Deleted successfully") 
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const similarProduct = async(req,res)=>{
+    const limit = process.env.PAGE_LIMIT
+    try {
+        const {_id,page}=req.body
+        if(!_id){
+            return throwError("Product Id not Found!")
+        }
+        const product = await productModel.findById(_id)
+        if(!product){
+            return throwError("Product not found!")
+        }
+        const result = await productModel.find({category:product.category,subCategory:product.subCategory,_id:{$ne:product._id}}).skip(limit*(page-1)).limit(limit)
+        sendSuccess(res,"Similar products",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
@@ -192,4 +243,6 @@ module.exports = {
     getPopProduct,
     getSingleProduct,
     submitReview,
+    deleteReview,
+    similarProduct,
 }

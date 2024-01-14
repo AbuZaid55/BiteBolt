@@ -8,7 +8,8 @@ import Card2 from '../components/Card2'
 import { Roboto_Slab } from 'next/font/google'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { GetSingleProduct, SubmitReview } from '../../../Redux/asyncThunk'
+import { DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../../Redux/asyncThunk'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { useMyContext } from '../MyContextProvider'
 
 const robotoSlab = Roboto_Slab({
@@ -22,30 +23,24 @@ interface productDetail {
   name:string,
   stock:number,
   price:number,
-  category:string,
-  subCategory:string,
+  category?:string,
+  subCategory?:string,
+  popularList?:boolean
   description:string,
-  popularList:boolean,
   thumbnail:{secure_url:string},
   images:{secure_url:string[]},
-  rating:Number,
+  rating:number,
   reviews:{
-    userId:string,
-    name:string,
-    profile:{secure_url:string},
+    userId:{
+      _id:string,
+      name:string,
+      profile:{secure_url:string}
+    },
     rating:number,
     comment:string,
 }[],
-  createdAt:Date,
+  createdAt?:Date,
 }
-
-type reviews={
-  userId:string,
-  name:string,
-  profile:{secure_url:string},
-  rating:number,
-  comment:string,
-}[]
 
 const page = () => {
 
@@ -53,14 +48,17 @@ const page = () => {
   const dispatch = useAppDispatch()
   const {setLoader} = useMyContext()
   const path = useSearchParams()
-  const [mainImgPath, setMainImgPath] = useState("/img/5.jpg")
-  const [imgPath, setImgPath] = useState(["/img/5.jpg", "/img/1.png", "/img/2.png", "/img/blog1.jpg"])
+  const [mainImgPath, setMainImgPath] = useState("")
+  const [imgPath, setImgPath] = useState<string[]>([])
   const [track, setTrack] = useState(0)
-  const [product,setProduct]=useState<productDetail | {_id:string,reviews:reviews}>({_id:'',reviews:[]})
+  const [product,setProduct]=useState<productDetail>({_id:'',name:"",stock:0,price:0,description:"",thumbnail:{secure_url:""},images:{secure_url:[]},rating:0,reviews:[]})
   const [showReviewForm,setShowReviewForm]=useState(false)
   const [rating,setRating]=useState(0)
   const [comment,setComment]=useState('')
   const user = useAppSelector((state)=>state.user)
+  const [simiProduct,setSimilarProduct]=useState<productDetail[]>([])
+  const [page,setPage]=useState(1)
+  const [hashMore,setHashMore]=useState(true)
 
   const getProductDetails = async(_id:string)=>{
     setLoader(true)
@@ -68,10 +66,8 @@ const page = () => {
     if(result.payload.data){
       setProduct(result.payload.data)
     }
-    console.log(result)
     setLoader(false)
   }
-
   const submitReview = async()=>{
       if(!user._id){
         router.push('/login')
@@ -87,14 +83,42 @@ const page = () => {
         setLoader(false)
       }
   }
+  const deleteReview = async()=>{
+    setLoader(true)
+    await dispatch(DeleteReview({userId:user._id,productId:product._id}))
+    const result = await dispatch(GetSingleProduct({_id:product._id}))
+    if(result.payload.data){
+      setProduct(result.payload.data)
+    }
+    setLoader(false)
+  }
+  const similarProduct = async(_id:string)=>{
+    const pageLimit = (process.env.NEXT_PUBLIC_PAGE_LIMIT)?process.env.NEXT_PUBLIC_PAGE_LIMIT:1000
+    if(_id){
+      const result = await dispatch(SimilarProducts({_id,page}))
+      if(result.payload.data.length < pageLimit){
+        setHashMore(false)
+      }
+      setSimilarProduct([...simiProduct,...result.payload.data])
+      setPage(page+1)
+    }
+  }
+
   useEffect(()=>{
     const _id = path.get("_id")
     if(_id!=null){
+      setPage(1)
+      setSimilarProduct([])
       getProductDetails(_id)
+      similarProduct(_id)
+    }else{
+      router.push('/')
     }
   },[path])
   useEffect(()=>{
     if(product._id && product.reviews.length!=0){
+      setMainImgPath(product.images.secure_url[0])
+      setImgPath(product.images.secure_url)
       product.reviews.map((object)=>{
         if(object.userId){
           setComment(object.comment)
@@ -113,7 +137,7 @@ const page = () => {
               imgPath.map((path, index) => {
                 return <img key={index} className={`${(path === mainImgPath) ? "border-main-800" : "border-slate-700"} w-[4rem] h-[4rem] object-contain border-2 mt-3 cursor-pointer`} onClick={() => { setMainImgPath(path) }} src={path} alt="Image" />
               })
-            }
+            } 
           </div>
         </div>
         <div className='flex md:hidden items-center justify-center gap-3 flex-wrap'>
@@ -124,18 +148,18 @@ const page = () => {
           }
         </div>
         <div className='md:w-1/2 mt-4 md:mt-auto'>
-          <h1 className={`text-5xl font-bold text-slate-700 ${robotoSlab.className}`}>Testy Food</h1>
+          <h1 className={`text-5xl font-bold text-slate-700 ${robotoSlab.className}`}>{product.name}</h1>
           <div className="flex items-center text-xl my-2">
-            <FaStar className=" text-main-800" />
-            <FaStar className=" text-main-800" />
-            <FaStar className=" text-main-800" />
-            <FaStar className=" text-main-800" />
-            <FaStar className=" text-slate-700" />
+            <FaStar className={`${(product.rating>=1)?"text-main-800":"text-slate-700"}`} />
+            <FaStar className={`${(product.rating>=2)?"text-main-800":"text-slate-700"}`} />
+            <FaStar className={`${(product.rating>=3)?"text-main-800":"text-slate-700"}`} />
+            <FaStar className={`${(product.rating>=4)?"text-main-800":"text-slate-700"}`} />
+            <FaStar className={`${(product.rating>=5)?"text-main-800":"text-slate-700"}`} />
           </div>
-          <p className='text-slate-600'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad molestias nesciunt deserunt nihil accusantium deleniti quasi nostrum harum neque, necessitatibus, hic perspiciatis ea quis culpa. Repudiandae dolore laboriosam, adipisci asperiores quo quae facere quos, ratione nam voluptatem error deleniti illum voluptatum magnam in quasi facilis. Obcaecati quidem laborum consequuntur cumque!</p>
+          <p className='text-slate-600'> {product.description}</p>
           <h1 className="flex items-center text-xl sm:text-4xl text-main-800 mt-4">
             <FaIndianRupeeSign />
-            <span className=" font-bold">15.99</span>
+            <span className=" font-bold">{product.price}</span>
           </h1>
           <div className="flex items-center">
             <h1 className=' font-bold text-slate-700 text-3xl mr-4 my-2'>Qty:- </h1>
@@ -163,39 +187,25 @@ const page = () => {
         </div>
 
         <div className='w-full relative overflow-hidden z-10 border-t-2 border-slate-700 bg-slate-100'>
-          <div className={`w-full p-8 text-xl text-slate-700 ${(track <= 25) ? "block" : "hidden"}`}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, hic aliquam? Ratione recusandae tempora sint fugit vero voluptatem, ut nesciunt unde, tempore eius debitis dolore aperiam ex minus excepturi natus odio deserunt ea. Quaerat non debitis cum totam unde nam commodi aperiam cumque necessitatibus deserunt ipsa, a optio animi cupiditate nemo earum, tempore ipsum aliquid doloremque accusantium repellat possimus culpa ab labore? Asperiores unde nam vero, facere alias voluptates nulla corporis, dolorum natus sapiente esse error maxime. Distinctio voluptates aspernatur illum rerum possimus alias dignissimos necessitatibus obcaecati perferendis mollitia quod laboriosam vero a minima excepturi, totam aliquid? Aliquid, quos deserunt quasi culpa adipisci fugit asperiores. Earum cupiditate quasi ut molestias totam iusto? Officiis ipsum mollitia impedit, molestias totam ad iste commodi dolore sit corporis id facilis accusamus dolores dolorum ducimus praesentium maxime consequatur autem atque minus, dicta reiciendis aut molestiae nam! Nulla perspiciatis dolore aut, dicta suscipit, laudantium ipsa accusamus quia eaque dolorum nihil id fugit ut cumque vel maxime qui doloribus rerum voluptatem excepturi! Deserunt officiis dolorum voluptas eum dolores repudiandae laudantium sed aliquam aut neque? Sit architecto dolorum perspiciatis, distinctio illo culpa fugiat ducimus quae quod natus, cumque placeat, facere possimus facilis? Aliquam vero maiores vel adipisci consectetur.
-          </div>
+          <div className={`w-full p-8 text-xl text-slate-700 ${(track <= 25) ? "block" : "hidden"}`}>{product.description}</div>
 
           <div className={`w-full p-8 ${(track > 25) ? "block" : "hidden"}`} >
             <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-4'>
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
+                {
+                  product.reviews.map((object,i)=><ReviewCard key={i} review={object} deleteReview={deleteReview}/>)
+                }
             </div>
             <div className='flex items-center justify-end'><button className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out" onClick={()=>setShowReviewForm(true)}>Submit Review</button></div>
           </div>
         </div>
       </section>
       
-      <section>
+      <section className={(simiProduct.length==0)?"hidden":""}>
           <h1 className={`text-3xl font-bold text-slate-700 py-4 px-4 md:px-8 ${robotoSlab.className}`}>Similar Products</h1>
-          <div className=' grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 lg:gap-10 place-items-center px-4'>
-            {/* <Card2/>
-            <Card2/>
-            <Card2/>
-            <Card2/>
-            <Card2/> */}
-          </div>
+          <InfiniteScroll next={()=>{similarProduct(product._id)}} dataLength={simiProduct.length} hasMore={true} loader={<></>} className=' grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 lg:gap-10 place-items-center px-4'>
+                {simiProduct.map((product,i)=><Card2 key={i} product={product}/>)}
+          </InfiniteScroll>
+          <div className={`md:pl-10 lg:pl-[300px] py-4 ${(hashMore)?"":"hidden"}`}><div className='flex items-center justify-center'><span className="loader2"></span></div></div>
       </section>
 
       <div className={` ${(showReviewForm) ? "" : "hidden"} w-full h-full fixed top-0 left-0 z-50`} style={{ backgroundColor: "rgba(128, 128, 128, 0.653)" }}>

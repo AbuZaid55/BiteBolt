@@ -44,7 +44,7 @@ const page = () => {
           <h1 className='text-3xl text-center font-bold text-main-800 mb-3 mt-2'>Send Reset Link</h1>
           <label className='mt-3 text-main-800 font-semibold' htmlFor="email">Email</label>
           <input onChange={(e)=>{setEmail(e.target.value)}} className='w-full border-b border-main-800 mb-3 text-slate-700 outline-none bg-slate-200' name='email' type="text" placeholder='Enter your email' id='email'/>
-          <p className='text-slate-700 -mt-2 mb-2'>Otp is valid only for 2 minutes</p>
+          <p className='text-slate-700 -mt-2 mb-2'>Link is valid only for 2 minutes</p>
           <button className=" w-full bg-main-800 text-white py-2 rounded-full my-4  border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out text-xl" disabled={startTimer} onClick={()=>{submitForm()}}>{(startTimer)?timer:"Send Otp"}</button>
         </div>
         <div className='flex items-center justify-between w-full md:w-1/2 mx-auto px-4 pb-4'>

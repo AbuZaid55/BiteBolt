@@ -51,15 +51,32 @@ const API_GET_SINGLEPRODUCT = async(data:{_id:string}) => {
     }
    }
    
-   const API_SUBMIT_REVIEW = async(data:API_SUBMIT_REVIEW)=>{
-      try { 
-         const response = await axios.post(`${URL}/product/submitreview`,data)
-         return response.data;
-         toast.success(response.data.message)
-      } catch (error) {
-         throwError(error)
-      }
-      
+const API_SUBMIT_REVIEW = async(data:API_SUBMIT_REVIEW)=>{
+   try { 
+      const response = await axios.post(`${URL}/product/submitreview`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+const API_DELETE_REVIEW = async(data:{userId:string,productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/product/deletereview`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_SIMILAR_PRODUCT = async(data:{_id:string,page:number})=>{
+   try { 
+      const response = await axios.post(`${URL}/product/similarproducts`,data)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
 }
 
 export {
@@ -69,4 +86,6 @@ export {
     API_GET_POPULARPRODUCT,
     API_GET_SINGLEPRODUCT,
     API_SUBMIT_REVIEW,
+    API_DELETE_REVIEW,
+    API_SIMILAR_PRODUCT,
 }
