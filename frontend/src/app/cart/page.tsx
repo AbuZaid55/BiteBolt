@@ -84,7 +84,7 @@ const page = () => {
             </div>
             <div className=' my-4'>
                 {
-                    items.items.map((item)=>{
+                    items.items.slice().reverse().map((item)=>{
                         return <div key={item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
                         <img className='w-[100px] h-full p-2' src={item.productId.thumbnail.secure_url} alt="" />
                         <div >

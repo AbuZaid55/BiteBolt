@@ -277,6 +277,9 @@ const addToWishlist = async(req,res)=>{
             return throwError("Product not found!")
         }
         const user = await userModel.findById(_id)
+        if(user.wishlist.includes(productId)){
+            return throwError("Product is alread added!")
+        }
         user.wishlist.push(productId)
         await user.save()
         sendSuccess(res,"Product Added successfully!")
@@ -285,6 +288,33 @@ const addToWishlist = async(req,res)=>{
     }
 }
 
+const getWishtlistItems = async(req,res)=>{
+    try {
+        const {_id}=req.rootUser
+        const items = await userModel.findById(_id)
+        .populate({path:"wishlist",select:"price name rating description thumbnail.secure_url"})
+        sendSuccess(res,"Your wishlist items", items.wishlist)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const removeWishlistItem = async(req,res)=>{
+    try {
+        const {productId}=req.body
+        const {_id}=req.rootUser
+        if(!productId){
+            return throwError("Product id not found!")
+        }
+        const user = await userModel.findById(_id)
+        const newList = user.wishlist.filter((_id)=>_id!=productId)
+        user.wishlist=newList
+        await user.save()
+        sendSuccess(res,"Item remove successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
 
 module.exports = {
     signUp,
@@ -299,4 +329,6 @@ module.exports = {
     updateQty,
     deleteCartItem,
     addToWishlist,
+    getWishtlistItems,
+    removeWishlistItem,
 }

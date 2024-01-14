@@ -162,6 +162,25 @@ const API_ADDTO_WISHLIST = async(data:{productId:string})=>{
    }   
 }
 
+const API_GET_WISHLIST = async()=>{
+   try { 
+      const response = await axios.get(`${URL}/user/getwishlistitem`,{withCredentials:true})
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_REMOVE_WISHLISTITEM = async(data:{productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/removewishlistitem`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
@@ -177,4 +196,6 @@ export {
    API_UPDATE_QTY,
    API_DELETE_CARTITEM,
    API_ADDTO_WISHLIST,
+   API_GET_WISHLIST,
+   API_REMOVE_WISHLISTITEM,
 }

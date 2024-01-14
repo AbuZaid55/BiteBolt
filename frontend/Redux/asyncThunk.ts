@@ -15,6 +15,8 @@ import {
     API_UPDATE_QTY,
     API_DELETE_CARTITEM,
     API_ADDTO_WISHLIST,
+    API_GET_WISHLIST,
+    API_REMOVE_WISHLISTITEM,
 } from '../api/userApi'
 
 import { 
@@ -50,6 +52,8 @@ export const GetCartItems = createAsyncThunk('user/getcartitems',API_GETCARTITEM
 export const UpdateQty = createAsyncThunk('user/updateqty',API_UPDATE_QTY)
 export const DeleteCartItem = createAsyncThunk('user/updateqty',API_DELETE_CARTITEM)
 export const AddToWishlist = createAsyncThunk('user/addtowishlist',API_ADDTO_WISHLIST)
+export const GetWishListItems = createAsyncThunk('user/getwishlistitem',API_GET_WISHLIST)
+export const RemoveWishlistItem = createAsyncThunk('user/removewishlistitem',API_REMOVE_WISHLISTITEM)
 
 
 //category

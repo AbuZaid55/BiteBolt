@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const userAuth = require('../middleware/userAuth.js')
 const upload = require('../utils/uploadFile.js')
-const {signUp, logIn, getUser, changeName, addAddress, uploadFile, logOut, addToCart, getCartItems, updateQty, deleteCartItem, addToWishlist} = require('../controller/userController.js')
+const {signUp, logIn, getUser, changeName, addAddress, uploadFile, logOut, addToCart, getCartItems, updateQty, deleteCartItem, addToWishlist, getWishtlistItems, removeWishlistItem} = require('../controller/userController.js')
 
 router.post('/signup',signUp)
 router.post('/login',logIn)
@@ -15,5 +15,7 @@ router.get('/getcartitems',userAuth,getCartItems)
 router.post('/updateqty',userAuth,updateQty)
 router.post('/deletecartitem',userAuth,deleteCartItem)
 router.post('/addtowishlist',userAuth,addToWishlist)
+router.get('/getwishlistitem',userAuth,getWishtlistItems)
+router.post('/removewishlistitem',userAuth,removeWishlistItem)
 
 module.exports=router   
