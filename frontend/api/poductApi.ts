@@ -1,7 +1,7 @@
 import throwError from "./throwError";
 import axios from "axios";
 import {toast} from 'react-toastify'
-import { API_GET_FILTERPRODUCT } from './typeAlias'
+import { API_GET_FILTERPRODUCT, API_SUBMIT_REVIEW } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
 
@@ -42,10 +42,31 @@ const API_GET_POPULARPRODUCT = async(data:{page:number}) => {
     }
 }
 
+const API_GET_SINGLEPRODUCT = async(data:{_id:string}) => {
+    try { 
+       const response = await axios.post(`${URL}/product/getsingleproducts`,data)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+   }
+   
+   const API_SUBMIT_REVIEW = async(data:API_SUBMIT_REVIEW)=>{
+      try { 
+         const response = await axios.post(`${URL}/product/submitreview`,data)
+         return response.data;
+         toast.success(response.data.message)
+      } catch (error) {
+         throwError(error)
+      }
+      
+}
+
 export {
     API_ADD_PRODUCT,
     API_GET_PRODUCT,
     API_GET_FILTERPRODUCT,
-    API_GET_POPULARPRODUCT
-
+    API_GET_POPULARPRODUCT,
+    API_GET_SINGLEPRODUCT,
+    API_SUBMIT_REVIEW,
 }

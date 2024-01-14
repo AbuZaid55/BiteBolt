@@ -56,4 +56,9 @@ export type API_GET_FILTERPRODUCT = {
     filterRating:number,
     page:number
 }
-
+export type API_SUBMIT_REVIEW = {
+    userId:string,
+    rating:number,
+    comment:string,
+    productId:string,
+}

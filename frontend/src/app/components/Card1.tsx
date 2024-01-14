@@ -37,7 +37,7 @@ const Card1 = ({product}:{product:Product}) => {
           <FaRegHeart />
         </span>
         <span className=" cursor-pointer bg-slate-200 rounded-full p-2 hover:scale-125 hover:bg-main-800 hover:text-white text-slate-700 transition-all duration-200 ease-in-out shadow-md">
-          <Link href={`/details`}>
+          <Link href={`/details?_id=${product._id}`}>
             <MdOutlineRemoveRedEye />
           </Link>
         </span>

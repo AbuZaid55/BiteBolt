@@ -118,9 +118,78 @@ const getPopProduct = async(req,res)=>{
     }
 }
 
+const getSingleProduct = async(req,res)=>{
+    try {
+        const {_id}=req.body
+        if(!_id){
+            return throwError("Product Id not found!")
+        }
+        const result = await productModel.findOne({_id:_id},{'images.public_id':0,'thumbnail.public_id':0})
+        if(!result){
+            return throwError("Product not found!")
+        }
+        sendSuccess(res,"Product Details",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const submitReview = async(req,res)=>{
+    let commentExist = false
+    try {
+        const {userId,rating,comment,productId}=req.body
+        if(!userId){
+            return throwError("Unauthorized User!")
+        }
+        if(!rating){
+            return throwError("Select Rating!")
+        }
+        if(!comment){
+            return throwError("Enter Your Comment!")
+        }
+        if(!productId){
+            return throwError("Product Id not found!")
+        }
+        const dbProduct = await productModel.findById(productId)
+        if(!dbProduct){
+            return throwError("Product not found!")
+        }
+        const newList = dbProduct.reviews.filter((object)=>{
+            if(object.userId==userId){
+                commentExist=true
+                object.rating=rating,
+                object.comment=comment
+            }
+            return object
+        })
+        if(commentExist){
+            dbProduct.reviews = newList
+            const totalRating = newList.reduce((total,current)=>{
+                total = total+current.rating 
+                return total
+            },0)
+            dbProduct.rating = totalRating/newList.length
+            await dbProduct.save()
+            return sendSuccess(res,"Your comment updated successfully")
+        }
+        dbProduct.reviews.push({userId,rating,comment})
+        const totalRating = dbProduct.reviews.reduce((total,current)=>{
+            total = total+current.rating 
+            return total
+        },0)
+        dbProduct.rating = totalRating/dbProduct.reviews.length
+        await dbProduct.save()
+        sendSuccess(res,"Your comment added successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
     getfilterproducts,
-    getPopProduct
+    getPopProduct,
+    getSingleProduct,
+    submitReview,
 }

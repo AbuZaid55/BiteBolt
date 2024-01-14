@@ -1,11 +1,15 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaStar } from "react-icons/fa"
 import { FaIndianRupeeSign } from "react-icons/fa6"
 import { MdShoppingCart } from "react-icons/md"
 import ReviewCard from '../components/ReviewCard'
 import Card2 from '../components/Card2'
 import { Roboto_Slab } from 'next/font/google'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
+import { GetSingleProduct, SubmitReview } from '../../../Redux/asyncThunk'
+import { useMyContext } from '../MyContextProvider'
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -13,11 +17,92 @@ const robotoSlab = Roboto_Slab({
   display: 'swap'
 })
 
+interface productDetail {
+  _id:string,
+  name:string,
+  stock:number,
+  price:number,
+  category:string,
+  subCategory:string,
+  description:string,
+  popularList:boolean,
+  thumbnail:{secure_url:string},
+  images:{secure_url:string[]},
+  rating:Number,
+  reviews:{
+    userId:string,
+    name:string,
+    profile:{secure_url:string},
+    rating:number,
+    comment:string,
+}[],
+  createdAt:Date,
+}
+
+type reviews={
+  userId:string,
+  name:string,
+  profile:{secure_url:string},
+  rating:number,
+  comment:string,
+}[]
+
 const page = () => {
+
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const {setLoader} = useMyContext()
+  const path = useSearchParams()
   const [mainImgPath, setMainImgPath] = useState("/img/5.jpg")
   const [imgPath, setImgPath] = useState(["/img/5.jpg", "/img/1.png", "/img/2.png", "/img/blog1.jpg"])
   const [track, setTrack] = useState(0)
+  const [product,setProduct]=useState<productDetail | {_id:string,reviews:reviews}>({_id:'',reviews:[]})
+  const [showReviewForm,setShowReviewForm]=useState(false)
+  const [rating,setRating]=useState(0)
+  const [comment,setComment]=useState('')
+  const user = useAppSelector((state)=>state.user)
 
+  const getProductDetails = async(_id:string)=>{
+    setLoader(true)
+    const result = await dispatch(GetSingleProduct({_id}))
+    if(result.payload.data){
+      setProduct(result.payload.data)
+    }
+    console.log(result)
+    setLoader(false)
+  }
+
+  const submitReview = async()=>{
+      if(!user._id){
+        router.push('/login')
+      }else{
+        setLoader(true)
+        await dispatch(SubmitReview({userId:user._id,rating,comment,productId:product._id}))
+        const result = await dispatch(GetSingleProduct({_id:product._id}))
+        if(result.payload.data){
+          setProduct(result.payload.data)
+        }
+        console.log(result)
+        setShowReviewForm(false)
+        setLoader(false)
+      }
+  }
+  useEffect(()=>{
+    const _id = path.get("_id")
+    if(_id!=null){
+      getProductDetails(_id)
+    }
+  },[path])
+  useEffect(()=>{
+    if(product._id && product.reviews.length!=0){
+      product.reviews.map((object)=>{
+        if(object.userId){
+          setComment(object.comment)
+          setRating(object.rating)
+        }
+      })
+    }
+  },[product])
   return (
     <div className='pb-[350px] mb-[-350px] pt-[90px] bg-slate-200'>
 
@@ -82,19 +167,22 @@ const page = () => {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, hic aliquam? Ratione recusandae tempora sint fugit vero voluptatem, ut nesciunt unde, tempore eius debitis dolore aperiam ex minus excepturi natus odio deserunt ea. Quaerat non debitis cum totam unde nam commodi aperiam cumque necessitatibus deserunt ipsa, a optio animi cupiditate nemo earum, tempore ipsum aliquid doloremque accusantium repellat possimus culpa ab labore? Asperiores unde nam vero, facere alias voluptates nulla corporis, dolorum natus sapiente esse error maxime. Distinctio voluptates aspernatur illum rerum possimus alias dignissimos necessitatibus obcaecati perferendis mollitia quod laboriosam vero a minima excepturi, totam aliquid? Aliquid, quos deserunt quasi culpa adipisci fugit asperiores. Earum cupiditate quasi ut molestias totam iusto? Officiis ipsum mollitia impedit, molestias totam ad iste commodi dolore sit corporis id facilis accusamus dolores dolorum ducimus praesentium maxime consequatur autem atque minus, dicta reiciendis aut molestiae nam! Nulla perspiciatis dolore aut, dicta suscipit, laudantium ipsa accusamus quia eaque dolorum nihil id fugit ut cumque vel maxime qui doloribus rerum voluptatem excepturi! Deserunt officiis dolorum voluptas eum dolores repudiandae laudantium sed aliquam aut neque? Sit architecto dolorum perspiciatis, distinctio illo culpa fugiat ducimus quae quod natus, cumque placeat, facere possimus facilis? Aliquam vero maiores vel adipisci consectetur.
           </div>
 
-          <div className={`w-full p-8 grid grid-cols-1 md:grid-cols-2 gap-4 ${(track > 25) ? "block" : "hidden"}`} >
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
+          <div className={`w-full p-8 ${(track > 25) ? "block" : "hidden"}`} >
+            <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+              <ReviewCard />
+            </div>
+            <div className='flex items-center justify-end'><button className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out" onClick={()=>setShowReviewForm(true)}>Submit Review</button></div>
           </div>
         </div>
       </section>
@@ -109,6 +197,26 @@ const page = () => {
             <Card2/> */}
           </div>
       </section>
+
+      <div className={` ${(showReviewForm) ? "" : "hidden"} w-full h-full fixed top-0 left-0 z-50`} style={{ backgroundColor: "rgba(128, 128, 128, 0.653)" }}>
+      <div className='w-full h-full flex items-center justify-center'>
+        <form className='bg-white p-4 rounded' onSubmit={function (e) { e.preventDefault() }}>
+          <h1 className='text-xl text-center font-semibold text-main-800'>Submit Review</h1>
+          <div className='flex my-4'>
+            <FaStar className={` text-3xl cursor-pointer mx-1 hover:text-hover-600 ${(rating >= 1) ? 'text-main-800' : 'text-gray-400'}`} onClick={() => { setRating(1) }} />
+            <FaStar className={` text-3xl cursor-pointer mx-1 hover:text-hover-600 ${(rating >= 2) ? 'text-main-800' : 'text-gray-400'}`} onClick={() => { setRating(2) }} />
+            <FaStar className={` text-3xl cursor-pointer mx-1 hover:text-hover-600 ${(rating >= 3) ? 'text-main-800' : 'text-gray-400'}`} onClick={() => { setRating(3) }} />
+            <FaStar className={` text-3xl cursor-pointer mx-1 hover:text-hover-600 ${(rating >= 4) ? 'text-main-800' : 'text-gray-400'}`} onClick={() => { setRating(4) }} />
+            <FaStar className={` text-3xl cursor-pointer mx-1 hover:text-hover-600 ${(rating >= 5) ? 'text-main-800' : 'text-gray-400'}`} onClick={() => { setRating(5) }} />
+          </div>
+          <textarea className=' border w-full resize-none' value={comment} onChange={(e) => { setComment(e.target.value) }} />
+          <div className='flex items-center justify-between mt-2'>
+            <button className=' text-red-700' onClick={(e) => { setShowReviewForm(false) }}>CANCLE</button>
+            <button className=' text-green-700' onClick={(e) => { submitReview() }}>SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
     </div>
   )
 }

@@ -19,7 +19,7 @@ import {
 } from '../api/categoryApi';
 
 import { 
-    API_ADD_PRODUCT, API_GET_FILTERPRODUCT, API_GET_POPULARPRODUCT, API_GET_PRODUCT 
+    API_ADD_PRODUCT, API_GET_FILTERPRODUCT, API_GET_POPULARPRODUCT, API_GET_PRODUCT, API_GET_SINGLEPRODUCT, API_SUBMIT_REVIEW 
 } from '../api/poductApi';
 
 //user
@@ -46,3 +46,5 @@ export const AddProduct = createAsyncThunk('product/addproduct',API_ADD_PRODUCT)
 export const GetProducts = createAsyncThunk('product/getproducts',API_GET_PRODUCT)
 export const GetFilterProducts = createAsyncThunk('product/getfilterproducts',API_GET_FILTERPRODUCT)
 export const GetPopularProducts = createAsyncThunk('product/getpopularproducts',API_GET_POPULARPRODUCT)
+export const GetSingleProduct = createAsyncThunk('product/getsingleproduct',API_GET_SINGLEPRODUCT)
+export const SubmitReview = createAsyncThunk('product/submitreview',API_SUBMIT_REVIEW)
