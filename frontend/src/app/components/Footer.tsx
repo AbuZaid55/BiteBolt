@@ -38,10 +38,10 @@ const Footer = () => {
             <h1 className='text-xl text-slate-700 font-bold mb-2'>FOLLOW US</h1>
             <p className=' text-slate-500 text-nowrap'>Lorem ipsum dolor sit.</p>
             <div className='flex text-2xl gap-3 mt-2'>
-                <Link href="https://www.instagram.com/its_abuzaid786/"><AiFillInstagram/></Link>
-                <Link href="https://www.linkedin.com/in/abuzaid55/"><FaGithub/>
-                </Link><Link href="https://github.com/AbuZaid55"><FaLinkedin/></Link>
-                <Link href="https://discord.com/users/1127760530120114238"><FaDiscord/></Link>
+                <Link className='text-slate-600' href="https://www.instagram.com/its_abuzaid786/"><AiFillInstagram/></Link>
+                <Link className='text-slate-600' href="https://www.linkedin.com/in/abuzaid55/"><FaGithub/></Link>
+                <Link className='text-slate-600' href="https://github.com/AbuZaid55"><FaLinkedin/></Link>
+                <Link className='text-slate-600' href="https://discord.com/users/1127760530120114238"><FaDiscord/></Link>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel')
 const otpModel = require('../models/otpModel')
+const productModel = require('../models/productModel')
 const throwError = require('../utils/throwError')
 const {sendError,sendSuccess} = require("../utils/sendResponse")
 const validator = require("email-validator")
@@ -94,6 +95,7 @@ const changeName = async(req,res) => {
         sendError(res,error.message)
     }
 }
+
 const addAddress = async(req,res)=>{
     try {
         const {_id,name,houseNo,address,pinCode,city,state,phoneNo} = req.body
@@ -159,6 +161,131 @@ const logOut = async(req,res)=>{
     }
 }
 
+const addToCart = async(req,res)=>{
+    try {
+        const {productId,qty}=req.body
+        const {_id}=req.rootUser
+        if(!productId){
+            return throwError("Product Id not found!")
+        }
+        if(!_id){
+            return throwError("Unauthorized User!")
+        }
+        const user = await userModel.findById(_id)
+        if(!user){
+            return throwError("Unauthorized User!")
+        }
+        let isExsit=false 
+        user.cart.map((object)=>{
+            if(object.productId==productId){
+                isExsit=true
+            }
+        })
+        if(!isExsit){
+            user.cart.push({productId,qty})
+            await user.save()
+            sendSuccess(res,"Product Added successfully",user.cart)
+        }else{
+            throwError("Product is already added in your cart!")
+        }
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const getCartItems = async(req,res)=>{
+    try {
+        const {_id}=req.rootUser
+        if(!_id){
+            return throwError("Unauthorized User!")
+        }
+        const user = await userModel.findById(_id).populate({path:"cart.productId",select:"name price stock thumbnail.secure_url"})
+        if(!user){
+            return throwError("Unauthorized User")
+        }
+        const cart = user.cart
+        const totalAmount = cart.reduce((total,current)=>{
+            return total=total+current.productId.price*current.qty
+        },0)
+        sendSuccess(res,"Your cart Items",{items:cart,totalAmount})
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const updateQty = async(req,res)=>{
+    try {
+        const {productId,opr}=req.body
+        const {_id}=req.rootUser
+        if(!productId){
+            return throwError("Product Id not found!")
+        }
+        if(!opr==="add" && !opr==="sub"){
+            return throwError("Invalid operator")
+        }
+        const user = await userModel.findById(_id)
+        if(!user){
+            return throwError("Unauthorzed User!")
+        }
+        const product = await productModel.findById(productId)
+        if(!product){
+            return throwError("Product not found!")
+        }
+        const newList = user.cart.filter((object)=>{
+            if(object.productId==productId){
+                if(opr==="add" && object.qty<product.stock){
+                    object.qty=object.qty+1
+                }
+                if(opr==="sub" && object.qty>1){
+                    object.qty=object.qty-1
+                }
+            }
+            return object
+        })
+        user.cart = newList
+        await user.save()
+        sendSuccess(res,"Qty update successfully!")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const deleteCartItem = async(req,res)=>{
+    try {
+        const {productId}=req.body
+        const {_id}=req.rootUser
+        if(!productId){
+            return throwError("Product id not found!")
+        }
+        const user = await userModel.findById(_id)
+        const newList = user.cart.filter((object)=>{
+            return object.productId!=productId
+        })
+        user.cart = newList
+        await user.save()
+        sendSuccess(res,"Item remove successfull")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const addToWishlist = async(req,res)=>{
+    try {
+        const {productId}=req.body
+        const {_id}=req.rootUser
+        if(!productId){
+            return throwError("Product not found!")
+        }
+        const user = await userModel.findById(_id)
+        user.wishlist.push(productId)
+        await user.save()
+        sendSuccess(res,"Product Added successfully!")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+
 module.exports = {
     signUp,
     logIn,
@@ -167,4 +294,9 @@ module.exports = {
     addAddress,
     uploadFile,
     logOut,
+    addToCart,
+    getCartItems,
+    updateQty,
+    deleteCartItem,
+    addToWishlist,
 }

@@ -62,7 +62,7 @@ const addProduct = async(req,res)=>{
 
 const getProducts = async(req,res)=>{
     try {
-        const data = await productModel.find({},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).limit(6)
+        const data = await productModel.find({},{'images.public_id':0,'thumbnail.public_id':0}).sort({_id:-1}).limit(6)
         sendSuccess(res,"Products",data)
     } catch (error) {
         sendError(res,error.message)
@@ -74,6 +74,7 @@ const getfilterproducts = async(req,res)=>{
     try {
         let {selectedCat} = req.body
         const {filterPrice,filterRating,page,search} = req.body
+        const skip = limit*(page-1)
 
         if(search){
             const result = await productModel.find({$and:[
@@ -87,7 +88,7 @@ const getfilterproducts = async(req,res)=>{
                         {description:{$regex:search,$options:"i"}},
                     ]
                 }
-            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
+            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({_id:-1}).skip(skip).limit(limit)
             sendSuccess(res,"Search Products",result) 
         }else{
             if(selectedCat.length==0){
@@ -99,8 +100,8 @@ const getfilterproducts = async(req,res)=>{
                 {
                     $or:selectedCat
                 }
-            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
-            sendSuccess(res,"Filter Products",result) 
+            ]},{'images.public_id':0,'thumbnail.public_id':0}).sort({_id:-1}).skip(skip).limit(limit)
+            sendSuccess(res,"Filter Products",result)
         }
     } catch (error) {
         sendError(res,error.message)
@@ -111,7 +112,7 @@ const getPopProduct = async(req,res)=>{
     const limit = process.env.PAGE_LIMIT
     try {
         const {page} = req.body
-        const result = await productModel.find({popularList:true},{'images.public_id':0,'thumbnail.public_id':0}).sort({createdAt:-1}).skip(limit*(page-1)).limit(limit)
+        const result = await productModel.find({popularList:true},{'images.public_id':0,'thumbnail.public_id':0}).sort({_id:-1}).skip(limit*(page-1)).limit(limit)
         sendSuccess(res,"Popular Products",result)
     } catch (error) {
         sendError(res,error.message)
@@ -229,7 +230,7 @@ const similarProduct = async(req,res)=>{
         if(!product){
             return throwError("Product not found!")
         }
-        const result = await productModel.find({category:product.category,subCategory:product.subCategory,_id:{$ne:product._id}}).skip(limit*(page-1)).limit(limit)
+        const result = await productModel.find({category:product.category,subCategory:product.subCategory,_id:{$ne:product._id}}).sort({_id:-1}).skip(limit*(page-1)).limit(limit)
         sendSuccess(res,"Similar products",result)
     } catch (error) {
         sendError(res,error.message)

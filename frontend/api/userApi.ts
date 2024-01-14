@@ -105,12 +105,61 @@ const API_CHANGE_PASS = async(data:API_CHANGE_PASS) => {
 
 const API_LOGOUT = async() => {
    try { 
-      const response = await axios.post(`${URL}/user/logout`)
+      const response = await axios.get(`${URL}/user/logout`,{withCredentials:true})
       toast.success(response.data.message)
       return response.data;
    } catch (error) {
       throwError(error)
    }
+}
+
+const API_ADDTOCART = async(data:{productId:string,qty:number})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/addtocart`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_GETCARTITEMS = async()=>{
+   try { 
+      const response = await axios.get(`${URL}/user/getcartitems`,{withCredentials:true})
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_UPDATE_QTY = async(data:{opr:string,productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/updateqty`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_DELETE_CARTITEM = async(data:{productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/deletecartitem`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_ADDTO_WISHLIST = async(data:{productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/addtowishlist`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
 }
 
 export { 
@@ -123,4 +172,9 @@ export {
    API_SEND_LINK,
    API_CHANGE_PASS,
    API_LOGOUT,
+   API_ADDTOCART,
+   API_GETCARTITEMS,
+   API_UPDATE_QTY,
+   API_DELETE_CARTITEM,
+   API_ADDTO_WISHLIST,
 }

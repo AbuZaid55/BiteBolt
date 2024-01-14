@@ -10,6 +10,11 @@ import {
     API_SEND_LINK,
     API_CHANGE_PASS,
     API_LOGOUT,
+    API_ADDTOCART,
+    API_GETCARTITEMS,
+    API_UPDATE_QTY,
+    API_DELETE_CARTITEM,
+    API_ADDTO_WISHLIST,
 } from '../api/userApi'
 
 import { 
@@ -40,6 +45,11 @@ export const UploadFile = createAsyncThunk('user/uploadfile', API_UPLOAD_FILE);
 export const SendLink = createAsyncThunk('user/sendlink', API_SEND_LINK);
 export const ChangePass = createAsyncThunk('user/updatepass', API_CHANGE_PASS);
 export const LogOut = createAsyncThunk('user/updatepass', API_LOGOUT);
+export const AddToCart = createAsyncThunk('user/addtocart',API_ADDTOCART)
+export const GetCartItems = createAsyncThunk('user/getcartitems',API_GETCARTITEMS)
+export const UpdateQty = createAsyncThunk('user/updateqty',API_UPDATE_QTY)
+export const DeleteCartItem = createAsyncThunk('user/updateqty',API_DELETE_CARTITEM)
+export const AddToWishlist = createAsyncThunk('user/addtowishlist',API_ADDTO_WISHLIST)
 
 
 //category

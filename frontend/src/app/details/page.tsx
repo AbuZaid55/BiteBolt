@@ -8,7 +8,7 @@ import Card2 from '../components/Card2'
 import { Roboto_Slab } from 'next/font/google'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../../Redux/asyncThunk'
+import { AddToCart, DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../../Redux/asyncThunk'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useMyContext } from '../MyContextProvider'
 
@@ -59,6 +59,7 @@ const page = () => {
   const [simiProduct,setSimilarProduct]=useState<productDetail[]>([])
   const [page,setPage]=useState(1)
   const [hashMore,setHashMore]=useState(true)
+  const [qty,setQty]=useState(1)
 
   const getProductDetails = async(_id:string)=>{
     setLoader(true)
@@ -78,7 +79,6 @@ const page = () => {
         if(result.payload.data){
           setProduct(result.payload.data)
         }
-        console.log(result)
         setShowReviewForm(false)
         setLoader(false)
       }
@@ -103,6 +103,15 @@ const page = () => {
       setPage(page+1)
     }
   }
+  const addToCart = async()=>{
+      if(!user._id){
+        router.push('/login')
+      }else{
+        setLoader(true)
+        await dispatch(AddToCart({productId:product._id,qty:qty}))
+        setLoader(false)
+      }
+  }
 
   useEffect(()=>{
     const _id = path.get("_id")
@@ -116,7 +125,7 @@ const page = () => {
     }
   },[path])
   useEffect(()=>{
-    if(product._id && product.reviews.length!=0){
+    if(product._id){
       setMainImgPath(product.images.secure_url[0])
       setImgPath(product.images.secure_url)
       product.reviews.map((object)=>{
@@ -163,11 +172,11 @@ const page = () => {
           </h1>
           <div className="flex items-center">
             <h1 className=' font-bold text-slate-700 text-3xl mr-4 my-2'>Qty:- </h1>
-            <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded'>-</span>
-            <span className='mr-1 sm:mr-3 border border-main-800 text-main-800 text-lg w-6 h-6 flex items-center justify-center rounded'>{20}</span>
-            <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded'   >+</span>
+            <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded' onClick={()=>{setQty(()=>(qty>1)?qty-1:qty)}}>-</span>
+            <span className='mr-1 sm:mr-3 border border-main-800 text-main-800 text-lg w-6 h-6 flex items-center justify-center rounded'>{qty}</span>
+            <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded'  onClick={()=>{setQty(()=>(qty<10 && qty<product.stock)?qty+1:qty)}} >+</span>
           </div>
-          <button className=" bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center w-full mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out">
+          <button onClick={()=>{addToCart()}} className=" bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center w-full mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out">
             <span className="mr-2">Add to Cart</span>
             <MdShoppingCart />
           </button>

@@ -12,7 +12,7 @@ interface initialStatetype {
     popularList:boolean,
     thumbnail:{secure_url:string},
     images:{secure_url:string[]},
-    rating:Number,
+    rating:number,
     reviews:{
         userId:{
             _id:string,

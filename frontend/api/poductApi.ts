@@ -79,6 +79,11 @@ const API_SIMILAR_PRODUCT = async(data:{_id:string,page:number})=>{
    }   
 }
 
+
+
+
+
+
 export {
     API_ADD_PRODUCT,
     API_GET_PRODUCT,
@@ -87,5 +92,5 @@ export {
     API_GET_SINGLEPRODUCT,
     API_SUBMIT_REVIEW,
     API_DELETE_REVIEW,
-    API_SIMILAR_PRODUCT,
+    API_SIMILAR_PRODUCT
 }

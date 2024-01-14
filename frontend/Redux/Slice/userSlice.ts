@@ -3,6 +3,7 @@ import {
     GetUser,
     AddAddress,
     UploadFile,
+    AddToCart,
 } from "../asyncThunk";
 
 interface initialState {
