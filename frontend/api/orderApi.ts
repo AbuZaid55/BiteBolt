@@ -26,8 +26,18 @@ const API_VERIFY_PAYMENT = async(data:any) => {
     }
 }
 
+const API_GET_ORDERS = async() => {
+    try { 
+       const response = await axios.get(`${URL}/order/getorders`,{withCredentials:true})
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 export {
     API_CREATE_PAYMENT,
     API_VERIFY_PAYMENT,
+    API_GET_ORDERS,
 }

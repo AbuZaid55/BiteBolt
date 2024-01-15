@@ -3,7 +3,7 @@ import {
     GetUser,
     AddAddress,
     UploadFile,
-    AddToCart,
+    RemoveAddress,
 } from "../asyncThunk";
 
 interface initialState {
@@ -35,7 +35,11 @@ const userSlice = createSlice({
             return state;
         })
         builder.addCase(AddAddress.fulfilled,(state,action) => {
-            state.shippingDetails.push(action.payload.data)
+            state.shippingDetails=action.payload.data
+            return state;
+        })
+        builder.addCase(RemoveAddress.fulfilled,(state,action) => {
+            state.shippingDetails=action.payload.data
             return state;
         })
         builder.addCase(UploadFile.fulfilled,(state,action) => {

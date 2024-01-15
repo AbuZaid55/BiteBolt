@@ -17,6 +17,7 @@ import {
     API_ADDTO_WISHLIST,
     API_GET_WISHLIST,
     API_REMOVE_WISHLISTITEM,
+    API_REMOVE_ADDRESS,
 } from '../api/userApi'
 
 import { 
@@ -37,7 +38,7 @@ import {
 } from '../api/poductApi';
 
 import { 
-    API_CREATE_PAYMENT, API_VERIFY_PAYMENT,
+    API_CREATE_PAYMENT, API_GET_ORDERS, API_VERIFY_PAYMENT,
 } from '../api/orderApi';
 
 //user
@@ -47,6 +48,7 @@ export const LogIn = createAsyncThunk('user/login', API_LOGIN);
 export const GetUser = createAsyncThunk('user/getuser', API_GET_USER);
 export const ChangeName = createAsyncThunk('user/changename', API_CHANGE_NAME);
 export const AddAddress = createAsyncThunk('user/addaddress', API_ADD_ADDRESS);
+export const RemoveAddress = createAsyncThunk('user/removeaddress', API_REMOVE_ADDRESS);
 export const UploadFile = createAsyncThunk('user/uploadfile', API_UPLOAD_FILE);
 export const SendLink = createAsyncThunk('user/sendlink', API_SEND_LINK);
 export const ChangePass = createAsyncThunk('user/updatepass', API_CHANGE_PASS);
@@ -80,3 +82,4 @@ export const SimilarProducts = createAsyncThunk('product/similarproducts',API_SI
 //order
 export const CreatePayment = createAsyncThunk('/order/payment/createpayment',API_CREATE_PAYMENT)
 export const Verifypayment = createAsyncThunk('/order/payment/verifypayment',API_VERIFY_PAYMENT)
+export const GetOrders = createAsyncThunk('/order/getorders',API_GET_ORDERS)

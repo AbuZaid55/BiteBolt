@@ -112,7 +112,24 @@ const addAddress = async(req,res)=>{
         req.body._id=undefined
         user.shippingDetails = [...user.shippingDetails,req.body]
         await user.save()
-        sendSuccess(res,"Shipping details added successfully",req.body)
+        sendSuccess(res,"Shipping details added successfully",user.shippingDetails)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const removeAddress = async(req,res)=>{
+    try {
+        const {addressId}=req.body
+        const {_id}=req.rootUser
+        if(!addressId){
+            return throwError("Address Id not found!")
+        }
+        const user = await userModel.findById(_id)
+        const newList = user.shippingDetails.filter((object)=>object._id!=addressId)
+        user.shippingDetails=newList
+        await user.save()
+        sendSuccess(res,"Shipping details remove successfully!",newList)
     } catch (error) {
         sendError(res,error.message)
     }
@@ -322,6 +339,7 @@ module.exports = {
     getUser,
     changeName,
     addAddress,
+    removeAddress,
     uploadFile,
     logOut,
     addToCart,

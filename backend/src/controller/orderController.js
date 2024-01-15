@@ -77,8 +77,18 @@ const verifyPayment = async(req,res)=>{
     }
 }
 
+const getOrders = async(req,res)=>{
+    try {
+        const {_id}=req.rootUser
+        const result = await orderModel.find({userId:_id},{razorpay_payment_id:0,razorpay_order_id:0}).sort({_id:-1}).populate({path:"item.productId",select:"name price thumbnail.secure_url"})
+        sendSuccess(res,"Your orders",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
 
 module.exports = {
     createPayment,
     verifyPayment,
+    getOrders,
 }

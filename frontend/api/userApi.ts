@@ -73,6 +73,16 @@ const API_ADD_ADDRESS = async(data:API_ADD_ADDRESS) => {
    }
 }
 
+const API_REMOVE_ADDRESS = async(data:{addressId:string}) => {
+   try { 
+      const response = await axios.post(`${URL}/user/removeaddress`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }
+}
+
 const API_UPLOAD_FILE = async(data:any) => {
    try { 
       const response = await axios.post(`${URL}/user/uploadfile`,data,{withCredentials:true})
@@ -187,6 +197,7 @@ export {
    API_GET_USER,
    API_CHANGE_NAME,
    API_ADD_ADDRESS,
+   API_REMOVE_ADDRESS,
    API_UPLOAD_FILE,
    API_SEND_LINK,
    API_CHANGE_PASS,
