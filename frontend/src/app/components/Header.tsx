@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { RefObject, useEffect, useRef, useState } from "react"
 import { IoSearchSharp } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -18,6 +18,7 @@ const robotoSlab = Roboto_Slab({
 
 const Header = () => {
 
+  const ref:RefObject<HTMLUListElement> = useRef(null)
   const router = useRouter()
   const path = usePathname()
   const hidePath:string = "/admin/"
@@ -30,6 +31,20 @@ const Header = () => {
     router.push(`/dishes?search=${search}`);
     setShowSearch(false)
   }
+  const handleNavigate = async(path:string)=>{
+    router.push(path)
+    setOpenNev(false)
+  }
+  const handleClickOutside = (e:any) => {
+      if (ref.current &&!ref.current.contains(e.target)) {
+        setOpenNev(false)
+      }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true)
+    return () => removeEventListener('click', handleClickOutside)
+  }, [])
 
   return (
    <div>
@@ -80,12 +95,12 @@ const Header = () => {
           </span>
         </div>
       </div>
-      <ul className={`lg:hidden text-white fixed ${openNav ? 'right-0' : '-right-52'} z-50 top-[70px] bg-slate-700 shadow-lg mt-[2px] w-48 h-[calc(100vh-70px-2px)] flex flex-col items-center justify-center text-xl transition-all ease-in-out duration-300`}>
-        <Link href="/"><li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Home</li></Link>
-        <Link href="/dishes"><li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dishes</li></Link>
-        <Link href="/orders"><li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Order</li></Link>
-        <Link href="/admin/dashboard"><li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dashboard</li></Link>
-        <Link href="/contact"><li className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Contact</li></Link>
+      <ul ref={ref} className={`lg:hidden text-white fixed ${openNav ? 'right-0' : '-right-52'} z-50 top-[70px] bg-slate-700 shadow-lg mt-[2px] w-48 h-[calc(100vh-70px-2px)] flex flex-col items-center justify-center text-xl transition-all ease-in-out duration-300`}>
+        <li onClick={()=>{handleNavigate('/')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Home</li>
+        <li onClick={()=>{handleNavigate('/dishes')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dishes</li>
+        <li onClick={()=>{handleNavigate('/orders')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Order</li>
+        <li onClick={()=>{handleNavigate('/admin/dashboard')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dashboard</li>
+        <li onClick={()=>{handleNavigate('/contact')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Contact</li>
       </ul>
     </div>)
     }

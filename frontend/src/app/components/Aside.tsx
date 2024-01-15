@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useRef, useState } from 'react'
 import { FaFilter } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp, FaStar, FaRupeeSign } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
@@ -21,6 +21,7 @@ const Aside = () => {
   const params = useSearchParams()
   const dispatch = useAppDispatch()
   const category = useAppSelector((state)=>state.category)
+  const ref:RefObject<HTMLDivElement> = useRef(null)
   const categories = category.categories
   const highestPrice = category.highestPrice
   const [showFilter, setShowFilter] = useState(false)
@@ -41,7 +42,6 @@ const Aside = () => {
       setSelectCat(newList)
       }
   }
-
   const clearFilters = ()=>{
     setSelectCat([]),
     setFilterPrice(highestPrice),
@@ -51,6 +51,11 @@ const Aside = () => {
     setSearch('')
     dispatch(clearAllFilter())
   }
+  const handleClickOutside = (e:any) => {
+    if (ref.current &&!ref.current.contains(e.target)) {
+      setShowFilter(false)
+    }
+}
 
   useEffect(()=>{
     if(highestPrice!=0 && controlChange!=highestPrice){
@@ -74,8 +79,12 @@ const Aside = () => {
     const string = params.get("search")
     setSearch(string)
   },[params])
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true)
+    return () => removeEventListener('click', handleClickOutside)
+  }, [])
   return (
-    <div className={`lg:left-0 w-[260px] xl:w-[300px] h-full bg-slate-400 fixed top-0 z-40 ${(showFilter) ? "left-[0]" : "left-[-260px] lg:left-0"} transition-all duration-300 ease-in-out`}>
+    <div ref={ref} className={`lg:left-0 w-[260px] xl:w-[300px] h-full bg-slate-400 fixed top-0 z-40 ${(showFilter) ? "left-[0]" : "left-[-260px] lg:left-0"} transition-all duration-300 ease-in-out`}>
       <div className='lg:hidden text-white p-2 text-2xl absolute left-full top-[75px] bg-slate-400 rounded-r-md cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out' onClick={() => { setShowFilter(!showFilter) }}><FaFilter /></div>
 
       <div className='h-full pt-[75px] scrollbar-hide overflow-y-scroll'>

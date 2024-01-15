@@ -34,7 +34,6 @@ const userSchema = mongoose.Schema({
     },
     shippingDetails: [
         {
-            _id: false,
             name: {
                 type: String,
                 required: true,

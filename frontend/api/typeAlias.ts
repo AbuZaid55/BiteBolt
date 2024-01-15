@@ -62,3 +62,13 @@ export type API_SUBMIT_REVIEW = {
     comment:string,
     productId:string,
 }
+export type API_CREATE_PAYMENT = {
+    _id:string,
+    name:string,
+    phoneNo:number,
+    pinCode:string,
+    houseNo:string,
+    city:string,
+    state:string,
+    address:string,
+}

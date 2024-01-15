@@ -18,7 +18,7 @@ const initialState:initialState = {
     profile:{secure_url:""},
     shippingDetails:[],
     cart:[],
-    wishlist:[],
+    wishlist:[],    
     data:""
 }
 

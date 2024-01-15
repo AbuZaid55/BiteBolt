@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useRouter } from 'next/navigation';
 import { DeleteCartItem, GetCartItems, UpdateQty } from '../../../Redux/asyncThunk';
 import { useMyContext } from '../MyContextProvider';
-import { toast } from 'react-toastify';
 
 
 const robotoSlab = Roboto_Slab({
@@ -78,14 +77,14 @@ const page = () => {
     },[user])
     return (
         <div className='pt-[80px] bg-slate-200 text-slate-700 pb-[350px] mb-[-350px]'>
-            <div className={`w-full hidden items-center justify-center flex-col h-full pt-52 `}>
+            <div className={`w-full ${(items.items.length<=0)?"flex":"hidden"} items-center justify-center flex-col h-full pt-52 `}>
                 <h1 className="text-5xl font-bold text-main-800">No Cart Item</h1>
                 <Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Go to Shopping</Link>
             </div>
             <div className=' my-4'>
                 {
                     items.items.slice().reverse().map((item)=>{
-                        return <div key={item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
+                        return <div key={item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0 py-2'>
                         <img className='w-[100px] h-full p-2' src={item.productId.thumbnail.secure_url} alt="" />
                         <div >
                             <Link href={`/details?_id=${item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId.name}</Link>
@@ -102,7 +101,7 @@ const page = () => {
                 }
                 <h1 className={`${(items.items.length==0)?"hidden":""} border-2 text-xl border-slate-700 bg-white py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {items.totalAmount}</span></h1>
             </div>
-            <div className={`${(items.items.length==0)?"hidden":"flex"} items-center justify-end pr-4`}><Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg">CHECK OUT</Link></div>
+            <div className={`${(items.items.length==0)?"hidden":"flex"} items-center justify-end pr-4`}><Link href="/shipping" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out shadow-lg">CHECK OUT</Link></div>
         </div>
     )
 }

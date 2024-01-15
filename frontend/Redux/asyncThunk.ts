@@ -36,6 +36,10 @@ import {
     API_SUBMIT_REVIEW 
 } from '../api/poductApi';
 
+import { 
+    API_CREATE_PAYMENT, API_VERIFY_PAYMENT,
+} from '../api/orderApi';
+
 //user
 export const SendOtp = createAsyncThunk('user/sendOtp', API_SEND_OTP);
 export const SignUp = createAsyncThunk('user/signup', API_SING_UP);
@@ -71,3 +75,8 @@ export const GetSingleProduct = createAsyncThunk('product/getsingleproduct',API_
 export const SubmitReview = createAsyncThunk('product/submitreview',API_SUBMIT_REVIEW)
 export const DeleteReview = createAsyncThunk('product/deletereview',API_DELETE_REVIEW)
 export const SimilarProducts = createAsyncThunk('product/similarproducts',API_SIMILAR_PRODUCT)
+
+
+//order
+export const CreatePayment = createAsyncThunk('/order/payment/createpayment',API_CREATE_PAYMENT)
+export const Verifypayment = createAsyncThunk('/order/payment/verifypayment',API_VERIFY_PAYMENT)
