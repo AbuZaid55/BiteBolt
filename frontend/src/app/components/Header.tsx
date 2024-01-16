@@ -9,6 +9,7 @@ import { Roboto_Slab } from 'next/font/google'
 import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
+import { useAppSelector } from "../../../Redux/hook";
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -25,6 +26,7 @@ const Header = () => {
   const [openNav, setOpenNev] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [search,setSearch]=useState('')
+  const user = useAppSelector((state)=>state.user)
 
   const submitForm = async(e:any) => {
     e.preventDefault()
@@ -85,7 +87,7 @@ const Header = () => {
           <span className=" hover:scale-125 bg-slate-200 font-bold  hover:bg-main-800 hover:text-white text-slate-700 p-2 rounded-full cursor-pointer transition-all duration-200 ease-in-out shadow-md ">
             <Link href="/profile"><MdOutlineAccountCircle /></Link>
           </span>
-          <span className="hidden lg:block hover:scale-125 bg-slate-200 font-bold  hover:bg-main-800 hover:text-white text-slate-700 p-2 rounded-full cursor-pointer transition-all duration-200 ease-in-out shadow-md ">
+          <span className={` ${(user.admin)?"hidden lg:block":"hidden"} hover:scale-125 bg-slate-200 font-bold  hover:bg-main-800 hover:text-white text-slate-700 p-2 rounded-full cursor-pointer transition-all duration-200 ease-in-out shadow-md `}>
             <Link href="/admin/dashboard"><RxDashboard /></Link>
           </span>
           <span className={`lg:hidden ${openNav ? "flex flex-col items-center justify-center rotate-90" : ""} cursor-pointer transition-all duration-200 ease-in-out`} onClick={() => { setOpenNev(!openNav) }}>
@@ -99,7 +101,7 @@ const Header = () => {
         <li onClick={()=>{handleNavigate('/')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Home</li>
         <li onClick={()=>{handleNavigate('/dishes')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dishes</li>
         <li onClick={()=>{handleNavigate('/orders')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Order</li>
-        <li onClick={()=>{handleNavigate('/admin/dashboard')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Dashboard</li>
+        <li onClick={()=>{handleNavigate('/admin/dashboard')}} className={`${(user.admin)?"":"hidden"} w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out`}>Dashboard</li>
         <li onClick={()=>{handleNavigate('/contact')}} className="w-full text-center py-2 cursor-pointer hover:text-main-800 hover:scale-125 transition-all duration-200 ease-in-out">Contact</li>
       </ul>
     </div>)

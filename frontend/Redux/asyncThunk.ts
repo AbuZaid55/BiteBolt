@@ -18,6 +18,10 @@ import {
     API_GET_WISHLIST,
     API_REMOVE_WISHLISTITEM,
     API_REMOVE_ADDRESS,
+    API_GET_ALL_USERS,
+    API_CHANGE_USER_TYPE,
+    API_SEARCH_USER,
+    API_DELETE_USER,
 } from '../api/userApi'
 
 import { 
@@ -39,7 +43,11 @@ import {
 
 import { 
     API_CANCLE_ORDER,
-    API_CREATE_PAYMENT, API_GET_ORDERS, API_GET_STATUS, API_UPDATE_DETAILS, API_VERIFY_PAYMENT,
+    API_CREATE_PAYMENT, 
+    API_GET_ORDERS, 
+    API_GET_STATUS, 
+    API_UPDATE_DETAILS, 
+    API_VERIFY_PAYMENT,
 } from '../api/orderApi';
 
 //user
@@ -61,6 +69,10 @@ export const DeleteCartItem = createAsyncThunk('user/updateqty',API_DELETE_CARTI
 export const AddToWishlist = createAsyncThunk('user/addtowishlist',API_ADDTO_WISHLIST)
 export const GetWishListItems = createAsyncThunk('user/getwishlistitem',API_GET_WISHLIST)
 export const RemoveWishlistItem = createAsyncThunk('user/removewishlistitem',API_REMOVE_WISHLISTITEM)
+export const GetAllUser = createAsyncThunk('user/getAllUser',API_GET_ALL_USERS)
+export const ChangeUserType = createAsyncThunk('user/changeusertype',API_CHANGE_USER_TYPE)
+export const SearchUser = createAsyncThunk('user/searchuser',API_SEARCH_USER)
+export const DeleteUser = createAsyncThunk('user/deleteuser',API_DELETE_USER)
 
 
 //category

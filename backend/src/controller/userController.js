@@ -333,6 +333,89 @@ const removeWishlistItem = async(req,res)=>{
     }
 }
 
+const getAllUser = async(req,res)=>{
+    try {
+        const {admin}=req.body 
+        if(admin==="true"){
+            const user = await userModel.find({admin:true}).sort({_id:-1}).select('name email admin profile.secure_url')
+            sendSuccess(res,"Users Details",user)
+        }else if(admin==="false"){
+            const user = await userModel.find({admin:false}).sort({_id:-1}).select('name email admin profile.secure_url')
+            sendSuccess(res,"Users Details",user)
+        }else{
+            const user = await userModel.find().sort({_id:-1}).select('name email admin profile.secure_url')
+            sendSuccess(res,"Users Details",user)
+        }
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const changeUserType = async(req,res)=>{
+    try {
+        const {userId,type}=req.body
+        if(!userId || !type){
+            return throwError("User Id not found!")
+        }
+        if(!type){
+            return throwError("Invalid type")
+        }
+        const user = await userModel.findById(userId)
+        if(!user){
+            return throwError("User not found!")
+        }
+        if(type==="true"){
+            user.admin=true
+        }else{
+            const adminExist = await userModel.find({admin:true})
+            if(adminExist.length<=1){
+                return throwError("Pleace make admin to other!")
+            }
+            user.admin=false
+        }
+        await user.save()
+        sendSuccess(res,"User Type change successfully",user._id)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const searchUser = async(req,res)=>{
+    try {
+        const {searchStr}=req.body
+        const user = await userModel.find({
+            $or: [
+                { name: {$regex:searchStr, $options:"i"} },
+                { email: {$regex:searchStr, $options:"i"} },
+            ]
+            }).sort({_id:-1});
+        sendSuccess(res,"Search Results",user)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+
+const deleteUser = async(req,res)=>{
+    try {
+        const {userId}=req.body
+        if(!userId){
+            return throwError("User id not found!")
+        }
+        const user = await userModel.findById(userId)
+        if(!user){
+            return throwError("User not found!")
+        }
+        if(user.admin){
+            return throwError("Admin can't delete")
+        }
+        await userModel.findByIdAndDelete(userId)
+        sendSuccess(res,"User delete successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     signUp,
     logIn,
@@ -349,4 +432,8 @@ module.exports = {
     addToWishlist,
     getWishtlistItems,
     removeWishlistItem,
+    getAllUser,
+    changeUserType,
+    searchUser,
+    deleteUser,
 }

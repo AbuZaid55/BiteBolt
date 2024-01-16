@@ -191,6 +191,44 @@ const API_REMOVE_WISHLISTITEM = async(data:{productId:string})=>{
    }   
 }
 
+const API_GET_ALL_USERS = async(data:{admin:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/getAllUser`,data,{withCredentials:true})
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_CHANGE_USER_TYPE = async(data:{userId:string,type:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/changeusertype`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_SEARCH_USER = async(data:{searchStr:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/searchuser`,data,{withCredentials:true})
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_DELETE_USER = async(data:{userId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/user/deleteuser`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
@@ -209,4 +247,8 @@ export {
    API_ADDTO_WISHLIST,
    API_GET_WISHLIST,
    API_REMOVE_WISHLISTITEM,
+   API_GET_ALL_USERS,
+   API_CHANGE_USER_TYPE,
+   API_SEARCH_USER,
+   API_DELETE_USER,
 }
