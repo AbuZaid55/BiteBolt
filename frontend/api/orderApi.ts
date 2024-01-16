@@ -2,7 +2,7 @@ import throwError from "./throwError";
 import axios from "axios";
 import {toast} from 'react-toastify'
 import { 
-    API_CREATE_PAYMENT,
+    API_CREATE_PAYMENT, API_UPDATE_DETAILS,
 } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
@@ -44,10 +44,32 @@ const API_GET_STATUS = async(data:{orderId:string}) => {
     }
 }
 
+const API_UPDATE_DETAILS = async(data:API_UPDATE_DETAILS) => {
+    try { 
+       const response = await axios.post(`${URL}/order/updatedetails`,data,{withCredentials:true})
+       toast.success(response.data.message)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
+const API_CANCLE_ORDER = async(data:{orderId:string}) => {
+    try { 
+       const response = await axios.post(`${URL}/order/cancleorder`,data,{withCredentials:true})
+       toast.success(response.data.message)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 export {
     API_CREATE_PAYMENT,
     API_VERIFY_PAYMENT,
     API_GET_ORDERS,
     API_GET_STATUS,
+    API_UPDATE_DETAILS,
+    API_CANCLE_ORDER,
 }

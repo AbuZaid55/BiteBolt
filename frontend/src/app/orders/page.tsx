@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useRouter } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
-import { GetOrders } from '../../../Redux/asyncThunk';
+import { CancleOrder, GetOrders } from '../../../Redux/asyncThunk';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -29,6 +29,15 @@ const page = () => {
 
     const getOrders = async()=>{
         setLoader(true)
+        const result = await dispatch(GetOrders())
+        if(result.payload.data){
+            setOrders(result.payload.data)
+        }
+        setLoader(false)
+    }
+    const cancleOrder = async(orderId:string)=>{
+        setLoader(true)
+        await dispatch(CancleOrder({orderId}))
         const result = await dispatch(GetOrders())
         if(result.payload.data){
             setOrders(result.payload.data)
@@ -70,9 +79,10 @@ const page = () => {
                         </div>
                         })
                     }
-                    <div className='flex items-center gap-3 border-2 border-b-0  border-slate-700 py-2 px-4'>
-                        <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href="/editorder"><CiEdit /> Edit</Link>
-                        <button className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3'><RxCross1 /> Cancle</button>
+                    <h1 className='border-2 border-slate-700 border-b-0 text-xl p-2 font-bold text-slate-700'>Status:- <span className={` ${(["Delivered","Refund"].includes(order.status)?"text-green-700":"")} ${(order.status==="Cancelled")?"text-red-700":""} `}>{order.status}</span></h1>
+                    <div className={` ${(order.status==="Placed")?"flex":"hidden"} items-center gap-3 border-2 border-b-0  border-slate-700 py-2 px-4`}>
+                        <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href={`/editorder?orderId=${order._id}&addressId=${order.shippingDetails._id}`}><CiEdit /> Edit</Link>
+                        <button onClick={()=>{cancleOrder(order._id)}} className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3'><RxCross1 /> Cancle</button>
                     </div>
                     <h1 className={`border-2 text-xl border-slate-700 py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Paid Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {order.totalPaidAmount}</span></h1>
                 </div>

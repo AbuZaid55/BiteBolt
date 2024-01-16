@@ -103,9 +103,54 @@ const getStatus = async(req,res)=>{
     }
 }
 
+const updataDetails = async(req,res)=>{
+    try {
+        const {name,phoneNo,pinCode,houseNo,city,state,address,_id,orderId}=req.body
+        if(!orderId){
+            return throwError("Order id not found!")
+        }
+        if(!_id){
+            return throwError("Address Id not found!")
+        }
+        if(!name || !phoneNo || !pinCode || !houseNo || !city || !state || !address){
+            return throwError("Invalid address!")
+        }
+        const result = await orderModel.findById(orderId)
+        if(!result){
+            return throwError("Order not found!")
+        }
+        result.username = name
+        result.shippingDetails={_id,houseNo,address,pinCode,city,state,phoneNo}
+        await result.save()
+        sendSuccess(res,"Shipping Details Updated successfully!")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const cancleOrder = async(req,res)=>{
+    try {
+        const {orderId}=req.body 
+        if(!orderId){
+            return throwError("Order id not found!")
+        }
+        const order = await orderModel.findById(orderId)
+        if(!order){
+            return throwError("Order not found!")
+        }
+        order.status = "Cancelled"
+        await order.save()
+        sendSuccess(res,"Order Cancelled Successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     createPayment,
     verifyPayment,
     getOrders,
     getStatus,
+    updataDetails,
+    cancleOrder
 }

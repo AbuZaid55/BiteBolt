@@ -72,3 +72,15 @@ export type API_CREATE_PAYMENT = {
     state:string,
     address:string,
 }
+
+export type API_UPDATE_DETAILS = {
+    _id:string,
+    orderId:string,
+    name:string,
+    phoneNo:number,
+    pinCode:string,
+    houseNo:string,
+    city:string,
+    state:string,
+    address:string,
+}

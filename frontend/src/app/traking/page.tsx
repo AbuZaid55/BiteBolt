@@ -32,7 +32,7 @@ const page = () => {
       const _id = path.get("_id")
       if(_id){
         setOrderId(_id)
-        // getStatus(_id)
+        getStatus(_id)
       }
     },[path])
     useEffect(()=>{
