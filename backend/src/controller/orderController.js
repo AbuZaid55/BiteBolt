@@ -87,8 +87,25 @@ const getOrders = async(req,res)=>{
     }
 }
 
+const getStatus = async(req,res)=>{
+    try {
+        const {orderId}=req.body
+        if(!orderId){
+            return throwError("Enter your order id!")
+        }
+        const result = await orderModel.findById(orderId)
+        if(!result){
+            return throwError("Order not found!")
+        }
+        sendSuccess(res,"Your order status ", result.status)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     createPayment,
     verifyPayment,
     getOrders,
+    getStatus,
 }

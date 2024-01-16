@@ -24,8 +24,8 @@ const orderSchema = mongoose.Schema({
     status:{
         type:String,
         requried:true,
-        enum:["Processing","Confirmed","Shipped","Out For Delivery","Delivered","Cancelled","Refund"],
-        default:"Processing"
+        enum:["Placed","Confirmed","Processing","Ready to Pickup","Delivered","Cancelled","Refund"],
+        default:"Placed"
     },
     item:[
         {

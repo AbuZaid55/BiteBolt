@@ -57,7 +57,7 @@ const page = () => {
                     return  <div key={order._id} className='bg-white mt-5'>
                     <div className='bg-main-800 py-2 px-4 text-white flex items-center justify-between'>
                         <h1>Order Id: {order._id}</h1>
-                        <Link href="/traking" className='flex items-center border py-1 px-4 gap-1'><IoLocation /> Track</Link>
+                        <Link href={`/traking?_id=${order._id}`} className='flex items-center border py-1 px-4 gap-1'><IoLocation /> Track</Link>
                     </div>
                     {
                         order.item.map((item:any)=>{

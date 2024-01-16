@@ -38,7 +38,7 @@ import {
 } from '../api/poductApi';
 
 import { 
-    API_CREATE_PAYMENT, API_GET_ORDERS, API_VERIFY_PAYMENT,
+    API_CREATE_PAYMENT, API_GET_ORDERS, API_GET_STATUS, API_VERIFY_PAYMENT,
 } from '../api/orderApi';
 
 //user
@@ -83,3 +83,4 @@ export const SimilarProducts = createAsyncThunk('product/similarproducts',API_SI
 export const CreatePayment = createAsyncThunk('/order/payment/createpayment',API_CREATE_PAYMENT)
 export const Verifypayment = createAsyncThunk('/order/payment/verifypayment',API_VERIFY_PAYMENT)
 export const GetOrders = createAsyncThunk('/order/getorders',API_GET_ORDERS)
+export const GetStatus = createAsyncThunk('/order/getstatus',API_GET_STATUS)

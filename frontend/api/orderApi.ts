@@ -35,9 +35,19 @@ const API_GET_ORDERS = async() => {
     }
 }
 
+const API_GET_STATUS = async(data:{orderId:string}) => {
+    try { 
+       const response = await axios.post(`${URL}/order/getstatus`,data)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 export {
     API_CREATE_PAYMENT,
     API_VERIFY_PAYMENT,
     API_GET_ORDERS,
+    API_GET_STATUS,
 }

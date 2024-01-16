@@ -1,16 +1,66 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2"
 import { FaRegThumbsUp } from "react-icons/fa";
 import { TbChefHat } from "react-icons/tb";
 import { GoGift } from "react-icons/go";
 import { TbBike } from "react-icons/tb";
+import { useSearchParams } from 'next/navigation';
+import { useMyContext } from '../MyContextProvider';
+import { useAppDispatch } from '../../../Redux/hook';
+import { GetStatus } from '../../../Redux/asyncThunk';
 
 const page = () => {
 
     const [status,setStatus]=useState("")
-    const [track, setTrack] = useState(30)
+    const [track, setTrack] = useState(0)
     const [orderId, setOrderId] = useState('')
+    const path = useSearchParams()
+    const {setLoader}=useMyContext()
+    const dispatch = useAppDispatch()
+
+    const getStatus = async(_id:string)=>{
+      setLoader(true)
+      const result = await dispatch(GetStatus({orderId:_id}))
+      if(result.payload && result.payload.data){
+        setStatus(result.payload.data)
+      }
+      setLoader(false)
+    }
+
+    useEffect(()=>{
+      const _id = path.get("_id")
+      if(_id){
+        setOrderId(_id)
+        // getStatus(_id)
+      }
+    },[path])
+    useEffect(()=>{
+      if(status===""){
+        setTrack(0)
+      }
+      else if(status==="Placed"){
+        setTrack(15)
+      }
+      else if(status==="Confirmed"){
+        setTrack(40)
+      }
+      else if(status==="Processing"){
+        setTrack(60)
+      }
+      else if(status==="Ready to Pickup"){
+        setTrack(85)
+      }
+      else if(status==="Delivered"){
+        setTrack(100)
+      }
+      else if(status==="Cancelled"){
+        setTrack(39)
+      }
+      else if(status==="Refund"){
+        setTrack(100)
+      }
+    },[status])
 
   return (
     <div className='flex items-center justify-center flex-col pb-[300px] mb-[-350px] bg-slate-200 pt-[90px]'>
@@ -50,7 +100,7 @@ const page = () => {
       <div className='border flex justify-center flex-col p-5 w-80 mb-10 text-slate-700'>
         <label className='text-xl mb-2' htmlFor="orderInput">Order Id</label>
         <input className='w-full border-b border-main-800 outline-none bg-slate-200 text-xl' type="text" placeholder='Enter your order id' value={orderId} onChange={(e) => { setOrderId(e.target.value) }} />
-        <button className=' bg-main-800  px-4 py-2 text-white font-bold rounded-full mt-5  hover:text-main-800  hover:bg-[#44b67721] transition-all duration-300 ease-in-out border-2 border-main-800'>Track Order</button>
+        <button onClick={()=>{getStatus(orderId)}} className=' bg-main-800  px-4 py-2 text-white font-bold rounded-full mt-5  hover:text-main-800  hover:bg-[#44b67721] transition-all duration-300 ease-in-out border-2 border-main-800'>Track Order</button>
       </div>
     </div>
   )
