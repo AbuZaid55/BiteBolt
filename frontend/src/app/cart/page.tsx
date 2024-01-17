@@ -42,7 +42,7 @@ const page = () => {
     const getItems = async()=>{
         setLoader(true)
         const result = await dispatch(GetCartItems())
-        if(result.payload.data){
+        if(result.payload && result.payload.data){
             setItems(result.payload.data)
         }
         setLoader(false)
@@ -51,7 +51,7 @@ const page = () => {
         setLoader(true)
         await dispatch(UpdateQty({opr,productId}))
         const result = await dispatch(GetCartItems())
-        if(result.payload.data){
+        if(result.payload && result.payload.data){
             setItems(result.payload.data)
         }
         setLoader(false)
@@ -60,7 +60,7 @@ const page = () => {
         setLoader(true)
         await dispatch(DeleteCartItem({productId}))
         const result = await dispatch(GetCartItems())
-        if(result.payload.data){
+        if(result.payload && result.payload.data){
             setItems(result.payload.data)
         }
         setLoader(false)

@@ -29,7 +29,7 @@ const page = () => {
     <InfiniteScroll className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 lg:gap-10 mt-10 mx-auto px-3 bg-slate-200 pt-[75px] pb-[350px] mb-[-350px] place-items-center w-full"
     dataLength={products.length} next={setNextPage} hasMore={hashMore} loader={<></>}>
       {
-        products.map((product)=><Card1 key={product._id} product={product}/>)
+        products.map((product:any)=><Card1 key={product._id} product={product}/>)
       }
     </InfiniteScroll>
     <div className={` pt-8 ${(hashMore)?"":"hidden"}`}><div className='flex items-center justify-center'><span className="loader2"></span></div></div>

@@ -26,10 +26,10 @@ const GetDetails = () => {
     dispatch(setHashMore(true))
     const pageLimit = (process.env.NEXT_PUBLIC_PAGE_LIMIT)?process.env.NEXT_PUBLIC_PAGE_LIMIT:1000
     const result = await dispatch(GetFilterProducts({...appliedFilter,page:1}))
-    if(result.payload.data.length < pageLimit){
+    if(result.payload && result.payload.data.length < pageLimit){
       dispatch(setHashMore(false))
     }
-    if(result.payload.data.length==0){
+    if(result.payload && result.payload.data.length==0){
       toast.error("No product found!")
     }
     setLoader(false)

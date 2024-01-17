@@ -27,7 +27,7 @@ const page = () => {
   const getWishListItems = async()=>{
     setLoader(true)
     const result = await dispatch(GetWishListItems())
-    if(result.payload.data){
+    if(result.payload && result.payload.data){
       setItems(result.payload.data)
     }
     setLoader(false)
@@ -38,7 +38,7 @@ const page = () => {
     const result = await dispatch(RemoveWishlistItem({productId}))
     if(result.meta.requestStatus==="fulfilled"){
       const result = await dispatch(GetWishListItems())
-      if(result.payload.data){
+      if(result.payload && result.payload.data){
         setItems(result.payload.data)
       }
     }

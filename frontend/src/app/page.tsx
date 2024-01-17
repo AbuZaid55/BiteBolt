@@ -59,7 +59,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">POPULAR DISHES</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
               {
-                popProduct.map((product,i)=>(i<6) && <Card1 key={product._id} product={product}/>)
+                popProduct.map((product:any,i)=>(i<6) && <Card1 key={product._id} product={product}/>)
               }
         </div>
         <div className="w-full flex itemc justify-center">

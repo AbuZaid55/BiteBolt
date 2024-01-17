@@ -18,16 +18,15 @@ const page = () => {
   const fetchMoreDate = async() => {
     const pageLimit = (process.env.NEXT_PUBLIC_PAGE_LIMIT)?process.env.NEXT_PUBLIC_PAGE_LIMIT:1000
     const result = await dispatch(GetFilterProducts({...appliedFilter,page:page+1}))
-    if(result.payload.data.length < pageLimit){
+    if(result.payload && result.payload.data.length < pageLimit){
       dispatch(setHashMore(false))
     }
     setPage(page+1)
   }
-
+  
   useEffect(()=>{
     setPage(1)
   },[appliedFilter])
-
   
   return (
     <div className='w-full min-h-[100vh] relative bg-slate-200'>

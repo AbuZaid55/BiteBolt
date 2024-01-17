@@ -30,7 +30,7 @@ const page = () => {
     const getOrders = async()=>{
         setLoader(true)
         const result = await dispatch(GetOrders())
-        if(result.payload.data){
+        if(result.payload && result.payload.data){
             setOrders(result.payload.data)
         }
         setLoader(false)
@@ -39,7 +39,7 @@ const page = () => {
         setLoader(true)
         await dispatch(CancleOrder({orderId}))
         const result = await dispatch(GetOrders())
-        if(result.payload.data){
+        if(result.payload && result.payload.data){
             setOrders(result.payload.data)
         }
         setLoader(false)

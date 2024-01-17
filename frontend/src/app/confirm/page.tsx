@@ -45,7 +45,7 @@ const page = () => {
     const getItems = async()=>{
         setLoader(true)
         const result = await dispatch(GetCartItems())
-        if(result.payload.data.items.length<=0){
+        if(result.payload && result.payload.data.items.length<=0){
             toast.error("No cart items!")
             router.push('/cart')
         }else{

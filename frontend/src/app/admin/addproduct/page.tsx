@@ -1,10 +1,11 @@
 "use client"
 import AdminSiderbar from '../../components/AdminSiderbar'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook'
 import { useMyContext } from '@/app/MyContextProvider'
 import { AddProduct } from '../../../../Redux/asyncThunk'
+import { useRouter } from 'next/navigation'
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -30,6 +31,8 @@ const page = () => {
     const [clearForm,setClearForm]=useState(false)
     const categories = useAppSelector((state) => state.category.categories)
     const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{} as File,images:[]})
+    const user = useAppSelector((state)=>state.user)
+    const router = useRouter()
 
     const handleInput = (e:any) => {
         setInput({...input,[e.target.name]:e.target.value})
@@ -69,6 +72,11 @@ const page = () => {
         }
         setLoader(false)
     }
+    useEffect(()=>{
+        if(user._id!=="1" && !user.admin){
+            router.push('/login')
+        }
+    },[user])
     return (
         <div className='flex'>
             <AdminSiderbar />

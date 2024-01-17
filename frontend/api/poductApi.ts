@@ -79,6 +79,15 @@ const API_SIMILAR_PRODUCT = async(data:{_id:string,page:number})=>{
    }   
 }
 
+const API_GET_ADMIN_PRODUCT = async(data:{search:string,searchType:string,page:number})=>{
+   try { 
+      const response = await axios.post(`${URL}/product/getadminproducts`,data,{withCredentials:true})
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 
 
 
@@ -92,5 +101,6 @@ export {
     API_GET_SINGLEPRODUCT,
     API_SUBMIT_REVIEW,
     API_DELETE_REVIEW,
-    API_SIMILAR_PRODUCT
+    API_SIMILAR_PRODUCT,
+    API_GET_ADMIN_PRODUCT,
 }

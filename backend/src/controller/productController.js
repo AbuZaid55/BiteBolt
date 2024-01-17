@@ -237,6 +237,39 @@ const similarProduct = async(req,res)=>{
     }
 }
 
+const getAdminProducts = async(req,res)=>{
+    const limit = process.env.PAGE_LIMIT
+    try {
+        const {search,searchType,page}=req.body 
+        if(search!=='' && searchType==="stock"){
+            const products = await productModel.find({stock:Number(search)}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Product Details",products)
+        }else if(search!=='' && searchType==="price"){
+            const products = await productModel.find({price:search}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Product Details",products)
+        }else if(search!=='' && searchType==="rating"){
+            const products = await productModel.find({rating:search}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Product Details",products)
+        }else if(search!=='' && searchType==="category"){
+            const products = await productModel.find({category:{$regex:search,$options:"i"}}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Product Details",products)
+        }else  if(search!=='' && searchType==="subCategory"){
+            const products = await productModel.find({subCategory:{$regex:search,$options:"i"}}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)
+            sendSuccess(res,"Product Details",products)
+        }else{
+            const products = await productModel.find({$or:[
+                {name:{$regex:search,$options:"i"}},
+                {category:{$regex:search,$options:"i"}},
+                {subCategory:{$regex:search,$options:"i"}},
+                {description:{$regex:search,$options:"i"}}
+            ]}).sort({_id:-1}).select('name stock price rating thumbnail.secure_url').skip(limit*(page-1)).limit(limit)        
+            sendSuccess(res,"Product Details",products)
+        }
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
@@ -246,4 +279,5 @@ module.exports = {
     submitReview,
     deleteReview,
     similarProduct,
+    getAdminProducts,
 }
