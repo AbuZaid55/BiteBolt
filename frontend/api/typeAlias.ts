@@ -84,3 +84,10 @@ export type API_UPDATE_DETAILS = {
     state:string,
     address:string,
 }
+export type API_UPDATE_PRODUCT = {
+    _id:string,
+    name:string,
+    stock:number,
+    price:number,
+    description:string
+}

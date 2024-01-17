@@ -32,6 +32,7 @@ import {
 
 import { 
     API_ADD_PRODUCT,
+    API_DELETE_PRODUCT,
     API_DELETE_REVIEW, 
     API_GET_ADMIN_PRODUCT, 
     API_GET_FILTERPRODUCT, 
@@ -39,7 +40,8 @@ import {
     API_GET_PRODUCT, 
     API_GET_SINGLEPRODUCT,
     API_SIMILAR_PRODUCT,
-    API_SUBMIT_REVIEW 
+    API_SUBMIT_REVIEW, 
+    API_UPDATE_PRODUCT
 } from '../api/poductApi';
 
 import { 
@@ -92,6 +94,8 @@ export const SubmitReview = createAsyncThunk('product/submitreview',API_SUBMIT_R
 export const DeleteReview = createAsyncThunk('product/deletereview',API_DELETE_REVIEW)
 export const SimilarProducts = createAsyncThunk('product/similarproducts',API_SIMILAR_PRODUCT)
 export const GetAdminProducts = createAsyncThunk('product/getadminproducts',API_GET_ADMIN_PRODUCT)
+export const UpdateProduct = createAsyncThunk('product/updateproduct',API_UPDATE_PRODUCT)
+export const DeleteProduct = createAsyncThunk('product/deleteproduct',API_DELETE_PRODUCT)
 
 
 //order

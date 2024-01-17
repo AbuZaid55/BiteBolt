@@ -1,7 +1,7 @@
 import throwError from "./throwError";
 import axios from "axios";
 import {toast} from 'react-toastify'
-import { API_GET_FILTERPRODUCT, API_SUBMIT_REVIEW } from './typeAlias'
+import { API_GET_FILTERPRODUCT, API_SUBMIT_REVIEW, API_UPDATE_PRODUCT } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
 
@@ -88,6 +88,26 @@ const API_GET_ADMIN_PRODUCT = async(data:{search:string,searchType:string,page:n
    }   
 }
 
+const API_UPDATE_PRODUCT = async(data:API_UPDATE_PRODUCT)=>{
+   try { 
+      const response = await axios.post(`${URL}/product/updateproduct`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
+const API_DELETE_PRODUCT = async(data:{productId:string})=>{
+   try { 
+      const response = await axios.post(`${URL}/product/deleteproduct`,data,{withCredentials:true})
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 
 
 
@@ -103,4 +123,6 @@ export {
     API_DELETE_REVIEW,
     API_SIMILAR_PRODUCT,
     API_GET_ADMIN_PRODUCT,
+    API_UPDATE_PRODUCT,
+    API_DELETE_PRODUCT,
 }

@@ -7,7 +7,7 @@ import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
 import { useRouter } from 'next/navigation';
-import { GetAdminProducts } from '../../../../Redux/asyncThunk';
+import { DeleteProduct, GetAdminProducts } from '../../../../Redux/asyncThunk';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 const robotoSlab = Roboto_Slab({
@@ -40,7 +40,6 @@ const page = () => {
     }, 1000);
     setTimeId(id)
   }
-
   const getProducts = async(pageNo:number,item:any[])=>{
     const pageLimit = (process.env.NEXT_PUBLIC_PAGE_LIMIT)?process.env.NEXT_PUBLIC_PAGE_LIMIT:1000
     if(user.admin){
@@ -56,9 +55,15 @@ const page = () => {
       setLoader(false)
     }
   }
-
   const fetchMore = async()=>{
     getProducts(page,items)
+  }
+  const deleteProduct = async()=>{
+    setLoader(true)
+    await dispatch(DeleteProduct({productId:deleteItemId}))
+    getProducts(1,[])
+    setShowConfirm(false)
+    setLoader(false)
   }
 
   useEffect(()=>{
@@ -133,7 +138,7 @@ const page = () => {
         <div className=' w-56 h-56 border p-4  bg-white rounded  flex items-stretch justify-between flex-col border-main-800 shadow-lg'>
           <h1 className=' text-center text-2xl'>Are your sure you want to delete?</h1>
           <div className='flex items-center justify-between'>
-            <button className=' bg-red-700 text-white px-3 py-2 rounded hover:bg-[#3341551f] border-2 border-red-700 hover:text-red-700 transition-all duration-300 ease-in-out'>YES</button>
+            <button onClick={()=>{deleteProduct()}} className=' bg-red-700 text-white px-3 py-2 rounded hover:bg-[#3341551f] border-2 border-red-700 hover:text-red-700 transition-all duration-300 ease-in-out'>YES</button>
             <button className=' bg-main-800 text-white px-3 py-2 rounded hover:bg-[#44b67721] border-2 border-main-800 hover:text-main-800 transition-all duration-300 ease-in-out' onClick={()=>{setShowConfirm(false), setDeleteItemId('')}}>NO</button>
           </div>
         </div>

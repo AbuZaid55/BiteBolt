@@ -270,6 +270,43 @@ const getAdminProducts = async(req,res)=>{
     }
 }
 
+const updateProduct = async(req,res)=>{
+    try {
+        const {name,stock,price,description,_id}=req.body
+        if(!_id){
+            return throwError("Product id not found!")
+        }
+        if(!name || !stock || !price || !description){
+            return throwError("All field are required!")
+        }
+        const result = await productModel.findById(_id)
+        if(!result){
+            return throwError("Product not found!")
+        }
+        result.name = name
+        result.price = price
+        result.stock = stock 
+        result.description = description
+        await result.save()
+        sendSuccess(res,"Product update successfully!")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const deleteProduct = async(req,res)=>{
+    try {
+        const {productId}=req.body
+        if(!productId){
+            return throwError("Product id not found!")
+        }
+        await productModel.findByIdAndDelete(productId)
+        sendSuccess(res,"Product Deleted Successfully")
+    } catch (error) {
+     sendError(res,error.message)   
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
@@ -280,4 +317,6 @@ module.exports = {
     deleteReview,
     similarProduct,
     getAdminProducts,
+    updateProduct,
+    deleteProduct,
 }
