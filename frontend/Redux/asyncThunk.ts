@@ -46,7 +46,9 @@ import {
 
 import { 
     API_CANCLE_ORDER,
+    API_CHAGE_STATUS,
     API_CREATE_PAYMENT, 
+    API_GET_ADMIN_ORDERS, 
     API_GET_ORDERS, 
     API_GET_STATUS, 
     API_UPDATE_DETAILS, 
@@ -105,3 +107,5 @@ export const GetOrders = createAsyncThunk('/order/getorders',API_GET_ORDERS)
 export const GetStatus = createAsyncThunk('/order/getstatus',API_GET_STATUS)
 export const UpdateDetails = createAsyncThunk('/order/updatedetails',API_UPDATE_DETAILS)
 export const CancleOrder = createAsyncThunk('/order/cancleorder',API_CANCLE_ORDER)
+export const GetAdminOrders = createAsyncThunk('/order/getadminorders',API_GET_ADMIN_ORDERS)
+export const ChangeStatus = createAsyncThunk('/order/changestatus',API_CHAGE_STATUS)

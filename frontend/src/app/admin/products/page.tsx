@@ -43,7 +43,6 @@ const page = () => {
   const getProducts = async(pageNo:number,item:any[])=>{
     const pageLimit = (process.env.NEXT_PUBLIC_PAGE_LIMIT)?process.env.NEXT_PUBLIC_PAGE_LIMIT:1000
     if(user.admin){
-      setLoader(true)
       const result = await dispatch(GetAdminProducts({search,searchType,page:pageNo}))
       if(result.meta.requestStatus==="fulfilled"){
         setItems([...item,...result.payload.data])
@@ -52,7 +51,6 @@ const page = () => {
         }
       }
       setPage(pageNo+1)
-      setLoader(false)
     }
   }
   const fetchMore = async()=>{
@@ -62,6 +60,7 @@ const page = () => {
     setLoader(true)
     await dispatch(DeleteProduct({productId:deleteItemId}))
     getProducts(1,[])
+    setHashMore(true)
     setShowConfirm(false)
     setLoader(false)
   }
@@ -114,7 +113,7 @@ const page = () => {
            {
             items.map((item:any)=>{
               return  <tr key={item._id}>
-              <td className='border border-main-800' aria-label='Thumbnail'><img style={{ height: "60px", width: "60px", margin: " 8px auto", borderRadius: '5px' }} src={'/img/5.jpg'} alt="Pic" /></td>
+              <td className='border border-main-800' aria-label='Thumbnail'><img style={{ height: "60px", width: "60px", margin: " 8px auto", borderRadius: '5px' }} src={item.thumbnail.secure_url} alt="Pic" /></td>
               <td className='name border border-main-800' aria-label={"Name"}>
                 <Link href={`/details?_id=${item._id}`}><p className='w-full max-h-28 overflow-hidden'>{item.name}</p></Link>
               </td>

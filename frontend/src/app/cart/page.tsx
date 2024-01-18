@@ -42,6 +42,7 @@ const page = () => {
     const getItems = async()=>{
         setLoader(true)
         const result = await dispatch(GetCartItems())
+        console.log(result)
         if(result.payload && result.payload.data){
             setItems(result.payload.data)
         }
@@ -84,16 +85,16 @@ const page = () => {
             <div className=' my-4'>
                 {
                     items.items.slice().reverse().map((item)=>{
-                        return <div key={item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0 py-2'>
-                        <img className='w-[100px] h-full p-2' src={item.productId.thumbnail.secure_url} alt="" />
+                        return <div key={item.productId && item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0 py-2'>
+                        <img className='w-[100px] h-full p-2' src={item.productId && item.productId.thumbnail.secure_url} alt="" />
                         <div >
-                            <Link href={`/details?_id=${item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId.name}</Link>
-                            <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId.price} <RxCross1 /> {item.qty} = {item.qty*item.productId.price} </h1>
+                            <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
+                            <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.qty*item.productId.price} </h1>
                             <div className="flex">
-                                <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded' onClick={()=>{updateQty("sub",item.productId._id)}}>-</span>
+                                <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded' onClick={()=>{updateQty("sub",item.productId && item.productId._id)}}>-</span>
                                 <span className='mr-1 sm:mr-3 border border-main-800 text-main-800 text-lg w-6 h-6 flex items-center justify-center rounded'>{item.qty}</span>
-                                <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded' onClick={()=>{updateQty("add",item.productId._id)}}>+</span>
-                                <span className='text-red-800 border-2 border-red-800 w-6 h-6 rounded p-[2px] cursor-pointer' onClick={()=>{deleteCartItem(item.productId._id)}}><GoTrash/></span>
+                                <span className='mr-1 sm:mr-3 bg-main-800 text-white text-xl w-6 h-6 flex items-center justify-center cursor-pointer rounded' onClick={()=>{updateQty("add",item.productId && item.productId._id)}}>+</span>
+                                <span className='text-red-800 border-2 border-red-800 w-6 h-6 rounded p-[2px] cursor-pointer' onClick={()=>{deleteCartItem(item.productId && item.productId._id)}}><GoTrash/></span>
                             </div>
                         </div>
                     </div>

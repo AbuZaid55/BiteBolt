@@ -71,10 +71,10 @@ const page = () => {
                     {
                         order.item.map((item:any)=>{
                             return <div  key={item._id} className='flex items-center border-x-2 border-slate-700'>
-                            <img className='w-[100px] h-full p-2' src={item.productId.thumbnail.secure_url} alt="Image" />
+                            <img className='w-[100px] h-full p-2' src={item.productId && item.productId.thumbnail.secure_url} alt="Image" />
                             <div>
-                                <Link href={`/details?_id=${item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId.name}</Link>
-                                <h1 className={`flex items-center font-bold${robotoSlab.className} mt-2`}><FaIndianRupeeSign /> {item.productId.price} <RxCross1 /> {item.qty} = {item.productId.price*item.qty} </h1>
+                                <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
+                                <h1 className={`flex items-center font-bold${robotoSlab.className} mt-2`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
                             </div>
                         </div>
                         })

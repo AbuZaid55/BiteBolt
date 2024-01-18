@@ -64,6 +64,25 @@ const API_CANCLE_ORDER = async(data:{orderId:string}) => {
     }
 }
 
+const API_GET_ADMIN_ORDERS = async(data:{search:string,searchType:string}) => {
+    try { 
+       const response = await axios.post(`${URL}/order/getadminorders`,data,{withCredentials:true})
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
+const API_CHAGE_STATUS = async(data:{orderId:string,value:string}) => {
+    try { 
+       const response = await axios.post(`${URL}/order/changestatus`,data,{withCredentials:true})
+       toast.success(response.data.message)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 export {
     API_CREATE_PAYMENT,
@@ -72,4 +91,6 @@ export {
     API_GET_STATUS,
     API_UPDATE_DETAILS,
     API_CANCLE_ORDER,
+    API_GET_ADMIN_ORDERS,
+    API_CHAGE_STATUS,
 }

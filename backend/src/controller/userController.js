@@ -222,7 +222,11 @@ const getCartItems = async(req,res)=>{
         }
         const cart = user.cart
         const totalAmount = cart.reduce((total,current)=>{
+           if(current.productId){
             return total=total+current.productId.price*current.qty
+           }else{
+            return total = total
+           }
         },0)
         sendSuccess(res,"Your cart Items",{items:cart,totalAmount})
     } catch (error) {

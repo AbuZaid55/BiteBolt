@@ -146,11 +146,60 @@ const cancleOrder = async(req,res)=>{
     }
 }
 
+const getAdminOrders = async(req,res)=>{
+    try {
+        const {search,searchType}=req.body 
+            const orders = await orderModel.find({status:{$regex:searchType,$options:"i"}}).sort({_id:-1}).populate({
+                path:"item.productId",
+                select:'name stock price rating category subCategory thumbnail.secure_url',
+            })
+            const result = orders.filter((order)=>{
+                const result2 = order.item.filter((item)=>{
+                    const product = item.productId
+                    if(product){
+                        if(product.name.includes(search) ||product.stock==search || product.price===search || product.rating==search || product.category.includes(search) || product.subCategory.includes(search) ){
+                            return item
+                        }
+                    }
+                })
+                if(result2.length>=1){
+                    return order
+                }
+            })
+            sendSuccess(res,"Product Details",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const changeStatus = async(req,res)=>{
+    try {
+        const {orderId,value}=req.body
+        if(!orderId){
+            return throwError("Order Id not Found")
+        }
+        if(!value){
+            return throwError("Select status type!")
+        }
+        const result =  await orderModel.findById(orderId)
+        if(!result){
+            return throwError("Order not found!")
+        }
+        result.status = value 
+        await result.save()
+        sendSuccess(res,"Status update successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     createPayment,
     verifyPayment,
     getOrders,
     getStatus,
     updataDetails,
-    cancleOrder
+    cancleOrder,
+    getAdminOrders,
+    changeStatus,
 }
