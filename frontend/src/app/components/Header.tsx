@@ -49,7 +49,7 @@ const Header = () => {
   }, [])
 
   return (
-   <div>
+   <div className=" select-none">
     {
       (!path.includes(hidePath) &&  <div className="h-[70px] shadow-md p-3 overflow-x-hidden fixed top-0 left-0 w-full bg-white z-50 ">
       <div className={`fixed ${(showSearch)?'top-0':'-top-full'} left-0 w-full h-[100vh] bg-[#3341557f] flex items-center justify-center transition-all duration-500 ease-in-out`}>

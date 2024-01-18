@@ -27,6 +27,8 @@ import {
 import { 
     API_ADD_CATEGORY, 
     API_ADD_SUBCATEGORY,
+    API_DELETE_CAT,
+    API_DELETE_SUBCAT,
     API_GET_CATEGORIES,
 } from '../api/categoryApi';
 
@@ -84,6 +86,8 @@ export const DeleteUser = createAsyncThunk('user/deleteuser',API_DELETE_USER)
 export const AddNewCategory = createAsyncThunk('category/addcategory', API_ADD_CATEGORY);
 export const AddSubCategory = createAsyncThunk('category/addsubcategory', API_ADD_SUBCATEGORY);
 export const GetCategories = createAsyncThunk('category/getcategories', API_GET_CATEGORIES);
+export const DeleteSubCat = createAsyncThunk('/order/deletesubcategory',API_DELETE_SUBCAT)
+export const DeleteCat = createAsyncThunk('/order/deletescategory',API_DELETE_CAT)
 
 
 //product

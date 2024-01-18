@@ -42,7 +42,6 @@ const page = () => {
     const getItems = async()=>{
         setLoader(true)
         const result = await dispatch(GetCartItems())
-        console.log(result)
         if(result.payload && result.payload.data){
             setItems(result.payload.data)
         }

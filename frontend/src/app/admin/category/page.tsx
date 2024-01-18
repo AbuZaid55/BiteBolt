@@ -5,7 +5,9 @@ import { FaTrash } from "react-icons/fa"
 import AdminSiderbar from "../../components/AdminSiderbar"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 import Link from "next/link"
-import { useAppSelector } from "../../../../Redux/hook"
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hook"
+import { useMyContext } from "@/app/MyContextProvider"
+import { DeleteCat, DeleteSubCat, GetCategories } from "../../../../Redux/asyncThunk"
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -21,12 +23,26 @@ const page = () => {
   const [deleteFun, setDeleteFun] = useState<DeleteCat | null>(null)
   const [value, setValue] = useState({})
   const categories = useAppSelector((state) => state.category.categories)
+  const {setLoader}=useMyContext()
+  const dispatch = useAppDispatch()
 
   const deletCategory: DeleteCat = async (value) => {
-    console.log("Category", value)
+    setLoader(true)
+    const result = await dispatch(DeleteCat({_id:value._id}))
+    if(result.meta.requestStatus==="fulfilled"){
+      dispatch(GetCategories())
+    }
+    setShowConfirm(false)
+    setLoader(false)
   }
   const deletSubCategory: DeleteCat = async (value) => {
-    console.log("SubCategory", value)
+    setLoader(true)
+    const result = await dispatch(DeleteSubCat({subCatId:value.subCatId,catId:value.catId}))
+    if(result.meta.requestStatus==="fulfilled"){
+      dispatch(GetCategories())
+    }
+    setShowConfirm(false)
+    setLoader(false)
   }
   return (
     <div className="flex">

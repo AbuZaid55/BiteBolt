@@ -63,8 +63,54 @@ const getCategories = async(req,res)=>{
     }
 }
 
+const deleteSubCategory = async(req,res)=>{
+    try {
+        const {subCatId,catId}=req.body
+        if(!subCatId){
+            return throwError("SubCategory id not found!")
+        }if(!catId){
+            return throwError("Categegory Id not found!")
+        }
+        const result = await subCategoryMoel.findById(subCatId)
+        if(!result){
+            return throwError("SubCategory not found!")
+        }
+        await productModel.deleteMany({ _id: { $in: result.products } });
+        await subCategoryMoel.findByIdAndDelete(subCatId);
+        const category = await categoryModel.findById(catId)
+        const newList = category.subCategories.filter((id)=>id!=subCatId)
+        category.subCategories=newList
+        await category.save()
+        sendSuccess(res,"SubCategory delete successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const deleteCategory = async(req,res)=>{
+    try {
+        const {_id}=req.body
+        if(!_id){
+            return throwError("Category id not found!")
+        }
+        const result = await categoryModel.findById(_id)
+        if(!result){
+            return throwError("Category not found!")
+        }
+        if(!result.subCategories.length<=0){
+            return throwError("First delete all subCategories!")
+        }
+        await categoryModel.findByIdAndDelete(_id)
+        sendSuccess(res,"Category delete successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addCategory,
     addSubCategory,
     getCategories,
+    deleteSubCategory,
+    deleteCategory,
 }

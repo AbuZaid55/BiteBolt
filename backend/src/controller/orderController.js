@@ -3,7 +3,7 @@ const {sendError,sendSuccess} = require("../utils/sendResponse")
 const userModel = require("../models/userModel")
 const productModel = require('../models/productModel')
 const orderModel = require('../models/orderModel')
-const paymetnModel = require('../models/paymentModel')
+const paymetnModel = require('../models/PaymentModel')
 const Razorpay = require("razorpay")
 const crypto = require('crypto')
 

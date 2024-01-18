@@ -79,7 +79,8 @@ const page = () => {
                         </div>
                         })
                     }
-                    <h1 className='border-2 border-slate-700 border-b-0 text-xl p-2 text-slate-700'>Status:- <span className={`${(order.status==="Cancelled")?"text-red-700":" text-green-700"} font-semibold`}>{order.status}</span></h1>
+                    <h1 className='border-2 border-slate-700 border-b-0 text-lg p-1 text-slate-700'>Status:- <span className={`${(order.status==="Cancelled")?"text-red-700":" text-green-700"} font-semibold`}>{order.status}</span></h1>
+                    <h1 className='border-2 border-slate-700 border-b-0 text-lg p-1 text-slate-700'>Order On:- {order.createdAt.slice(0, 10).split("-").reverse().join("-")}</h1>
                     <div className={` ${(order.status==="Placed")?"flex":"hidden"} items-center gap-3 border-2 border-b-0  border-slate-700 py-2 px-4`}>
                         <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href={`/editorder?orderId=${order._id}&addressId=${order.shippingDetails._id}`}><CiEdit /> Edit</Link>
                         <button onClick={()=>{cancleOrder(order._id)}} className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3'><RxCross1 /> Cancle</button>
