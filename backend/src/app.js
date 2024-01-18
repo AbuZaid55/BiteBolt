@@ -30,6 +30,7 @@ app.use("/changepass",require('./routes/changePassRouter.js'))
 app.use("/category",require('./routes/categoryRouter.js')) 
 app.use("/product",require('./routes/productRouter.js')) 
 app.use("/order",require('./routes/orderRouter.js')) 
+app.use("/payment",require('./routes/paymentRouter.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")

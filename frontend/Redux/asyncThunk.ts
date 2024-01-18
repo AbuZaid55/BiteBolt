@@ -57,6 +57,11 @@ import {
     API_VERIFY_PAYMENT,
 } from '../api/orderApi';
 
+import {
+    API_DELETE_PAYMENT,
+    API_GET_PAYMENT,
+} from '../api/paymentApi'
+
 //user
 export const SendOtp = createAsyncThunk('user/sendOtp', API_SEND_OTP);
 export const SignUp = createAsyncThunk('user/signup', API_SING_UP);
@@ -113,3 +118,8 @@ export const UpdateDetails = createAsyncThunk('/order/updatedetails',API_UPDATE_
 export const CancleOrder = createAsyncThunk('/order/cancleorder',API_CANCLE_ORDER)
 export const GetAdminOrders = createAsyncThunk('/order/getadminorders',API_GET_ADMIN_ORDERS)
 export const ChangeStatus = createAsyncThunk('/order/changestatus',API_CHAGE_STATUS)
+
+
+//payment
+export const GetPayments = createAsyncThunk('/payment/getpayment',API_GET_PAYMENT)
+export const DeletePayment = createAsyncThunk('/payment/deletepayment',API_DELETE_PAYMENT)
