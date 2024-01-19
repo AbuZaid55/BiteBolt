@@ -229,6 +229,15 @@ const API_DELETE_USER = async(data:{userId:string})=>{
    }   
 }
 
+const API_GET_USERS_LENGTH = async()=>{
+   try { 
+      const response = await axios.get(`${URL}/user/getuserslength`)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
@@ -251,4 +260,5 @@ export {
    API_CHANGE_USER_TYPE,
    API_SEARCH_USER,
    API_DELETE_USER,
+   API_GET_USERS_LENGTH,
 }

@@ -23,7 +23,11 @@ const createPayment = async(req,res)=>{
             return throwError("Unauthorized User!")
         }
         const totalAmount = user.cart.reduce((total,current)=>{
-            return total=total+current.productId.price*current.qty
+            if(current && current.productId && current.productId.price){
+                return total=total+current.productId.price*current.qty
+            }else{
+                return total=total
+            }
         },0)
         const instance = new Razorpay({
             key_id:process.env.RAZORPAY_KEY_ID,
@@ -45,7 +49,7 @@ const createPayment = async(req,res)=>{
         sendError(res,error.message)
     }
 }
-
+ 
 const verifyPayment = async(req,res)=>{
     try {
         const {razorpay_order_id,razorpay_payment_id,razorpay_signature,name,phoneNo,pinCode,houseNo,city,state,address,totalAmount,shippingId}=req.body 
@@ -56,12 +60,14 @@ const verifyPayment = async(req,res)=>{
             const user = await userModel.findById(_id).populate({path:"cart.productId",select:"name price stock thumbnail.secure_url"})
             user.cart.map(async(item)=>{
                 const product = await productModel.findById(item.productId)
-                if(product.stock<=item.qty){
-                    product.stock=0
-                }else{
-                    product.stock=product.stock-item.qty
+                if(product){
+                    if(product.stock<=item.qty){
+                        product.stock=0
+                    }else{
+                        product.stock=product.stock-item.qty
+                    }
+                    await product.save() 
                 }
-                await product.save()
             })
             await orderModel({username:name,userId:_id,totalPaidAmount:totalAmount,shippingDetails:{phoneNo,pinCode,houseNo,city,state,address,_id:shippingId},item:user.cart,razorpay_payment_id:razorpay_payment_id,razorpay_order_id:razorpay_order_id}).save()
             user.cart = []
@@ -193,6 +199,42 @@ const changeStatus = async(req,res)=>{
     }
 }
 
+const getOrdersLength = async(req,res)=>{
+    try {
+        let totalOrder = 0
+        let data = [
+            {name:"Placed", count:0},
+            {name:"Confirmed", count:0},
+            {name:"Processing", count:0},
+            {name:"Pickup", count:0},
+            {name:"Delivered", count:0},
+            {name:"Cancelled", count:0},
+            {name:"Refund", count:0}
+        ]
+        const placed = await orderModel.countDocuments({status:"Placed"})
+        const confirmed = await orderModel.countDocuments({status:"Confirmed"})
+        const processing = await orderModel.countDocuments({status:"Processing"})
+        const readyToPickup = await orderModel.countDocuments({status:"Ready to Pickup"})
+        const delivered = await orderModel.countDocuments({status:"Delivered"})
+        const cancelled = await orderModel.countDocuments({status:"Cancelled"})
+        const refund = await orderModel.countDocuments({status:"Refund"})
+
+        data.map((object)=>{
+            if(object.name==="Placed"){object.count=placed}
+            if(object.name==="Confirmed"){object.count=confirmed}
+            if(object.name==="Processing"){object.count=processing}
+            if(object.name==="Pickup"){object.count=readyToPickup}
+            if(object.name==="Delivered"){object.count=delivered}
+            if(object.name==="Cancelled"){object.count=cancelled}
+            if(object.name==="Refund"){object.count=refund}
+        })
+        totalOrder=placed+confirmed+processing+readyToPickup+delivered+cancelled+refund
+        sendSuccess(res,"Orders Dashboard",{totalOrder,order:data})
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     createPayment,
     verifyPayment,
@@ -202,4 +244,5 @@ module.exports = {
     cancleOrder,
     getAdminOrders,
     changeStatus,
+    getOrdersLength,
 }

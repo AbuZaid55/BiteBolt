@@ -12,7 +12,7 @@ const addProduct = async(req,res)=>{
         return sendError(res,req.fileError) 
     }
     try {
-        const {name,stock,price,category,subCategory,description} = req.body 
+        const {name,stock,price,category,subCategory,popularList,description} = req.body 
         const thumbnail = (req.files && req.files.thumbnail)?req.files.thumbnail[0]:""
         const images = (req.files && req.files.images)?req.files.images:""
         if(!name || !stock || !price || !category || !subCategory || !description || !thumbnail || images.length==0){
@@ -44,7 +44,7 @@ const addProduct = async(req,res)=>{
                 secure_url.push(uploadImages.secure_url)
             }
         }))
-        const result = await productModel({name,stock,price,category,subCategory,description,thumbnail:{public_id:uploadThumbnail.public_id,secure_url:uploadThumbnail.secure_url},images:{public_id,secure_url}})
+        const result = await productModel({name,stock,price,category,subCategory,popularList:Boolean(popularList),description,thumbnail:{public_id:uploadThumbnail.public_id,secure_url:uploadThumbnail.secure_url},images:{public_id,secure_url}})
         subCat.products.push(result._id)
         await subCat.save()
         await result.save()
@@ -311,6 +311,16 @@ const deleteProduct = async(req,res)=>{
     }
 }
 
+const getProductLength = async(req,res)=>{
+    try {
+        const inStock = await productModel.countDocuments({stock:{$ne:0}})
+        const outStock = await productModel.countDocuments({stock:0})
+        sendSuccess(res,"Product Dashboard",{inStock,outStock})
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
@@ -323,4 +333,5 @@ module.exports = {
     getAdminProducts,
     updateProduct,
     deleteProduct,
+    getProductLength,
 }

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const adminAuth = require('../middleware/adminAuth')
-const {addProduct, getProducts, getfilterproducts, getPopProduct, getSingleProduct, submitReview, deleteReview, similarProduct, getAdminProducts, updateProduct, deleteProduct} = require('../controller/productController')
+const {addProduct, getProducts, getfilterproducts, getPopProduct, getSingleProduct, submitReview, deleteReview, similarProduct, getAdminProducts, updateProduct, deleteProduct, getProductLength} = require('../controller/productController')
 const upload = require('../utils/uploadFile')
 const userAuth = require('../middleware/userAuth')
 
@@ -15,5 +15,6 @@ router.post('/similarproducts',similarProduct)
 router.post('/getadminproducts',adminAuth,getAdminProducts)
 router.post('/updateproduct',adminAuth,updateProduct)
 router.post('/deleteproduct',adminAuth,deleteProduct)
+router.get('/getproductslength',getProductLength)
 
 module.exports = router

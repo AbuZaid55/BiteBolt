@@ -22,6 +22,7 @@ import {
     API_CHANGE_USER_TYPE,
     API_SEARCH_USER,
     API_DELETE_USER,
+    API_GET_USERS_LENGTH,
 } from '../api/userApi'
 
 import { 
@@ -30,6 +31,7 @@ import {
     API_DELETE_CAT,
     API_DELETE_SUBCAT,
     API_GET_CATEGORIES,
+    API_GET_CATEGORIES_LENGTH,
 } from '../api/categoryApi';
 
 import { 
@@ -40,6 +42,7 @@ import {
     API_GET_FILTERPRODUCT, 
     API_GET_POPULARPRODUCT, 
     API_GET_PRODUCT, 
+    API_GET_PRODUCTS_LENGHT, 
     API_GET_SINGLEPRODUCT,
     API_SIMILAR_PRODUCT,
     API_SUBMIT_REVIEW, 
@@ -52,6 +55,7 @@ import {
     API_CREATE_PAYMENT, 
     API_GET_ADMIN_ORDERS, 
     API_GET_ORDERS, 
+    API_GET_ORDERS_LENGTH, 
     API_GET_STATUS, 
     API_UPDATE_DETAILS, 
     API_VERIFY_PAYMENT,
@@ -85,14 +89,16 @@ export const GetAllUser = createAsyncThunk('user/getAllUser',API_GET_ALL_USERS)
 export const ChangeUserType = createAsyncThunk('user/changeusertype',API_CHANGE_USER_TYPE)
 export const SearchUser = createAsyncThunk('user/searchuser',API_SEARCH_USER)
 export const DeleteUser = createAsyncThunk('user/deleteuser',API_DELETE_USER)
+export const GetUsersLength = createAsyncThunk('user/getuserlength',API_GET_USERS_LENGTH)
 
 
 //category
 export const AddNewCategory = createAsyncThunk('category/addcategory', API_ADD_CATEGORY);
 export const AddSubCategory = createAsyncThunk('category/addsubcategory', API_ADD_SUBCATEGORY);
 export const GetCategories = createAsyncThunk('category/getcategories', API_GET_CATEGORIES);
-export const DeleteSubCat = createAsyncThunk('/order/deletesubcategory',API_DELETE_SUBCAT)
-export const DeleteCat = createAsyncThunk('/order/deletescategory',API_DELETE_CAT)
+export const DeleteSubCat = createAsyncThunk('/category/deletesubcategory',API_DELETE_SUBCAT)
+export const DeleteCat = createAsyncThunk('/category/deletescategory',API_DELETE_CAT)
+export const GetCategoriesLength = createAsyncThunk('/category/categorieslength',API_GET_CATEGORIES_LENGTH)
 
 
 //product
@@ -107,6 +113,7 @@ export const SimilarProducts = createAsyncThunk('product/similarproducts',API_SI
 export const GetAdminProducts = createAsyncThunk('product/getadminproducts',API_GET_ADMIN_PRODUCT)
 export const UpdateProduct = createAsyncThunk('product/updateproduct',API_UPDATE_PRODUCT)
 export const DeleteProduct = createAsyncThunk('product/deleteproduct',API_DELETE_PRODUCT)
+export const GetProductsLength = createAsyncThunk('product/getproductslength',API_GET_PRODUCTS_LENGHT)
 
 
 //order
@@ -118,6 +125,7 @@ export const UpdateDetails = createAsyncThunk('/order/updatedetails',API_UPDATE_
 export const CancleOrder = createAsyncThunk('/order/cancleorder',API_CANCLE_ORDER)
 export const GetAdminOrders = createAsyncThunk('/order/getadminorders',API_GET_ADMIN_ORDERS)
 export const ChangeStatus = createAsyncThunk('/order/changestatus',API_CHAGE_STATUS)
+export const GetOrdersLength = createAsyncThunk('/order/getorderslength',API_GET_ORDERS_LENGTH)
 
 
 //payment

@@ -107,10 +107,21 @@ const deleteCategory = async(req,res)=>{
     }
 }
 
+const getCategoriesLength = async(req,res)=>{
+    try {
+        const result = await categoryModel.countDocuments({})
+        sendSuccess(res,"Dashboard categories",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     addCategory,
     addSubCategory,
     getCategories,
     deleteSubCategory,
     deleteCategory,
+    getCategories,
+    getCategoriesLength,
 }

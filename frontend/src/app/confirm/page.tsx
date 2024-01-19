@@ -106,11 +106,11 @@ const page = () => {
             <div className=' my-4'>
                 {
                     items.items.map((item)=>{
-                        return <div key={item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
-                        <img className='w-[100px] h-full p-2' src={item.productId.thumbnail.secure_url} alt="" />
+                        return <div key={item.productId && item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
+                        <img className='w-[100px] h-full p-2' src={item.productId && item.productId.thumbnail.secure_url} alt="" />
                         <div >
-                            <Link href={`/details?_id=${item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId.name}</Link>
-                            <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId.price} <RxCross1 /> {item.qty} = {item.productId.price*item.qty} </h1>
+                            <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
+                            <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
                         </div>
                     </div>
                     })

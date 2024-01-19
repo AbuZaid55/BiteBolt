@@ -20,6 +20,7 @@ interface API_ADD_PRODUCT {
     category:string,
     subCategory:string,
     description:string,
+    popularList:string
     thumbnail:File,
     images:File[]
 }
@@ -30,7 +31,7 @@ const page = () => {
     const dispatch = useAppDispatch()
     const [clearForm,setClearForm]=useState(false)
     const categories = useAppSelector((state) => state.category.categories)
-    const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{} as File,images:[]})
+    const [input,setInput] = useState<API_ADD_PRODUCT>({name:"",stock:0,price:0,category:"",subCategory:"",description:"",popularList:"false",thumbnail:{} as File,images:[]})
     const user = useAppSelector((state)=>state.user)
     const router = useRouter()
 
@@ -50,8 +51,15 @@ const page = () => {
             setInput({...input,"images":img})
         }
     }
+    const handleCheckbox = async(e:any)=>{
+        if(e.target.checked){
+            setInput({...input,popularList:"true"})
+        }else{
+            setInput({...input,popularList:"false"})
+        }
+    }
     const resetForm = () => {
-        setInput({name:"",stock:0,price:0,category:"",subCategory:"",description:"",thumbnail:{} as File,images:[]})
+        setInput({name:"",stock:0,price:0,category:"",subCategory:"",description:"",popularList:"false",thumbnail:{} as File,images:[]})
     }
     const submitForm = async() => {
         setLoader(true)
@@ -63,6 +71,7 @@ const page = () => {
         formdata.append("subCategory",input.subCategory)
         formdata.append("description",input.description)
         formdata.append("thumbnail",input.thumbnail)
+        formdata.append("popularList",input.popularList)
         for(let i=0; i<input.images.length; i++){
             formdata.append("images",input.images[i])
         }
@@ -147,6 +156,7 @@ const page = () => {
                         <label className=' text-xl text-main-800 font-semibold' htmlFor="description">Enter Description</label>
                         <textarea value={input.description} onChange={(e)=>{handleInput(e)}} className='block w-full outline-none bg-slate-200 border-2 border-main-800 mt-1 p-2 text-xl' id='description' style={{ minHeight: '250px', maxHeight: "250px", resize: 'none' }} placeholder="Enter Description" name='description' />
                     </div>
+                    <label className='flex items-center justify-start gap-2 py-1' htmlFor="checkbox"><input onChange={(e)=>{handleCheckbox(e)}} type="checkbox" id='checkbox' checked={(input.popularList==="true")?true:false} />Add In Popular Products List</label>
 
                     <div className='flex items-center justify-between w-full gap-4'>
                         <button onClick={()=>{resetForm()}} className=' bg-red-800 text-white py-2 rounded-md flex items-center justify-center w-1/2 border-2 border-red-800  hover:text-red-800 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>Reset</button>

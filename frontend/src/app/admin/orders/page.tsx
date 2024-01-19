@@ -73,9 +73,8 @@ const page = () => {
                             <option value={"Placed"}>Placed</option>
                             <option value={"Confirmed"}>Confirmed</option>
                             <option value={"Processing"}>Processing</option>
-                            <option value={"Ready to Pickupy"}>Ready to Pickup</option>
+                            <option value={"Ready to Pickup"}>Ready to Pickup</option>
                             <option value={"Delivered"}>Delivered</option>
-                            <option value={"Cancelled"}>Cancelled</option>
                             <option value={"Cancelled"}>Cancelled</option>
                             <option value={"Refund"}>Refund</option>
                         </select>
@@ -117,7 +116,7 @@ const page = () => {
                                 <option value={"Placed"}>Placed</option>
                                 <option value={"Confirmed"}>Confirmed</option>
                                 <option value={"Processing"}>Processing</option>
-                                <option value={"Ready to Pickupy"}>Ready to Pickup</option>
+                                <option value={"Ready to Pickup"}>Ready to Pickup</option>
                                 <option value={"Delivered"}>Delivered</option>
                                 <option value={"Cancelled"}>Cancelled</option>
                                 <option value={"Refund"}>Refund</option>

@@ -57,10 +57,20 @@ const API_DELETE_CAT = async(data:{_id:string}) => {
     }
 }
 
+const API_GET_CATEGORIES_LENGTH = async() => {
+    try { 
+       const response = await axios.get(`${URL}/category/categorieslength`)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 export {
     API_ADD_CATEGORY,
     API_ADD_SUBCATEGORY,
     API_GET_CATEGORIES,
     API_DELETE_SUBCAT,
     API_DELETE_CAT,
+    API_GET_CATEGORIES_LENGTH,
 }

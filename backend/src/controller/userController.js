@@ -399,7 +399,6 @@ const searchUser = async(req,res)=>{
     }
 }
 
-
 const deleteUser = async(req,res)=>{
     try {
         const {userId}=req.body
@@ -415,6 +414,16 @@ const deleteUser = async(req,res)=>{
         }
         await userModel.findByIdAndDelete(userId)
         sendSuccess(res,"User delete successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const getUserLength = async(req,res)=>{
+    try {
+        const admin = await userModel.countDocuments({admin:true})
+        const user = await userModel.countDocuments({admin:false})
+        sendSuccess(res,"Users Dashboard",{admin,user})
     } catch (error) {
         sendError(res,error.message)
     }
@@ -440,4 +449,5 @@ module.exports = {
     changeUserType,
     searchUser,
     deleteUser,
+    getUserLength,
 }

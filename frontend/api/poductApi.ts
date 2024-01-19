@@ -108,6 +108,15 @@ const API_DELETE_PRODUCT = async(data:{productId:string})=>{
    }   
 }
 
+const API_GET_PRODUCTS_LENGHT = async()=>{
+   try { 
+       const response = await axios.get(`${URL}/product/getproductslength`)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 
 
@@ -125,4 +134,5 @@ export {
     API_GET_ADMIN_PRODUCT,
     API_UPDATE_PRODUCT,
     API_DELETE_PRODUCT,
+    API_GET_PRODUCTS_LENGHT,
 }

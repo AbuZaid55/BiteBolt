@@ -109,6 +109,7 @@ const page = () => {
                     </div>
                     <label className='flex items-center justify-start gap-2 py-1' htmlFor="checkbox"><input onChange={(e)=>{handleCheckbox(e)}} type="checkbox" id='checkbox' checked={product.popularList} />Add In Popular Products List</label>
 
+
                     <div className='flex items-center justify-between w-full gap-4'>
                         <button  onClick={()=>{updateProduct()}} className=" text-center bg-main-800 text-white px-4 py-2 rounded-md my-4 cursor-pointer border-2 w-full border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Update</button>
                     </div>

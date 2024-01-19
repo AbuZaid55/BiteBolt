@@ -83,6 +83,15 @@ const API_CHAGE_STATUS = async(data:{orderId:string,value:string}) => {
     }
 }
 
+const API_GET_ORDERS_LENGTH = async() => {
+    try { 
+       const response = await axios.get(`${URL}/order/getorderslength`)
+       return response.data;
+    } catch (error) {
+       throwError(error)
+    }
+}
+
 
 export {
     API_CREATE_PAYMENT,
@@ -93,4 +102,5 @@ export {
     API_CANCLE_ORDER,
     API_GET_ADMIN_ORDERS,
     API_CHAGE_STATUS,
+    API_GET_ORDERS_LENGTH,
 }
