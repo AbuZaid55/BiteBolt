@@ -90,4 +90,5 @@ export type API_UPDATE_PRODUCT = {
     stock:number,
     price:number,
     description:string
+    popularList:any,
 }

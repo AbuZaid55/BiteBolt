@@ -43,7 +43,7 @@ const page = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const {setLoader}=useMyContext()
-    const [product,setProduct]=useState<productDetail>({_id:'',name:"",stock:0,price:0,description:"",thumbnail:{secure_url:""},images:{secure_url:[]},rating:0,reviews:[]})
+    const [product,setProduct]=useState<productDetail>({_id:'',name:"",stock:0,price:0,description:"",thumbnail:{secure_url:""},popularList:false,images:{secure_url:[]},rating:0,reviews:[]})
 
 
     const getProduct = async(_id:string)=>{
@@ -59,8 +59,15 @@ const page = () => {
     }
     const updateProduct = async()=>{
         setLoader(true)
-        await dispatch(UpdateProduct({_id:product._id,name:product.name,stock:product.stock,price:product.price,description:product.description}))
+        await dispatch(UpdateProduct({_id:product._id,name:product.name,stock:product.stock,price:product.price,description:product.description,popularList:product.popularList}))
         setLoader(false)
+    }
+    const handleCheckbox = async(e:any)=>{
+        if(e.target.checked){
+            setProduct({...product,popularList:true})
+        }else{
+            setProduct({...product,popularList:false})
+        }
     }
 
     useEffect(()=>{
@@ -100,6 +107,7 @@ const page = () => {
                         <label className=' text-xl text-main-800 font-semibold' htmlFor="description">Enter Description</label>
                         <textarea value={product.description} onChange={(e)=>{handleInput(e)}} className='block w-full outline-none bg-slate-200 border-2 border-main-800 mt-1 p-2 text-xl' id='description' style={{ minHeight: '250px', maxHeight: "250px", resize: 'none' }} placeholder="Enter Description" name='description' />
                     </div>
+                    <label className='flex items-center justify-start gap-2 py-1' htmlFor="checkbox"><input onChange={(e)=>{handleCheckbox(e)}} type="checkbox" id='checkbox' checked={product.popularList} />Add In Popular Products List</label>
 
                     <div className='flex items-center justify-between w-full gap-4'>
                         <button  onClick={()=>{updateProduct()}} className=" text-center bg-main-800 text-white px-4 py-2 rounded-md my-4 cursor-pointer border-2 w-full border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Update</button>

@@ -272,12 +272,15 @@ const getAdminProducts = async(req,res)=>{
 
 const updateProduct = async(req,res)=>{
     try {
-        const {name,stock,price,description,_id}=req.body
+        const {name,stock,price,description,popularList,_id}=req.body
         if(!_id){
             return throwError("Product id not found!")
         }
         if(!name || !stock || !price || !description){
             return throwError("All field are required!")
+        }
+        if(![true,false].includes(popularList)){
+            return throwError("Checkbox value in not valid!")
         }
         const result = await productModel.findById(_id)
         if(!result){
@@ -287,6 +290,7 @@ const updateProduct = async(req,res)=>{
         result.price = price
         result.stock = stock 
         result.description = description
+        result.popularList=popularList
         await result.save()
         sendSuccess(res,"Product update successfully!")
     } catch (error) {

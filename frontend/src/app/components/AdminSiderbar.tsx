@@ -6,7 +6,8 @@ import { FaAngleLeft } from "react-icons/fa6";
 import { CgPlayListAdd } from "react-icons/cg";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
-import {FaUserFriends,FaShoppingCart,FaPlusSquare,FaNotesMedical,FaTimes,FaCcAmazonPay} from "react-icons/fa";
+import { HiOutlineClipboardList } from "react-icons/hi";
+import {FaUserFriends,FaPlusSquare,FaNotesMedical,FaCcAmazonPay} from "react-icons/fa";
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -27,13 +28,12 @@ const AdminSiderbar = () => {
         </Link>
         <Link href="/admin/dashboard" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap'><MdSpaceDashboard className="min-w-8 "/>Dashboard</Link>
         <Link href="/admin/users" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-1 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaUserFriends className="min-w-8 "/>Users</Link>
-        <Link href="/admin/products" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaShoppingCart className="min-w-8 "/>Products</Link>
+        <Link href="/admin/products" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><HiOutlineClipboardList className="min-w-8 "/>Products</Link>
         <Link href="/admin/addproduct" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-1 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaPlusSquare className="min-w-8 "/>Add Products</Link>
         <Link href="/admin/orders" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaNotesMedical className="min-w-8 "/>Orders</Link>
-        <Link href="/admin/cancelledorders" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-1 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaTimes className="min-w-8 "/>Cancelled Orders</Link>
+        <Link href="/admin/payments" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-1 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaCcAmazonPay className="min-w-8 "/>Payments</Link>
         <Link href="/admin/category" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><BiSolidCategory className="min-w-8 "/>Category</Link>
         <Link href="/admin/addcategory" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-1  hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><CgPlayListAdd className="min-w-8 "/>Add Category</Link>
-        <Link href="/admin/payments" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap '><FaCcAmazonPay className="min-w-8 "/>Payments</Link>
         </div>
       </div>
   )
