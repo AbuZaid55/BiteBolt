@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hook"
 import { useRouter } from "next/navigation"
 import { useMyContext } from "@/app/MyContextProvider"
-import { GetCategoriesLength, GetOrdersLength, GetProductsLength, GetUsersLength } from "../../../../Redux/asyncThunk"
+import { GetCategoriesLength, GetChartPayment, GetOrdersLength, GetProductsLength, GetTotalPayment, GetUsersLength } from "../../../../Redux/asyncThunk"
 
 const BarChart = dynamic(() => import("../../../../chartJS/BarChart"), { ssr: false })
 const LineChart = dynamic(() => import("../../../../chartJS/LineChart"), { ssr: false })
@@ -25,6 +25,8 @@ const page = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { setLoader } = useMyContext()
+  const [updatePage,setUpdatePage]=useState(true)
+  const [page,setPage]=useState(1)
   const [data, setData] = useState({
     categories: 0,
     products: { inStock: 0, outStock: 0 },
@@ -41,24 +43,54 @@ const page = () => {
         { name: "Refund", count: 0 },
       ]
     },
+    totalPayment:0,
+    payments:[{totalPaidAmount:0}]
   })
 
+  const handlePage = (opr:string)=>{
+    if(opr==="add"){
+        if(updatePage){
+          setPage((pre)=>page+1)
+        }
+    }
+    if(opr==="sub"){
+      if(page>1){
+        setUpdatePage(true)
+        setPage(page-1)
+      }
+    }
+  }
   const getDetails = async () => {
-    const result1 = await dispatch(GetCategoriesLength())
-    if (result1.meta.requestStatus === "fulfilled") {
-      setData({ ...data, categories: result1.payload.data })
+    if(user._id && user.admin){
+      const result1 = await dispatch(GetCategoriesLength())
+      if (result1.meta.requestStatus === "fulfilled") {
+        setData((prevData) => ({ ...prevData, categories: result1.payload.data }));
+      }
+      const result2 = await dispatch(GetProductsLength())
+      if (result2.meta.requestStatus === "fulfilled") {
+         setData((prevData) => ({ ...prevData, products: result2.payload.data }));
+      }
+      const result3 = await dispatch(GetUsersLength())
+      if (result3.meta.requestStatus === "fulfilled") {
+         setData((prevData) => ({ ...prevData, customers: result3.payload.data }));
+      }
+      const result4 = await dispatch(GetOrdersLength())
+      if(result4.meta.requestStatus==="fulfilled"){
+         setData((prevData) => ({ ...prevData, orders: result4.payload.data }));
+      }
+      const result5 = await dispatch(GetTotalPayment())
+      if(result5.meta.requestStatus==="fulfilled"){
+         setData((prevData) => ({ ...prevData, totalPayment: result5.payload.data }));
+      }
     }
-    const result2 = await dispatch(GetProductsLength())
-    if (result2.meta.requestStatus === "fulfilled") {
-      setData({ ...data, products: result2.payload.data })
-    }
-    const result3 = await dispatch(GetUsersLength())
-    if (result3.meta.requestStatus === "fulfilled") {
-      setData({ ...data, customers: result3.payload.data })
-    }
-    const result4 = await dispatch(GetOrdersLength())
-    if(result4.meta.requestStatus==="fulfilled"){
-      setData({...data,orders:result4.payload.data})
+  }
+  const getChartPayment = async(page:number)=>{
+    const result = await dispatch(GetChartPayment({page:page}))
+    if(result.meta.requestStatus==="fulfilled"){
+      setData((pre)=>({...pre,payments:result.payload.data}))
+      if(result.payload.data.length<7){
+        setUpdatePage(false)
+      }
     }
   }
 
@@ -69,7 +101,11 @@ const page = () => {
       getDetails()
     }
   }, [user])
-  console.log(data)
+  useEffect(()=>{
+    if(user._id && user.admin){
+      getChartPayment(page)
+    }
+  },[user,page])
   return (
     <div className="bg-slate-200 h-[100vh] w-full flex text-slate-700">
       <AdminSiderbar />
@@ -98,7 +134,7 @@ const page = () => {
             </div>
             <h1 className="text-2xl font-bold mt-4 flex items-center justify-start">
               <FaRupeeSign size={21} />
-              259
+              {data.totalPayment}
             </h1>
           </div>
           <div className="p-2 col-span-6 sm:col-span-3 lg:col-span-3 text-white bg-blue-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
@@ -125,12 +161,15 @@ const page = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 p-4 gap-4 h-[400px] my-4">
+        <div className="grid grid-cols-2 gap-4 h-[400px] my-4">
           <div className="h-full">
             <BarChart order={data.orders.order}/>
           </div>
-          <div className="h-full">
-            <LineChart />
+          <div className="h-full relative">
+            <LineChart payments={data.payments}/>
+            <div className="absolute bottom-10 right-10 flex">
+              <button onClick={()=>{handlePage("add")}} className=" bg-slate-700 text-xl rounded-md w-8 h-6 text-white m-1 flex items-center justify-center"> &#x2190; </button>
+              <button onClick={()=>{handlePage("sub")}} className=" bg-slate-700 text-xl rounded-md w-8 h-6 text-white m-1 flex items-center justify-center">  &#x2192; </button></div>
           </div>
         </div>
       </div>

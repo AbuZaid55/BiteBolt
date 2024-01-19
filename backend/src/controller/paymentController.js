@@ -41,7 +41,40 @@ const deletePayment = async(req,res)=>{
     }
 }
 
+const getTotalPayment = async(req,res)=>{
+    try {
+        const result = await paymentModel.aggregate([
+            {
+              $group: {
+                _id: null,
+                totalAmount: { $sum: '$totalPaidAmount' },
+              },
+            },
+          ]);
+          sendSuccess(res,"Total Payment",result[0].totalAmount)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
+const getChartPayment = async(req,res)=>{
+    const limit = 7
+    try {
+        const {page}=req.body
+        if(!page){
+            return throwError("Page not not found!")
+        }
+        const skip = limit*(page-1)
+        const result = await paymentModel.find({},{totalPaidAmount:1,_id:0}).sort({_id:-1}).skip(skip).limit(limit)
+        sendSuccess(res,"Payment Chart Dashboard",result)
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     getPayment,
     deletePayment,
+    getTotalPayment,
+    getChartPayment
 }

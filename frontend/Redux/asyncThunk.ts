@@ -63,7 +63,9 @@ import {
 
 import {
     API_DELETE_PAYMENT,
+    API_GET_CHART_PAYMENT,
     API_GET_PAYMENT,
+    API_GET_TOTAL_PAYMENT,
 } from '../api/paymentApi'
 
 //user
@@ -131,3 +133,5 @@ export const GetOrdersLength = createAsyncThunk('/order/getorderslength',API_GET
 //payment
 export const GetPayments = createAsyncThunk('/payment/getpayment',API_GET_PAYMENT)
 export const DeletePayment = createAsyncThunk('/payment/deletepayment',API_DELETE_PAYMENT)
+export const GetTotalPayment = createAsyncThunk('/payment/gettotalpayment',API_GET_TOTAL_PAYMENT)
+export const GetChartPayment = createAsyncThunk('/payment/getchartpayment',API_GET_CHART_PAYMENT)
