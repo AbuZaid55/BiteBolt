@@ -17,7 +17,7 @@ const robotoSlab = Roboto_Slab({
 
 type DeleteCat = (value: { [key: string]: string }) => void
 
-const page = () => {
+const Page = () => {
   const [showSubCat, setShowSubCat] = useState("")
   const [showConfirm, setShowConfirm] = useState(false)
   const [deleteFun, setDeleteFun] = useState<DeleteCat | null>(null)
@@ -131,4 +131,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

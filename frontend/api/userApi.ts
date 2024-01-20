@@ -8,6 +8,7 @@ import {
    API_CHANGE_NAME,
    API_ADD_ADDRESS,
    API_CHANGE_PASS,
+   API_CONTACT,
 } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
@@ -238,6 +239,16 @@ const API_GET_USERS_LENGTH = async()=>{
    }   
 }
 
+const API_CONTACT = async(data:API_CONTACT)=>{
+   try { 
+      const response = await axios.post(`${URL}/user/contact`,data)
+      toast.success(response.data.message)
+      return response.data;
+   } catch (error) {
+      throwError(error)
+   }   
+}
+
 export { 
    API_SEND_OTP,
    API_SING_UP,API_LOGIN,
@@ -261,4 +272,5 @@ export {
    API_SEARCH_USER,
    API_DELETE_USER,
    API_GET_USERS_LENGTH,
+   API_CONTACT,
 }

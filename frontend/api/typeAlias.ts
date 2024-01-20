@@ -92,3 +92,11 @@ export type API_UPDATE_PRODUCT = {
     description:string
     popularList:any,
 }
+
+export type API_CONTACT = {
+    name:string,
+    email:string,
+    phoneNo:string,
+    subject:string,
+    message:string,
+}

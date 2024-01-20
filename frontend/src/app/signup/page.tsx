@@ -7,7 +7,7 @@ import {useRouter} from 'next/navigation'
 import { useMyContext } from "../MyContextProvider"
  
 
-const page = () => {
+const Page = () => {
 
   const router = useRouter()
   const {setLoader} = useMyContext()
@@ -150,4 +150,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

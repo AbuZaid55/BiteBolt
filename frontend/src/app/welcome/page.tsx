@@ -10,7 +10,7 @@ const robotoSlab = Roboto_Slab({
 })
 
 
-const page = () => {
+const Page = () => {
     return (
         <div className='bg-slate-200 flex items-center justify-center flex-col pb-[350px] mb-[-350px] pt-[150px]'>
             <div className='flex items-center justify-center'>
@@ -28,4 +28,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

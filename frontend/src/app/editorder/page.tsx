@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useMyContext } from '../MyContextProvider'
 import { UpdateDetails } from '../../../Redux/asyncThunk'
 
-const page = () => {
+const Page = () => {
     const [selected, setSelected] = useState(0)
     const user = useAppSelector((state)=>state.user)
     const path = useSearchParams()
@@ -56,4 +56,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

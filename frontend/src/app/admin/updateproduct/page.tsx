@@ -37,7 +37,7 @@ interface productDetail {
     createdAt?:Date,
   }
 
-const page = () => {
+const Page = () => {
     const path = useSearchParams()
     const user = useAppSelector((state)=>state.user)
     const router = useRouter()
@@ -119,4 +119,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

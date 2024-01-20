@@ -25,7 +25,7 @@ interface API_ADD_PRODUCT {
     images:File[]
 }
 
-const page = () => {
+const Page = () => {
 
     const {setLoader} = useMyContext()
     const dispatch = useAppDispatch()
@@ -169,4 +169,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

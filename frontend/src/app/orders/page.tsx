@@ -19,7 +19,7 @@ const robotoSlab = Roboto_Slab({
 
 
 
-const page = () => {
+const Page = () => {
 
     const user = useAppSelector((state)=>state.user)
     const router = useRouter()
@@ -94,4 +94,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

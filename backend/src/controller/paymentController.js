@@ -65,7 +65,7 @@ const getChartPayment = async(req,res)=>{
             return throwError("Page not not found!")
         }
         const skip = limit*(page-1)
-        const result = await paymentModel.find({},{totalPaidAmount:1,_id:0}).sort({_id:-1}).skip(skip).limit(limit)
+        const result = await paymentModel.find({},{totalPaidAmount:1,razorpay_order_id:1,_id:0}).sort({_id:-1}).skip(skip).limit(limit)
         sendSuccess(res,"Payment Chart Dashboard",result)
     } catch (error) {
         sendError(res,error.message)

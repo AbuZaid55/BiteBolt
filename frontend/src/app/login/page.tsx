@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../Redux/hook'
 import {useRouter} from 'next/navigation'
 import { useMyContext } from '../MyContextProvider'
 
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const { setLoader } = useMyContext()
   const dispatch = useAppDispatch()
@@ -38,4 +38,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

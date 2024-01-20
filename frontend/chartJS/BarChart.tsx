@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { ResponsiveContainer, Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 
@@ -6,6 +7,10 @@ interface order {
   count:number
 }
 const BarCharts = ({order}:{order:order[]}) => {
+  const router = useRouter()
+  const handleClick = (data:any)=>{
+    router.push(`/admin/orders?status=${data.name}`)
+  }
   return (
     <ResponsiveContainer width="100%" height={'100%'}>
       <BarChart data={order} >
@@ -13,7 +18,7 @@ const BarCharts = ({order}:{order:order[]}) => {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="count" fill="#8884d8" />
+        <Bar className=' cursor-pointer' onClick={handleClick} dataKey="count" fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>
   )

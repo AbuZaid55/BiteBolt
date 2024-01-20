@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { SendLink } from '../../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
 
-const page = () => {
+const Page = () => {
 
   const { setLoader } = useMyContext()
   const dispatch = useAppDispatch()
@@ -55,5 +55,5 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
 

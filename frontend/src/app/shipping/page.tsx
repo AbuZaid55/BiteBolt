@@ -5,7 +5,7 @@ import AddAddressForm from '../components/AddAddressForm'
 import { useAppSelector } from '../../../Redux/hook'
 import Link from 'next/link'
 
-const page = () => {
+const Page = () => {
     const [selected, setSelected] = useState(0)
     const user = useAppSelector((state)=>state.user)
     return (
@@ -25,4 +25,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

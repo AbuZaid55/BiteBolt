@@ -2,6 +2,7 @@ const userModel = require('../models/userModel')
 const otpModel = require('../models/otpModel')
 const productModel = require('../models/productModel')
 const throwError = require('../utils/throwError')
+const {contactMail} = require('../utils/mail')
 const {sendError,sendSuccess} = require("../utils/sendResponse")
 const validator = require("email-validator")
 const cloudinary = require("cloudinary")
@@ -429,6 +430,19 @@ const getUserLength = async(req,res)=>{
     }
 }
 
+const contact = async(req,res)=>{
+    try {
+        const {name,email,phoneNo,subject,message}=req.body
+        if(!name || !email || !phoneNo || !subject || !message){
+            return throwError("All field are required!")
+        }
+        contactMail(name,email,phoneNo,subject,message)
+        sendSuccess(res,"Contact mail send successfully")
+    } catch (error) {
+        sendError(res,error.message)
+    }
+}
+
 module.exports = {
     signUp,
     logIn,
@@ -450,4 +464,5 @@ module.exports = {
     searchUser,
     deleteUser,
     getUserLength,
+    contact
 }

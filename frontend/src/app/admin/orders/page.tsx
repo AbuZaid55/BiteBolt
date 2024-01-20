@@ -5,7 +5,7 @@ import { Roboto_Slab } from "next/font/google"
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeStatus, GetAdminOrders } from '../../../../Redux/asyncThunk';
 
 const robotoSlab = Roboto_Slab({
@@ -14,7 +14,9 @@ const robotoSlab = Roboto_Slab({
     display: "swap",
 })
 
-const page = () => {
+const Page = () => {
+
+    const path = useSearchParams()
     const user = useAppSelector((state)=>state.user)
     const {setLoader}=useMyContext()
     const dispatch = useAppDispatch()
@@ -22,13 +24,13 @@ const page = () => {
     const [search,setSearch]=useState('')
     const [handleSearch,setHandleSearch]=useState('')
     const [timeId,setTimeId]=useState<any>(0)
-    const [searchType,setSearchType]=useState('')
+    const [searchType,setSearchType]=useState('false')
     const [orders,setOrders]=useState([])
 
-    const getOrders = async()=>{
+    const getOrders = async(searchType:string)=>{
         if(user._id && user.admin){
             setLoader(true)
-            const result = await dispatch(GetAdminOrders({search,searchType}))
+            const result = await dispatch(GetAdminOrders({search,searchType:searchType}))
             if(result.meta.requestStatus==="fulfilled"){
                 setOrders(result.payload.data)
             }
@@ -57,9 +59,19 @@ const page = () => {
         if(user._id!=="1" && !user.admin){
             router.push('/login')
         }else{
-            getOrders()
+            if(searchType!=="false"){
+                getOrders(searchType)
+            }
         }
     },[user,search,searchType])
+    useEffect(()=>{
+        const status = path.get('status')
+        if(status){
+            setSearchType(status)
+        }else{
+            setSearchType('')
+        }
+    },[path])
     return (
         <div className='flex bg-slate-200'>
             <AdminSiderbar />
@@ -134,4 +146,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

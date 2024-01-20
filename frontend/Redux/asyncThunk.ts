@@ -23,6 +23,7 @@ import {
     API_SEARCH_USER,
     API_DELETE_USER,
     API_GET_USERS_LENGTH,
+    API_CONTACT,
 } from '../api/userApi'
 
 import { 
@@ -92,6 +93,7 @@ export const ChangeUserType = createAsyncThunk('user/changeusertype',API_CHANGE_
 export const SearchUser = createAsyncThunk('user/searchuser',API_SEARCH_USER)
 export const DeleteUser = createAsyncThunk('user/deleteuser',API_DELETE_USER)
 export const GetUsersLength = createAsyncThunk('user/getuserlength',API_GET_USERS_LENGTH)
+export const Contact = createAsyncThunk('user/contact',API_CONTACT)
 
 
 //category

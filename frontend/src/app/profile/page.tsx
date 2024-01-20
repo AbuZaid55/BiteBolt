@@ -17,7 +17,7 @@ const robotoSlab = Roboto_Slab({
     display: "swap",
   })
 
-const page = () => {
+const Page = () => {
     const router = useRouter()
     const {setLoader} = useMyContext()
     const dispatch = useAppDispatch()
@@ -97,4 +97,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -4,7 +4,7 @@ import { FaTrash} from "react-icons/fa";
 import AdminSiderbar from '../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '@/app/MyContextProvider';
 import { ChangeUserType, DeleteUser, GetAllUser, SearchUser } from '../../../../Redux/asyncThunk';
 
@@ -14,7 +14,9 @@ const robotoSlab = Roboto_Slab({
   display: "swap",
 })
 
-const page = () => {
+const Page = () => {
+
+  const path = useSearchParams()
   const [showConfirm, setShowConfirm] = useState(false)
   const user = useAppSelector((state)=>state.user)
   const router = useRouter()
@@ -84,6 +86,15 @@ const page = () => {
   useEffect(()=>{
     getAllUser()
   },[type])
+  useEffect(()=>{
+    const admin:any = path.get('admin')
+    if(admin=='true'){
+      setType("true")
+    }
+    if(admin=='false'){
+      setType("false")
+    }
+  },[path])
   return (
     <div className='flex bg-slate-200'>
       <AdminSiderbar />
@@ -150,4 +161,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

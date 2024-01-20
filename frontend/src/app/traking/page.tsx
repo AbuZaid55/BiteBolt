@@ -10,7 +10,7 @@ import { useMyContext } from '../MyContextProvider';
 import { useAppDispatch } from '../../../Redux/hook';
 import { GetStatus } from '../../../Redux/asyncThunk';
 
-const page = () => {
+const Page = () => {
 
     const [status,setStatus]=useState("")
     const [track, setTrack] = useState(0)
@@ -106,4 +106,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

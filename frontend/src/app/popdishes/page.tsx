@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { setPage } from '../../../Redux/Slice/productSlice'
 
-const page = () => {
+const Page = () => {
   const dispatch = useAppDispatch()
   const [hashMore,setHashMore]=useState(true)
   const products = useAppSelector((state)=>state.product.popularProduct)
@@ -37,4 +37,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

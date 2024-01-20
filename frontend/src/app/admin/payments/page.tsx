@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import AdminSiderbar from '../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '@/app/MyContextProvider';
 import { DeletePayment, GetPayments } from '../../../../Redux/asyncThunk';
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -15,14 +15,16 @@ const robotoSlab = Roboto_Slab({
     display: "swap",
 })
 
-const page = () => {
+const Page = () => {
+
+    const path = useSearchParams()
     const [showConfirm, setShowConfirm] = useState(false)
     const user = useAppSelector((state) => state.user)
     const router = useRouter()
     const dispatch = useAppDispatch()
     const { setLoader } = useMyContext()
     const [payments, setPayments] = useState<{[key:string]:string | number}[]>([])
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('false')
     const [search1, setSeach1] = useState('')
     const [itemId, setTimeId] = useState<any>('')
     const [deletePaymentId, setDeletedPaymentId] = useState('')
@@ -64,7 +66,6 @@ const page = () => {
         }
         setLoader(false)
     }
-
     useEffect(() => {
         setPayments([])
         setPage(1)
@@ -72,9 +73,20 @@ const page = () => {
         if (user._id !== "1" && !user.admin) {
             router.push('/login')
         } else {
-            getPayments(search, 1)
+            if(search!=="false"){
+                getPayments(search, 1)
+            }
         }
     }, [user, search])
+    useEffect(()=>{
+        const orderId = path.get('orderId')
+        if(orderId){
+            setSearch(orderId)
+            setSeach1(orderId)
+        }else{
+            setSearch('')
+        }   
+    },[path])
     return (
         <div className='flex bg-slate-200'>
             <AdminSiderbar />
@@ -130,4 +142,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

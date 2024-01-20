@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../../../Redux/hook"
 import { useRouter } from "next/navigation"
 import { useMyContext } from "@/app/MyContextProvider"
 import { GetCategoriesLength, GetChartPayment, GetOrdersLength, GetProductsLength, GetTotalPayment, GetUsersLength } from "../../../../Redux/asyncThunk"
+import Link from "next/link"
 
 const BarChart = dynamic(() => import("../../../../chartJS/BarChart"), { ssr: false })
 const LineChart = dynamic(() => import("../../../../chartJS/LineChart"), { ssr: false })
@@ -20,7 +21,7 @@ const robotoSlab = Roboto_Slab({
   display: "swap",
 })
 
-const page = () => {
+const Page = () => {
   const user = useAppSelector((state) => state.user)
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -44,7 +45,7 @@ const page = () => {
       ]
     },
     totalPayment:0,
-    payments:[{totalPaidAmount:0}]
+    payments:[{totalPaidAmount:0,razorpay_order_id:''}]
   })
 
   const handlePage = (opr:string)=>{
@@ -62,6 +63,7 @@ const page = () => {
   }
   const getDetails = async () => {
     if(user._id && user.admin){
+      setLoader(true)
       const result1 = await dispatch(GetCategoriesLength())
       if (result1.meta.requestStatus === "fulfilled") {
         setData((prevData) => ({ ...prevData, categories: result1.payload.data }));
@@ -82,9 +84,11 @@ const page = () => {
       if(result5.meta.requestStatus==="fulfilled"){
          setData((prevData) => ({ ...prevData, totalPayment: result5.payload.data }));
       }
+      setLoader(false)
     }
   }
   const getChartPayment = async(page:number)=>{
+    setLoader(true)
     const result = await dispatch(GetChartPayment({page:page}))
     if(result.meta.requestStatus==="fulfilled"){
       setData((pre)=>({...pre,payments:result.payload.data}))
@@ -92,6 +96,7 @@ const page = () => {
         setUpdatePage(false)
       }
     }
+    setLoader(false)
   }
 
   useEffect(() => {
@@ -113,21 +118,21 @@ const page = () => {
         <h1 className={`text-center text-4xl text-main-800 my-4 ${robotoSlab.className}`}>DASHBOARD</h1>
 
         <div className="grid grid-cols-6 gap-5">
-          <div className="p-2 col-span-6 sm:col-span-3 lg:col-span-2 text-white bg-cyan-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
+          <Link href={'/admin/orders'} className="p-2 col-span-6 sm:col-span-3 lg:col-span-2 text-white bg-cyan-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
             <div className="flex items-center justify-between">
               <h1>ORDERS</h1>
               <FaNotesMedical />
             </div>
             <h1 className="text-2xl font-bold mt-4">{data.orders.totalOrder}</h1>
-          </div>
-          <div className="p-2 col-span-6 sm:col-span-3 lg:col-span-2 text-white bg-orange-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
+          </Link>
+          <Link href={'/admin/category'} className="p-2 col-span-6 sm:col-span-3 lg:col-span-2 text-white bg-orange-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
             <div className="flex items-center justify-between">
               <h1>CATEGORIES</h1>
               <BiSolidCategory />
             </div>
             <h1 className="text-2xl font-bold mt-4">{data.categories}</h1>
-          </div>
-          <div className="p-2 col-span-6 sm:col-span-6 lg:col-span-2 text-white bg-pink-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
+          </Link>
+          <Link href={'/admin/payments'} className="p-2 col-span-6 sm:col-span-6 lg:col-span-2 text-white bg-pink-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
             <div className="flex items-center justify-between">
               <h1>PAYMENTS</h1>
               <FaCcAmazonPay />
@@ -136,7 +141,7 @@ const page = () => {
               <FaRupeeSign size={21} />
               {data.totalPayment}
             </h1>
-          </div>
+          </Link>
           <div className="p-2 col-span-6 sm:col-span-3 lg:col-span-3 text-white bg-blue-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
             <div className="flex items-center justify-between">
               <h1>PRODUCTS</h1>
@@ -144,8 +149,8 @@ const page = () => {
             </div>
             <h1 className="text-2xl font-bold mt-4">{data.products.inStock + data.products.outStock}</h1>
             <p className="flex items-center justify-between text-base border-t mt-2 pt-2">
-              <span>In Stock:- {data.products.inStock}</span>
-              <span>Out Of Stock:- {data.products.outStock}</span>
+              <Link className="hover:border-b" href={'/admin/products'}>In Stock:- {data.products.inStock}</Link>
+              <Link className="hover:border-b" href={'/admin/products?stock=0'}>Out Of Stock:- {data.products.outStock}</Link>
             </p>
           </div>
           <div className="p-2 col-span-6 sm:col-span-3 lg:col-span-3 text-white bg-green-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">
@@ -155,8 +160,8 @@ const page = () => {
             </div>
             <h1 className="text-2xl font-bold mt-4">{data.customers.admin + data.customers.user}</h1>
             <p className="flex items-center justify-between text-base border-t mt-2 pt-2">
-              <span>Admin:- {data.customers.admin}</span>
-              <span>User:- {data.customers.user}</span>
+              <Link className="hover:border-b" href={'/admin/users?admin=true'}>Admin:- {data.customers.admin}</Link>
+              <Link className="hover:border-b" href={'/admin/users?admin=false'}>User:- {data.customers.user}</Link>
             </p>
           </div>
         </div>
@@ -177,4 +182,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { GetFilterProducts } from '../../../Redux/asyncThunk'
 import { setHashMore } from '../../../Redux/Slice/productSlice'
 
-const page = () => {
+const Page = () => {
 
   const dispatch = useAppDispatch()
   const products = useAppSelector((state)=>state.product.filterProducts)
@@ -39,4 +39,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

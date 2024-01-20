@@ -12,7 +12,7 @@ const robotoSlab = Roboto_Slab({
   display: "swap",
 })
 
-const page = () => {
+const Page = () => {
   const {setLoader}=useMyContext()
   const dispatch = useAppDispatch()
   const categories = useAppSelector((state)=>state.category.categories)
@@ -81,4 +81,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

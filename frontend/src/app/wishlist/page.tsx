@@ -16,7 +16,7 @@ interface Product {
   thumbnail:{secure_url:string}
 }
 
-const page = () => {
+const Page = () => {
   
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -65,4 +65,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

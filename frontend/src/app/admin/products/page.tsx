@@ -6,7 +6,7 @@ import AdminSiderbar from '../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { DeleteProduct, GetAdminProducts } from '../../../../Redux/asyncThunk';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
@@ -16,7 +16,9 @@ const robotoSlab = Roboto_Slab({
   display: "swap",
 })
 
-const page = () => {
+const Page = () => {
+
+  const path = useSearchParams()
   const [showConfirm, setShowConfirm] = useState(false)
   const user = useAppSelector((state)=>state.user)
   const dispatch = useAppDispatch()
@@ -24,13 +26,12 @@ const page = () => {
   const router = useRouter()
   const [search,setSearch]=useState('')
   const [search1,setSearch1]=useState('')
-  const [searchType,setSearchType]=useState('')
+  const [searchType,setSearchType]=useState('false')
   const [page,setPage]=useState(1)
   const [timeId,setTimeId]=useState<any>(0)
   const [items,setItems]=useState<any>([])
   const [hashMore,setHashMore]=useState(true)
   const [deleteItemId,setDeleteItemId]=useState('')
-  const rat = 5
 
   const handleSearch = (e:any)=>{
     setSearch1(e.target.value)
@@ -66,20 +67,29 @@ const page = () => {
   }
 
   useEffect(()=>{
-    setHashMore(true)
-    getProducts(1,[])
-  },[search,searchType])
-  useEffect(()=>{
     if(user._id!=="1" && !user.admin){
       router.push('/login')
     }else{
+     if(searchType!=='false'){
+      setHashMore(true)
       getProducts(1,[])
+     }
     }
-  },[user])
+  },[user,search,searchType])
+  useEffect(()=>{
+    const stock = path.get('stock')
+    if(stock){
+      setSearch1('0')
+      setSearch('0')
+      setSearchType('stock')
+    }else{
+      setSearchType('')
+    }
+  },[path])
   return (
     <div className='flex bg-slate-200'>
       <AdminSiderbar />
-      <div className='pl-16 sm:pl-20 w-full min-h-[100vh] overflow-hidden overflow-y-scroll text-slate-700' >
+      <div className='pl-16 sm:pl-20 w-full min-h-[100vh] overflow-x-hidden overflow-y-auto text-slate-700 ' >
         <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Products</h1>
             <div className='w-full flex flex-col items-start p-4'>
               <input value={search1} onChange={(e)=>{handleSearch(e)}} className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Products' />
@@ -95,7 +105,7 @@ const page = () => {
               </label>
             </div>
 
-           <InfiniteScroll className='w-full' next={fetchMore} dataLength={items.length} hasMore={hashMore} loader={<></>}>
+           <InfiniteScroll className='' next={fetchMore} dataLength={items.length} hasMore={hashMore} loader={<></>}>
         <table className='mt-4'>
           <thead className='bg-main-800 border-main-800 border-2'>
             <tr>
@@ -146,4 +156,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
