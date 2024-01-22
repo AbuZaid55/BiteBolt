@@ -28,6 +28,7 @@ const Page = () => {
     if (search && tokenn) {
       setInput({ ...input, token: tokenn })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className='pt-[120px] bg-slate-200 pb-[350px] mb-[-350px] '>

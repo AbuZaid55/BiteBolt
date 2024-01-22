@@ -73,10 +73,11 @@ const Page = () => {
         if (user._id !== "1" && !user.admin) {
             router.push('/login')
         } else {
-            if(search!=="false"){
+            if(search!=="false" && user._id && user.admin){
                 getPayments(search, 1)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, search])
     useEffect(()=>{
         const orderId = path.get('orderId')
@@ -85,7 +86,8 @@ const Page = () => {
             setSeach1(orderId)
         }else{
             setSearch('')
-        }   
+        } 
+        // eslint-disable-next-line react-hooks/exhaustive-deps  
     },[path])
     return (
         <div className='flex bg-slate-200'>

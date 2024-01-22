@@ -11,6 +11,7 @@ import { useMyContext } from '../MyContextProvider';
 import { CreatePayment, GetCartItems, Verifypayment } from '../../../Redux/asyncThunk';
 import { toast } from 'react-toastify';
 import Script from "next/script";
+import Image from 'next/image';
 
 
 const robotoSlab = Roboto_Slab({
@@ -76,7 +77,7 @@ const Page = () => {
                 }
             }
         }
-        const rzp1 = new window.Razorpay(options);
+        const rzp1 = new (window as any).Razorpay(options);
         rzp1.open()
     }
 
@@ -85,13 +86,16 @@ const Page = () => {
         if(!user._id){
             router.push('/login')
         }else{
-            if(!selectId || selectId==null){
-                router.push('/shipping')
-            }else{
-                setSelectId(selectId)
-                getItems()
+            if(user._id!=="1"){
+                if(!selectId || selectId==null){
+                    router.push('/shipping')
+                }else{
+                    setSelectId(selectId)
+                    getItems()
+                }
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[user,path])
     return (
        <>
@@ -100,14 +104,14 @@ const Page = () => {
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
         <div className='bg-slate-200 pb-[350px] mb-[-350px] pt-[75px]'>
-            <h1 className=' bg-main-800 text-white font-semibold text-xl py-2 px-4'>Shipping Details</h1>
+            <h1 className=' bg-main-800 text-white font-semibold text-xl py-2 px-4'>Shipping Details</h1> 
             <div className='my-2'><AddressCard data={user.shippingDetails[Number(selectId)]}/></div>
             <h1 className=' bg-main-800 text-white font-semibold text-xl py-2 px-4'>Your Cart Items</h1>
             <div className=' my-4'>
                 {
                     items.items.map((item)=>{
                         return <div key={item.productId && item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
-                        <img className='w-[100px] h-full p-2' src={item.productId && item.productId.thumbnail.secure_url} alt="" />
+                        <Image className='p-2' width={100} height={100} priority={true} src={(item.productId )? item.productId.thumbnail.secure_url:'/img/5.jpg'} alt="" />
                         <div >
                             <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
                             <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>

@@ -8,6 +8,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { MdSpaceDashboard } from "react-icons/md";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import {FaUserFriends,FaPlusSquare,FaNotesMedical,FaCcAmazonPay} from "react-icons/fa";
+import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -23,7 +24,7 @@ const AdminSiderbar = () => {
         <span onClick={()=>{setOpen(!open)}} className={`absolute top-4 p-1 sm:p-2 rounded-full text-2xl right-0 translate-x-1/2 cursor-pointer hover:scale-110 hover:text-white hover:bg-main-800 transition-all ease-in-out duration-300 shadow-md bg-slate-100 ${(open)?"":" rotate-180"}`}><FaAngleLeft/></span>
         <div className='h-full w-full overflow-y-scroll pb-5 scrollbar-hide'>
         <Link href="/" className="flex items-center overflow-hidden pl-2 sm:pl-0 mt-10 gap-4">
-          <img className="min-w-8 h-8 sm:min-w-12 sm:h-12" src="/logo.png" alt="logo" />
+          <div className="min-w-8 h-8 sm:min-w-12 sm:h-12 relative"><Image fill={true} priority={true} sizes='100%' src="/logo.png" alt="logo" /></div>
           <h1 className={`text-2xl sm:text-4xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1>
         </Link>
         <Link href="/admin/dashboard" className='flex items-center py-2 bg-slate-100 rounded-md px-2 gap-3 text-xl sm:text-2xl mt-4 sm:mt-8 hover:bg-[#e2e8f0] transition-all duration-200 ease-in-out overflow-hidden text-nowrap'><MdSpaceDashboard className="min-w-8 "/>Dashboard</Link>

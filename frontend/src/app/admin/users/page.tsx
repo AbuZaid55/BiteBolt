@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '@/app/MyContextProvider';
 import { ChangeUserType, DeleteUser, GetAllUser, SearchUser } from '../../../../Redux/asyncThunk';
+import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -75,16 +76,21 @@ const Page = () => {
     if(user._id!=="1" && !user.admin){
       router.push('/login')
     }else{
-      getAllUser()
+      if(user._id && user.admin){
+        getAllUser()
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user])
   useEffect(()=>{
       if(user._id && user._id!=="1"){
         searchUser()
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[search])
   useEffect(()=>{
     getAllUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[type])
   useEffect(()=>{
     const admin:any = path.get('admin')
@@ -94,6 +100,7 @@ const Page = () => {
     if(admin=='false'){
       setType("false")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[path])
   return (
     <div className='flex bg-slate-200'>
@@ -129,7 +136,7 @@ const Page = () => {
             {
               users.map((object:any)=>{
                 return <tr key={object._id}>
-                <td className='border border-main-800' aria-label='Profile'><img style={{ height: "60px", width: "60px", margin: " 8px auto", borderRadius: '5px' }} src={object.profile.secure_url} alt="Pic" /></td>
+                <td className='border border-main-800' aria-label='Profile'><Image priority={true} width={60} height={60} style={{ height: "auto", width: "auto", margin: " 8px auto", borderRadius: '5px' }} src={object.profile.secure_url} alt="Pic" /></td>
                 <td className='border border-main-800' aria-label={"User Id"}>{object._id}</td>
                 <td className='border border-main-800' aria-label={"Name"}>{object.name}</td>
                 <td className='border border-main-800' aria-label={"Email"}>{object.email}</td>

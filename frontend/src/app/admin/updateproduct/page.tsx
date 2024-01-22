@@ -77,8 +77,11 @@ const Page = () => {
         }else if(!id){
             router.back()
         }else{
-            getProduct(id)
+            if(user._id && user.admin){
+                getProduct(id)
+            }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       },[user])
     return (
         <div className='flex'>

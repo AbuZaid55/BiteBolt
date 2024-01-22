@@ -61,6 +61,7 @@ const Aside = () => {
     if(highestPrice!=0 && controlChange!=highestPrice){
       setControlChage(highestPrice)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[highestPrice])
   useEffect(()=>{
     clearTimeout(itemId)
@@ -68,16 +69,19 @@ const Aside = () => {
       setFilterPrice(controlChange)
     },1000)
     setTimeId(timeId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[controlChange])
   useEffect(()=>{
     const appliedFilters = {search,selectedCat,filterPrice,filterRating}
     if(highestPrice!=0 ){
       dispatch(setFilterDetails(appliedFilters))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[selectedCat,filterRating,filterPrice,search])
   useEffect(()=>{
     const string = params.get("search")
     setSearch(string)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[params])
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true)

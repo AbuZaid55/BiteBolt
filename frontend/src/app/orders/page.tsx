@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useRouter } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
 import { CancleOrder, GetOrders } from '../../../Redux/asyncThunk';
+import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -49,10 +50,11 @@ const Page = () => {
         if(!user._id){
             router.push('/login')
         }else{
-            if(user._id!="1"){
+            if(user._id!=="1"){
                 getOrders()
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[user])
     return (
         <div className='bg-slate-200 text-slate-700 pb-[350px] mb-[-350px]'>
@@ -71,7 +73,7 @@ const Page = () => {
                     {
                         order.item.map((item:any)=>{
                             return <div  key={item._id} className='flex items-center border-x-2 border-slate-700'>
-                            <img className='w-[100px] h-full p-2' src={item.productId && item.productId.thumbnail.secure_url} alt="Image" />
+                            <Image width={100} height={100} priority={true} className='p-2' src={(item.productId)? item.productId.thumbnail.secure_url:'/img/5.jpg'} alt="Image" />
                             <div>
                                 <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
                                 <h1 className={`flex items-center font-bold${robotoSlab.className} mt-2`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>

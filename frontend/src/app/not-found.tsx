@@ -1,6 +1,7 @@
 import React from 'react'
 import { Roboto_Slab } from 'next/font/google'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -12,7 +13,7 @@ const NotFound = () => {
   return (
     <div className='bg-slate-200 flex items-center justify-center flex-col pb-[350px] mb-[-350px] pt-[150px]'>
       <div className='flex items-center justify-center'>
-        <img className='w-[2.25rem]' src="/logo.png" alt="logo" />
+        <Image width={35} height={35} priority={true} src="/logo.png" alt="logo" />
         <h1 className={` text-xl sm:text-3xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1>
       </div>
 

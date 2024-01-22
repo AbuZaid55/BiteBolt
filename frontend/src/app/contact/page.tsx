@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useAppDispatch } from '../../../Redux/hook'
 import { useMyContext } from '../MyContextProvider'
 import { Contact } from '../../../Redux/asyncThunk'
+import Image from 'next/image'
 
 const Page = () => {
   const [data,setData]=useState({name:'',email:'',phoneNo:'',subject:'',message:''})
@@ -23,8 +24,8 @@ const Page = () => {
   return (
     <div className='pt-[75px] bg-slate-200 pb-[350px] mb-[-350px]'>
       <div className='flex w-full m-auto border sm:mt-0 mt-5 '>
-        <div className='hidden md:flex w-1/2 p-4 items-center justify-center'><img className='w-[90%]' src="/img/about.png" alt="Pic" /></div>
-        <form className='w-full md:w-1/2 p-4 flex flex-col' onSubmit={(e)=>{submitForm(e)}}>
+        <div className='hidden md:flex w-1/2 p-4 items-center justify-center mt-4'><div className=' w-full md:w-[90%] lg:w-[80%] aspect-square relative'><Image fill={true} sizes='100%' priority={true}  src="/img/about.png" alt="Pic" /></div></div>
+        <form className='w-full md:w-1/2 p-4 flex flex-col justify-center' onSubmit={(e)=>{submitForm(e)}}>
           <h1 className='text-3xl text-center font-bold text-main-800 mb-3 mt-2'>Contact Us</h1>
           <label className='mt-3 text-main-800 font-semibold' htmlFor="name">Name</label>
           <input value={data.name} onChange={(e)=>{handleInput(e)}} className='w-full border-b border-main-800 mb-3 text-slate-700 outline-none bg-slate-200' name='name' type="text" placeholder='Enter your Name' id='name' />

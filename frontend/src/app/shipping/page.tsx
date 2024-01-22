@@ -1,18 +1,26 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddressCard from '../components/AddressCard'
 import AddAddressForm from '../components/AddAddressForm'
 import { useAppSelector } from '../../../Redux/hook'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
     const [selected, setSelected] = useState(0)
     const user = useAppSelector((state)=>state.user)
+    const router = useRouter()
+    useEffect(()=>{
+        if(!user._id){
+            router.push('/login')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user])
     return (
         <div className='pb-[350px] mb-[-350px] bg-slate-200 pt-[75px]'>
             <h1 className=' bg-main-800 text-white font-semibold text-xl py-2 px-4'>Select Shipping Details</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 p-4 gap-4'>
-                {user.shippingDetails.map((data: any, i: number) => {
+                {user._id!=="1" && user.shippingDetails.map((data: any, i: number) => {
                     return <span key={i} onClick={() => { setSelected(i) }} className={`${(selected === i) ? " border-4" : ""} cursor-pointer border-main-800 rounded-xl`}><AddressCard data={data}/></span>
                 })}
             </div>

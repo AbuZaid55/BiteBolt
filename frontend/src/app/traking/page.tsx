@@ -34,6 +34,7 @@ const Page = () => {
         setOrderId(_id)
         getStatus(_id)
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[path])
     useEffect(()=>{
       if(status===""){

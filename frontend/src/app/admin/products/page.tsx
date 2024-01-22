@@ -9,6 +9,7 @@ import { useMyContext } from '@/app/MyContextProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { DeleteProduct, GetAdminProducts } from '../../../../Redux/asyncThunk';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -70,11 +71,12 @@ const Page = () => {
     if(user._id!=="1" && !user.admin){
       router.push('/login')
     }else{
-     if(searchType!=='false'){
+     if(searchType!=='false' && user._id && user.admin){
       setHashMore(true)
       getProducts(1,[])
      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user,search,searchType])
   useEffect(()=>{
     const stock = path.get('stock')
@@ -85,6 +87,7 @@ const Page = () => {
     }else{
       setSearchType('')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[path])
   return (
     <div className='flex bg-slate-200'>
@@ -123,7 +126,7 @@ const Page = () => {
            {
             items.map((item:any)=>{
               return  <tr key={item._id}>
-              <td className='border border-main-800' aria-label='Thumbnail'><img style={{ height: "60px", width: "60px", margin: " 8px auto", borderRadius: '5px' }} src={item.thumbnail.secure_url} alt="Pic" /></td>
+              <td className='border border-main-800' aria-label='Thumbnail'><Image height={60} width={60} className=' rounded-[8px] mx-auto' style={{width:'auto',height:'auto'}} priority={true} src={item.thumbnail.secure_url} alt="Pic" /></td>
               <td className='name border border-main-800' aria-label={"Name"}>
                 <Link href={`/details?_id=${item._id}`}><p className='w-full max-h-28 overflow-hidden'>{item.name}</p></Link>
               </td>

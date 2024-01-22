@@ -55,8 +55,16 @@ const Page = () => {
         }
         setLoader(false)
     }
-
-    useEffect(()=>(!user._id)?router.push('/login'):setName(user.name),[user])
+    useEffect(()=>{
+        if(!user._id){
+            router.push('/login')
+        }else{
+            if(user._id!=="1"){
+                setName(user.name)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user])
     return (
         <div className='bg-slate-200 pb-[350px] mb-[-350px] text-slate-700 '>
             <div className=' relative flex items-center justify-center h-[100vh] w-full border-b-2 border-main-800'>

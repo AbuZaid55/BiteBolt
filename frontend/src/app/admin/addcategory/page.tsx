@@ -1,10 +1,11 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Roboto_Slab } from "next/font/google"
 import AdminSiderbar from '../../components/AdminSiderbar'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/hook'
 import { useMyContext } from '@/app/MyContextProvider'
 import { AddNewCategory, AddSubCategory } from '../../../../Redux/asyncThunk'
+import { useRouter } from 'next/navigation'
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -19,6 +20,8 @@ const Page = () => {
   const [category,setCategory] = useState('')
   const [selectedCat,setSelectedCat]=useState('')
   const [subCategory,setSubCategory]=useState('')
+  const user = useAppSelector((state)=>state.user)
+  const router = useRouter()
 
   const submitCategory = async() =>{
     setLoader(true)
@@ -38,6 +41,12 @@ const Page = () => {
     }
     setLoader(false)
   }
+  useEffect(()=>{
+      if(user._id!=="1" && !user.admin){
+        router.push('/login')
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[user])
   return (
     <div className='flex'>
       <AdminSiderbar />

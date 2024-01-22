@@ -10,6 +10,7 @@ import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
 import { useAppSelector } from "../../../Redux/hook";
+import Image from "next/image";
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -61,7 +62,7 @@ const Header = () => {
       </div>
       <div className="h-full flex items-center justify-between">
         <div className="h-full flex items-center">
-          <img className="h-[70%] sm:h-[80%]" src="./logo.png" alt="logo" />
+          <div className="w-[30px] h-[70%] sm:h-[80%] relative" > <Image fill={true} priority={true} sizes="100%" src="/logo.png" alt="logo" /></div>
           <Link href="/"><h1 className={`text-2xl sm:text-3xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1></Link>
         </div>
 

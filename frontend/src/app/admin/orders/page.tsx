@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeStatus, GetAdminOrders } from '../../../../Redux/asyncThunk';
+import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -59,10 +60,11 @@ const Page = () => {
         if(user._id!=="1" && !user.admin){
             router.push('/login')
         }else{
-            if(searchType!=="false"){
+            if(searchType!=="false" && user._id && user.admin){
                 getOrders(searchType)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[user,search,searchType])
     useEffect(()=>{
         const status = path.get('status')
@@ -71,6 +73,7 @@ const Page = () => {
         }else{
             setSearchType('')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[path])
     return (
         <div className='flex bg-slate-200'>
@@ -110,7 +113,7 @@ const Page = () => {
                     {
                         order.item.map((item:any,i:number)=>{
                             return <div key={(item.productId)?item.productId._id:i} className="flex item  items-center">
-                            <img className="m-2 border-2 border-main-800" style={{ width: "80px", height: "80px" }} src={item.productId && item.productId.thumbnail.secure_url} alt="Image" />
+                            <Image className="m-2 border-2 border-main-800" priority={true} width={80} height={80} src={(item.productId)? item.productId.thumbnail.secure_url:'/img/5.jpg'} alt="Image" />
                             <div className='w-full'>
                                 <Link href={`/details?_id=${item.productId && item.productId._id}`}><h1 className='h-7 overflow-hidden lg:text-2xl'>{item.productId  && item.productId.name} </h1></Link>
                                 <p className="flex items-center lg:text-xl mx-2">Quentity: {item.qty}</p>

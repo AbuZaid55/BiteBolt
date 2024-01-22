@@ -8,6 +8,7 @@ import { FaDollarSign } from "react-icons/fa"
 import { FaHeadset } from "react-icons/fa6"
 import Link from "next/link"
 import { useAppSelector } from "../../Redux/hook"
+import Image from "next/image"
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -21,7 +22,7 @@ export default function Home() {
   const products = state.product
   const popProduct = state.popularProduct
   const [showImg, setShowImg] = useState(1)
-  const imgPath: string[] = ["./img/3.png", "./img/4.png", "./img/1.png", "./img/2.png"]
+  const imgPath: string[] = ["/img/3.png", "/img/4.png", "/img/1.png", "/img/2.png"]
   useEffect(() => {
     const interval = setInterval(() => {
       if (showImg === 4) {
@@ -48,7 +49,7 @@ export default function Home() {
         <div className="hidden sm:flex w-1/2 h-full items-center justify-center bg-slate-700" style={{ borderRadius: "44% 56% 0% 100% / 63% 0% 100% 37% " }}>
           <div className="w-[90%] md:w-[75%] h-full flex items-center justify-center relative">
             {imgPath.map((path: string, i: number) => (
-              <img key={i} className={`${showImg === i + 1 ? "springAnimation" : "hidden"} w-full`} src={path} alt="Image" />
+              <div className={` aspect-square relative ${showImg === i + 1 ? "springAnimation" : "hidden"} w-full`} key={i}><Image fill={true} sizes="100%" priority={true} src={path} alt="Image" /></div>
             ))}
           </div>
         </div>
@@ -72,7 +73,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">WHY CHOOSE US?</h1>
         <div className="w-full flex items-center justify-center">
           <div className="w-1/2 hidden sm:block">
-            <img className="w-[90%] lg:w-[70%]" src="./img/about.png" alt="Image" />
+            <div className="w-[90%] lg:w-[70%] aspect-square relative" ><Image fill={true} sizes="100%" priority={true} src="/img/about.png" alt="Image" /></div>
           </div>
           <div className="sm:w-1/2 p-4  md:pr-20">
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-700 my-3"> Best Food In The Country</h1>
@@ -97,7 +98,7 @@ export default function Home() {
       {/* Menu Section  */}
       <section className=" pt-10 bg-slate-200 pb-80">
         <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Menu</h1>
-        <h1 className="text-4xl font-bold text-slate-700 my-3 text-center">TODAY'S SPECIALITY</h1>
+        <h1 className="text-4xl font-bold text-slate-700 my-3 text-center">TODAY&apos;S SPECIALITY</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
           {
             products.map((product)=><Card2 key={product._id} product={product}/>)

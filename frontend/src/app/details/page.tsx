@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { AddToCart, DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../../Redux/asyncThunk'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useMyContext } from '../MyContextProvider'
+import Image from 'next/image'
 
 const robotoSlab = Roboto_Slab({
   weight: "500",
@@ -123,6 +124,7 @@ const Page = () => {
     }else{
       router.push('/')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[path])
   useEffect(()=>{
     if(product._id){
@@ -140,11 +142,14 @@ const Page = () => {
     <div className='pb-[350px] mb-[-350px] pt-[90px] bg-slate-200'>
 
       <section className='flex flex-col p-4 md:p-10 md:flex-row'>
-        <div className='h-[50vh] md:h-auto md:w-1/2 flex items-center justify-center flex-col bg-cover bg-no-repeat bg-center relative md:mx-8' style={{ backgroundImage: `url(${mainImgPath})` }}>
+        <div className='md:h-auto md:w-1/2 flex items-center justify-center flex-col relative md:mx-8'>
+          <div className='aspect-square bg-cover bg-no-repeat bg-center h-72 sm:h-96 lg:h-full' style={{ backgroundImage: `url(${mainImgPath})` }}></div>
           <div className='hidden md:flex items-center justify-center gap-3 absolute top-full flex-wrap'>
             {
               imgPath.map((path, index) => {
-                return <img key={index} className={`${(path === mainImgPath) ? "border-main-800" : "border-slate-700"} w-[4rem] h-[4rem] object-contain border-2 mt-3 cursor-pointer`} onClick={() => { setMainImgPath(path) }} src={path} alt="Image" />
+                return <div key={index}  className='w-[3rem] h-[3rem] relative'>
+                  <Image fill={true} priority={true} sizes='100%' className={` ${(path === mainImgPath) ? "border-main-800" : "border-slate-700"} object-contain border-2 mt-3 cursor-pointer`} onClick={() => { setMainImgPath(path) }} src={path} alt="Image" />
+                </div>
               })
             } 
           </div>
@@ -152,7 +157,7 @@ const Page = () => {
         <div className='flex md:hidden items-center justify-center gap-3 flex-wrap'>
           {
             imgPath.map((path, index) => {
-              return <img key={index} className={`${(path === mainImgPath) ? "border-main-800" : "border-slate-700"} w-[4rem] h-[4rem] object-contain border-2 mt-3 cursor-pointer`} onClick={() => { setMainImgPath(path) }} src={path} alt="Image" />
+              return <Image width={100} priority={true} height={100} key={index} className={`${(path === mainImgPath) ? "border-main-800" : "border-slate-700"} w-[4rem] h-[4rem] object-contain border-2 mt-3 cursor-pointer`} onClick={() => { setMainImgPath(path) }} src={path} alt="Image" />
             })
           }
         </div>
@@ -165,7 +170,7 @@ const Page = () => {
             <FaStar className={`${(product.rating>=4)?"text-main-800":"text-slate-700"}`} />
             <FaStar className={`${(product.rating>=5)?"text-main-800":"text-slate-700"}`} />
           </div>
-          <p className='text-slate-600'> {product.description}</p>
+          <p className='text-slate-600 h-40 overflow-hidden'> {product.description}</p>
           <h1 className="flex items-center text-xl sm:text-4xl text-main-800 mt-4">
             <FaIndianRupeeSign />
             <span className=" font-bold">{product.price}</span>

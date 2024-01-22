@@ -40,16 +40,19 @@ const GetDetails = () => {
 
   useEffect(() => {
    getDetails()
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(()=>{
     if(pageforpopularProdct!=0 && pageforpopularProdct!=-1){
       getPopProduct()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[pageforpopularProdct])
   useEffect(()=>{
     if(appliedFilter.filterPrice!=0){
       getFilterProduct()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[appliedFilter.selectedCat,appliedFilter.filterPrice,appliedFilter.filterRating,appliedFilter.search])
   return <></>
 }

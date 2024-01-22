@@ -103,13 +103,17 @@ const Page = () => {
     if (user._id !== "1" && !user.admin) {
       router.push("/login")
     } else {
-      getDetails()
+      if(user._id && user.admin){
+        getDetails()
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
   useEffect(()=>{
     if(user._id && user.admin){
       getChartPayment(page)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user,page])
   return (
     <div className="bg-slate-200 h-[100vh] w-full flex text-slate-700">

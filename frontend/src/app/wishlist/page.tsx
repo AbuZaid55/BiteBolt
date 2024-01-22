@@ -49,8 +49,11 @@ const Page = () => {
       if(!user._id){
         router.push('/login')
       }else{
-        getWishListItems()
+        if(user._id!=="1"){
+          getWishListItems()
+        }
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user])
   return (
     <div className='mt-10 mx-auto px-3 bg-slate-200 pb-[350px] mb-[-350px]'>

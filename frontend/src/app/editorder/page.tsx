@@ -33,12 +33,13 @@ const Page = () => {
         }else{
             setOrderId(orderid)
             setAddressId(addressId)
-            user.shippingDetails.map((object:any,i:number)=>{
+            user._id!=="1" && user.shippingDetails.map((object:any,i:number)=>{
                 if(object._id==addressid){
                     setSelected(i)
                 }
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[user,path])
     return (
         <div className='pb-[350px] mb-[-350px] bg-slate-200 pt-[75px]'>

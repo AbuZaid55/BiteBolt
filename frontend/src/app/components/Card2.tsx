@@ -9,6 +9,7 @@ import { useMyContext } from '../MyContextProvider'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { AddToCart, AddToWishlist } from '../../../Redux/asyncThunk'
+import Image from 'next/image'
 
 interface Product {
     _id: string,
@@ -56,7 +57,7 @@ const Card2 = ({ product }: { product: Product }) => {
     }
     return (
         <div className=" bg-white shadow-lg relative rounded-lg p-4 max-w-[300px] w-full">
-            <div className="absolute top-0 left-0 p-2 text-xl w-full flex items-center justify-between">
+            <div className="absolute z-10 top-0 left-0 p-2 text-xl w-full flex items-center justify-between">
                 <span onClick={()=>{addToWishlist()}} className=" cursor-pointer bg-slate-200 rounded-full p-2 hover:scale-125 hover:bg-main-800 hover:text-white text-slate-700 transition-all duration-200 ease-in-out shadow-md">
                     <FaRegHeart />
                 </span>
@@ -64,7 +65,7 @@ const Card2 = ({ product }: { product: Product }) => {
                     <Link href={`/details?_id=${product._id}`}><MdOutlineRemoveRedEye /></Link>
                 </span>
             </div>
-            <img className="w-full h-[140px] sm:h-[190px]" src={product.thumbnail.secure_url} alt="Image" />
+            <div className="w-full h-[140px] sm:h-[190px] relative"><Image fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
             <div className="flex items-center text-xl mt-4 mb-1">
                 <FaStar className={`${(product.rating >= 1) ? "text-main-800" : "text-slate-700"}`} />
                 <FaStar className={`${(product.rating >= 2) ? "text-main-800" : "text-slate-700"}`} />
