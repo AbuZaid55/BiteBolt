@@ -170,7 +170,7 @@ const Page = () => {
             <FaStar className={`${(product.rating>=4)?"text-main-800":"text-slate-700"}`} />
             <FaStar className={`${(product.rating>=5)?"text-main-800":"text-slate-700"}`} />
           </div>
-          <p className='text-slate-600 h-40 overflow-hidden'> {product.description}</p>
+          <p className='text-slate-600 h-[165px] overflow-hidden'> {product.description}</p>
           <h1 className="flex items-center text-xl sm:text-4xl text-main-800 mt-4">
             <FaIndianRupeeSign />
             <span className=" font-bold">{product.price}</span>

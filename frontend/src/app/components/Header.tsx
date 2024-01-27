@@ -33,6 +33,7 @@ const Header = () => {
     e.preventDefault()
     router.push(`/dishes?search=${search}`);
     setShowSearch(false)
+    setSearch('')
   }
   const handleNavigate = async(path:string)=>{
     router.push(path)
