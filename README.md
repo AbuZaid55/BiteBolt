@@ -1,7 +1,7 @@
 
 # Advanced E-commerce Application - Full Stack
 
-_I have created this Ecommerce application without any assistance and without watching any tutorials._
+_I have created this Food application without any assistance and without watching any tutorials._
 
 ## User Features
 
@@ -79,17 +79,59 @@ _I have created this Ecommerce application without any assistance and without wa
 
 
 ## 🛠 Technology Used
-JavaScript, HTML, CSS, Tailwind CSS, Sass, React, Redux Toolkit, NodeJS, Express, Nodemailer, Multer, Cloudinery,
-Degital Ocean, Razorpay etc...
+TypeScript, JavaScript, NextJS, Chart.js, HTML, CSS, Tailwind CSS, Redux Toolkit, Docker, NodeJS, Express, Nodemailer, Multer, Cloudinery, Razorpay etc...
+
+# Setup with Docker
+Clone the project
+```bash
+  git clone https://github.com/AbuZaid55/BiteBolt.git
+```
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+To run this application, you will need to add the following environment variables to your .env file.
+
+```bash
+  cd backend
+```
+```bash
+  .env.local --> .env
+```
+And Add this environment variables.
+
+`JWT_KEY=`
+
+`DB_URL=`
+
+`MAIL_USER=`
+
+`MAIL_PASS=`
+
+`CLOUDINARY_NAME=`
+
+`CLOUDINARY_KEY=`
+
+`CLOUDINARY_SECRET=`
+
+`RAZORPAY_KEY_ID=`
+
+`RAZORPAY_KEY_SECRET=`
+
+## Run
+```
+  docker compose up
+```
 
 
-
-## Setup Locally
+# Setup with NPM
 
 Clone the project
 
 ```bash
-  git clone https://github.com/AbuZaid55/Zevon-Ecommerce.git
+  git clone https://github.com/AbuZaid55/BiteBolt.git
 ```
 
 Go to the project directory
@@ -134,29 +176,27 @@ For the add environment variables go to backend folder and change
 ```
 And Add this environment variables.
 
+`JWT_KEY=`
+
 `DB_URL=`
 
-`MAIL_USER= `
+`MAIL_USER=`
 
-`MAIL_PASS=  ` 
+`MAIL_PASS=`
 
-`JWT_KEY=   `
+`CLOUDINARY_NAME=`
 
-`GOOGLE_CLIENT_ID= `
+`CLOUDINARY_KEY=`
 
-`GOOGLE_CLIENT_SECRET= `
+`CLOUDINARY_SECRET=`
 
-`RAZORPAY_KEY_ID= `
+`RAZORPAY_KEY_ID=`
 
-`RAZORPAY_KEY_SECRET= `
+`RAZORPAY_KEY_SECRET=`
 
-`CLOUDINARY_NAME= `
 
-`CLOUDINARY_KEY= `
 
-`CLOUDINARY_SECRET=  `
-
-## Run Locally
+## Run This Application
 
 ### Run Frontend
 
@@ -168,7 +208,10 @@ Go to the frontend directory
 Run Frontend 
 
 ```bash
-  npm run dev
+  npm run build
+```
+```bash
+  npm run start
 ```
 ### Run Backend
 
@@ -180,7 +223,7 @@ Go to the backend directory
 Run Backend
 
 ```bash
-  npm run dev
+  npm run start
 ```
 
 
