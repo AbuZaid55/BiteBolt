@@ -39,8 +39,8 @@ const Footer = () => {
             <p className=' text-slate-500 text-nowrap'>Lorem ipsum dolor sit.</p>
             <div className='flex text-2xl gap-3 mt-2'>
                 <Link className='text-slate-600' href="https://www.instagram.com/its_abuzaid786/"><AiFillInstagram/></Link>
-                <Link className='text-slate-600' href="https://www.linkedin.com/in/abuzaid55/"><FaGithub/></Link>
-                <Link className='text-slate-600' href="https://github.com/AbuZaid55"><FaLinkedin/></Link>
+                <Link className='text-slate-600' href="https://github.com/AbuZaid55"><FaGithub/></Link>
+                <Link className='text-slate-600' href="https://www.linkedin.com/in/abuzaid55/5"><FaLinkedin/></Link>
                 <Link className='text-slate-600' href="https://discord.com/users/1127760530120114238"><FaDiscord/></Link>
             </div>
           </div>

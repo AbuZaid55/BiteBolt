@@ -65,7 +65,7 @@ const Card2 = ({ product }: { product: Product }) => {
                     <Link href={`/details?_id=${product._id}`}><MdOutlineRemoveRedEye /></Link>
                 </span>
             </div>
-            <div className="w-full h-[140px] sm:h-[190px] relative"><Image fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
+            <div className="w-full h-[140px] sm:h-[190px] relative"><Image className=" transition-opacity opacity-0 duration-[2s]" onLoadingComplete={(image)=>image.classList.remove('opacity-0')}  fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
             <div className="flex items-center text-xl mt-4 mb-1">
                 <FaStar className={`${(product.rating >= 1) ? "text-main-800" : "text-slate-700"}`} />
                 <FaStar className={`${(product.rating >= 2) ? "text-main-800" : "text-slate-700"}`} />

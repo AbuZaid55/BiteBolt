@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    container_name: bitebolt-backend
+    env_file:
+      - ./backend/.env
+    networks:
+      - bitebolt_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    container_name: bitebolt-frontend
+    env_file: 
+      - ./frontend/.env
+    depends_on:
+      - backend
+    networks:
+      - bitebolt_network
+
+networks:
+  bitebolt_network:

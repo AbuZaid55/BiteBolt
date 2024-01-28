@@ -68,7 +68,7 @@ const Card1 = ({product}:{product:Product}) => {
           </Link>
         </span>
       </div>
-      <div className="w-full h-[140px] sm:h-[190px] relative"><Image fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
+      <div className="w-full h-[140px] sm:h-[190px] relative"><Image className=" transition-opacity opacity-0 duration-[2s]" onLoadingComplete={(image)=>image.classList.remove('opacity-0')} fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
       <h1 className="text-2xl font-bold text-slate-700 mt-3 mb-1 text-center w-[60%] mx-auto h-[35px] overflow-hidden">{product.name}</h1>
       <div className="flex items-center justify-center text-xl">
         <FaStar className={`${(product.rating>=1)?"text-main-800":"text-slate-700"}`} />

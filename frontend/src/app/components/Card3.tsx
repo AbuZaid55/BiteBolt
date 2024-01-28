@@ -43,7 +43,7 @@ const Card3 = ({ product,removeItem }: { product: Product ,removeItem:any}) => {
                     <Link href={`/details?_id=${product._id}`}><MdOutlineRemoveRedEye /></Link>
                 </span>
             </div>
-            <div className="w-full h-[140px] sm:h-[190px] relative"><Image fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
+            <div className="w-full h-[140px] sm:h-[190px] relative"><Image className=" transition-opacity opacity-0 duration-[2s]" onLoadingComplete={(image)=>image.classList.remove('opacity-0')}  fill={true} sizes='100%' priority={true} src={product.thumbnail.secure_url} alt="Image" /></div>
             <div className='flex items-center justify-between my-1'>
                 <h1 className="flex items-center sm:text-2xl text-main-800">
                     <FaIndianRupeeSign />
