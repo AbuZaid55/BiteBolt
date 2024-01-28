@@ -1,5 +1,5 @@
 
-# Advanced E-commerce Application - Full Stack
+# Food Application - Full Stack
 
 _I have created this Food application without any assistance and without watching any tutorials._
 
