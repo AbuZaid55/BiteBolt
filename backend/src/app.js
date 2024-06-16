@@ -7,7 +7,7 @@ const cors = require('cors')
 const app = express()
 
 const PORT = process.env.PORT || 5002
-const HOST = process.env.HOST || '0.0.0.0'
+const HOST = process.env.HOST || '0.0.0.0' 
 
 dbConnect()
 
