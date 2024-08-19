@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { Roboto_Slab } from "next/font/google"
-import AdminSiderbar from '../../components/AdminSiderbar'
-import { useAppDispatch, useAppSelector } from '../../../../Redux/hook'
+import AdminSiderbar from '../../../components/AdminSiderbar'
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { useMyContext } from '@/app/MyContextProvider'
-import { AddNewCategory, AddSubCategory } from '../../../../Redux/asyncThunk'
+import { AddNewCategory, AddSubCategory } from '../../../Redux/asyncThunk'
 import { useRouter } from 'next/navigation'
 
 const robotoSlab = Roboto_Slab({

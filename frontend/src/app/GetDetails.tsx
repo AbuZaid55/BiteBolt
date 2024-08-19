@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { useAppDispatch,useAppSelector } from "../../Redux/hook"
-import { GetCategories, GetFilterProducts, GetPopularProducts, GetProducts, GetUser } from "../../Redux/asyncThunk"
+import { useAppDispatch,useAppSelector } from "../Redux/hook"
+import { GetCategories, GetFilterProducts, GetPopularProducts, GetProducts, GetUser } from "../Redux/asyncThunk"
 import { useMyContext } from "./MyContextProvider"
-import { setHashMore, setPage } from "../../Redux/Slice/productSlice"
+import { setHashMore, setPage } from "../Redux/Slice/productSlice"
 import { toast } from "react-toastify"
 
 const GetDetails = () => {

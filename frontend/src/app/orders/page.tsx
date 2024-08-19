@@ -6,10 +6,10 @@ import { Roboto_Slab } from 'next/font/google'
 import { IoLocation } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../Redux/hook';
 import { useRouter } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
-import { CancleOrder, GetOrders } from '../../../Redux/asyncThunk';
+import { CancleOrder, GetOrders } from '../../Redux/asyncThunk';
 import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({

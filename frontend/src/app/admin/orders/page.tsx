@@ -1,13 +1,16 @@
 "use client"
-import React, { useEffect, useState } from 'react'
-import AdminSiderbar from '../../components/AdminSiderbar';
+import React, { useEffect, useRef, useState } from 'react'
+import AdminSiderbar from '../../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ChangeStatus, GetAdminOrders } from '../../../../Redux/asyncThunk';
+import { ChangeStatus, GetAdminOrders } from '../../../Redux/asyncThunk';
 import Image from 'next/image';
+import QRCode from "react-qr-code";
+import { FaPrint } from "react-icons/fa";
+import { useReactToPrint } from 'react-to-print';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",
@@ -17,6 +20,7 @@ const robotoSlab = Roboto_Slab({
 
 const Page = () => {
 
+    const ref = useRef<HTMLDivElement | null>(null)
     const path = useSearchParams()
     const user = useAppSelector((state)=>state.user)
     const {setLoader}=useMyContext()
@@ -55,6 +59,19 @@ const Page = () => {
         }
         setLoader(false)
     }
+    const print = useReactToPrint({
+        content: () => ref.current,
+        documentTitle: "BiteBolt_Order_Slip"
+      })
+      const printPDF = (elementId:any) => {
+        const element = document.getElementById(elementId)
+       if(element?.style){
+        element.style.display = 'block'
+        ref.current = element as HTMLDivElement
+        print()
+        element.style.display = 'none'
+       }
+      }
         
     useEffect(()=>{
         if(user._id!=="1" && !user.admin){
@@ -107,7 +124,7 @@ const Page = () => {
                             <div>Razorpay Payment Id: {order.razorpay_payment_id}</div>
                             <div>Razorpay Order Id:  {order.razorpay_order_id}</div>
                         </div>
-
+                        <span className='absolute top-1 right-1 cursor-pointer p-2 text-main-800 border-2 border-main-800 rounded bg-white' onClick={(e) => { printPDF(`print${order._id}`) }}><FaPrint className=' pointer-events-none' /></span>
                     {/* item  */}
 
                     {
@@ -139,9 +156,61 @@ const Page = () => {
                         </p>
                     </div>
 
+                    {/* print page  */}
+                    <div className='printPage' ref={ref} id={`print${order._id}`}>
+                <h1>BiteBolt</h1>
+                <div className='date'>Date:- {order.createdAt.slice(0, 10).split("-").reverse().join("-")}</div>
+                <div>
+                  <div>
+                    <h1>Order Id: {order._id}</h1>
+                    <h1>User Id: {order.userId._id}</h1>
+                    <h1>Name: {order.username}</h1>
+                    <h1>Email: {order.userId.email}</h1>
+                    <h1>Phone No: {order.shippingDetails.phoneNo}</h1>
+                    <div className='shipping'>
+                      <h1>Shipping Details:-</h1>
+                      <div>
+                        <h1>House No : {order.shippingDetails.houseNo}</h1>
+                        <h1>Address : {order.shippingDetails.address}</h1>
+                        <h1>Pin code : {order.shippingDetails.pinCode}</h1>
+                        <h1>City : {order.shippingDetails.city}</h1>
+                        <h1>State : {order.shippingDetails.state}</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div><QRCode style={{ height: "auto", maxWidth: "250px" }} value={`Date:- ${order.createdAt.slice(0, 10).split("-").reverse().join("-")}\nOrder Id: ${order._id}\nUser Id: ${order.userId}\nName: ${order.username}\nEmail: ${order.email}\nPhone No: ${order.phoneNo}\nTotal Amount: ${order.totalPaidAmount} rupees\nHouse No: ${order.shippingDetails.houseNo}\nAddress: ${order.shippingDetails.address}\nPin code: ${order.shippingDetails.pinCode}\nCity: ${order.shippingDetails.city}\nState: ${order.shippingDetails.state}`} /></div>
+                </div>
+
+
+                <div className="w-full flex flex-col">
+                  <h1 className=" bg-main-800 text-white font-semibold text-xl py-2 px-4 mb-5">
+                    Order Summery
+                  </h1>
+                  <div className="border w-full">
+                    {order.item.map((item:any)=>(
+                        <div key={item._id} className="flex items-center justify-between my-2 px-4 py-1">
+                            <span>{item.productId.name}</span>
+                            <span className="flex items-center font-semibold ">
+                            &#8377; {item.productId.price} x {item.qty} = {item.productId.price * item.qty}
+                            </span>
+                      </div>
+                    ))}
+                  </div>
+                  <h1 className="flex items-center justify-between my-2 px-4 py-2 font-bold text-xl border">
+                    <span>Total Amount</span>
+                    <span className="flex items-center">
+                      &#8377;
+                      {order.totalPaidAmount}
+                    </span>
+                  </h1>
+                </div>
+
+              </div>
+                    {/* print page end  */}
                 </div>
                 })
                }
+
                 {/* order end */}
             </div>
 

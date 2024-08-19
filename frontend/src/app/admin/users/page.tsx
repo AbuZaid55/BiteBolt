@@ -1,12 +1,12 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { FaTrash} from "react-icons/fa";
-import AdminSiderbar from '../../components/AdminSiderbar';
+import AdminSiderbar from '../../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
-import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '@/app/MyContextProvider';
-import { ChangeUserType, DeleteUser, GetAllUser, SearchUser } from '../../../../Redux/asyncThunk';
+import { ChangeUserType, DeleteUser, GetAllUser, SearchUser } from '../../../Redux/asyncThunk';
 import Image from 'next/image';
 
 const robotoSlab = Roboto_Slab({

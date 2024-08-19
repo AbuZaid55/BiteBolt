@@ -158,6 +158,9 @@ const getAdminOrders = async(req,res)=>{
             const orders = await orderModel.find({status:{$regex:searchType,$options:"i"}}).sort({_id:-1}).populate({
                 path:"item.productId",
                 select:'name stock price rating category subCategory thumbnail.secure_url',
+            }).populate({
+                path:"userId",
+                select:"email"
             })
             const result = orders.filter((order)=>{
                 const result2 = order.item.filter((item)=>{

@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect,useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useAppDispatch } from '../../../Redux/hook'
-import { ChangePass } from '../../../Redux/asyncThunk'
+import { useAppDispatch } from '../../Redux/hook'
+import { ChangePass } from '../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
 
 const Page = () => {

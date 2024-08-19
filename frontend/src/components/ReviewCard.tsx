@@ -2,9 +2,7 @@
 import React from "react"
 import { FaStar } from "react-icons/fa"
 import { GoTrash } from "react-icons/go";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { useMyContext } from "../MyContextProvider";
-import { DeleteReview } from "../../../Redux/asyncThunk";
+import {  useAppSelector } from "../Redux/hook";
 
 type review={
   userId:{

@@ -5,9 +5,9 @@ import { RxCross1 } from "react-icons/rx";
 import { Roboto_Slab } from 'next/font/google'
 import { GoTrash } from "react-icons/go";
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../Redux/hook';
 import { useRouter } from 'next/navigation';
-import { DeleteCartItem, GetCartItems, UpdateQty } from '../../../Redux/asyncThunk';
+import { DeleteCartItem, GetCartItems, UpdateQty } from '../../Redux/asyncThunk';
 import { useMyContext } from '../MyContextProvider';
 import Image from 'next/image';
 

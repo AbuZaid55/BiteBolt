@@ -1,19 +1,19 @@
 "use client"
-import AdminSiderbar from "../../components/AdminSiderbar"
+import AdminSiderbar from "../../../components/AdminSiderbar"
 import { Roboto_Slab } from "next/font/google"
 import { HiOutlineClipboardList } from "react-icons/hi"
 import { BiSolidCategory } from "react-icons/bi"
 import { FaUserFriends, FaRupeeSign, FaNotesMedical, FaCcAmazonPay } from "react-icons/fa"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../../../../Redux/hook"
+import { useAppDispatch, useAppSelector } from "../../../Redux/hook"
 import { useRouter } from "next/navigation"
 import { useMyContext } from "@/app/MyContextProvider"
-import { GetCategoriesLength, GetChartPayment, GetOrdersLength, GetProductsLength, GetTotalPayment, GetUsersLength } from "../../../../Redux/asyncThunk"
+import { GetCategoriesLength, GetChartPayment, GetOrdersLength, GetProductsLength, GetTotalPayment, GetUsersLength } from "../../../Redux/asyncThunk"
 import Link from "next/link"
 
-const BarChart = dynamic(() => import("../../../../chartJS/BarChart"), { ssr: false })
-const LineChart = dynamic(() => import("../../../../chartJS/LineChart"), { ssr: false })
+const BarChart = dynamic(() => import("../../../chartJS/BarChart"), { ssr: false })
+const LineChart = dynamic(() => import("../../../chartJS/LineChart"), { ssr: false })
 
 const robotoSlab = Roboto_Slab({
   weight: "500",

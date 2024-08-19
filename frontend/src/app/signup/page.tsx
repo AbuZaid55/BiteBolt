@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
-import { SendOtp,SignUp } from "../../../Redux/asyncThunk"
-import { useAppDispatch } from "../../../Redux/hook"
+import { SendOtp,SignUp } from "../../Redux/asyncThunk"
+import { useAppDispatch } from "../../Redux/hook"
 import {useRouter} from 'next/navigation'
 import { useMyContext } from "../MyContextProvider"
  

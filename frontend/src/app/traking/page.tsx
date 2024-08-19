@@ -7,8 +7,8 @@ import { GoGift } from "react-icons/go";
 import { TbBike } from "react-icons/tb";
 import { useSearchParams } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
-import { useAppDispatch } from '../../../Redux/hook';
-import { GetStatus } from '../../../Redux/asyncThunk';
+import { useAppDispatch } from '../../Redux/hook';
+import { GetStatus } from '../../Redux/asyncThunk';
 
 const Page = () => {
 

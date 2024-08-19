@@ -2,8 +2,8 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react'
 import { FaFilter } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp, FaStar, FaRupeeSign } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
-import { clearAllFilter, setFilterDetails } from '../../../Redux/Slice/productSlice';
+import { useAppDispatch, useAppSelector } from '../Redux/hook';
+import { clearAllFilter, setFilterDetails } from '../Redux/Slice/productSlice';
 import { useSearchParams } from 'next/navigation'
 
 interface GET_FILTERPRODUCT {

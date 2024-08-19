@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import Card2 from '../components/Card2'
-import Aside from '../components/Aside'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
+import Card2 from '../../components/Card2'
+import Aside from '../../components/Aside'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { GetFilterProducts } from '../../../Redux/asyncThunk'
-import { setHashMore } from '../../../Redux/Slice/productSlice'
+import { GetFilterProducts } from '../../Redux/asyncThunk'
+import { setHashMore } from '../../Redux/Slice/productSlice'
 
 const Page = () => {
 

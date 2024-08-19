@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import AddressCard from '../components/AddressCard'
-import AddAddressForm from '../components/AddAddressForm'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
+import AddressCard from '../../components/AddressCard'
+import AddAddressForm from '../../components/AddAddressForm'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useMyContext } from '../MyContextProvider'
-import { UpdateDetails } from '../../../Redux/asyncThunk'
+import { UpdateDetails } from '../../Redux/asyncThunk'
 
 const Page = () => {
     const [selected, setSelected] = useState(0)

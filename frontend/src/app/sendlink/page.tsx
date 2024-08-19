@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { SendLink } from '../../../Redux/asyncThunk'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
+import { SendLink } from '../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
 
 const Page = () => {

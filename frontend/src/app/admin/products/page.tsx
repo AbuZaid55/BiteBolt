@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { FaTrash, FaEdit, FaStar } from "react-icons/fa";
 import Link from 'next/link';
-import AdminSiderbar from '../../components/AdminSiderbar';
+import AdminSiderbar from '../../../components/AdminSiderbar';
 import { Roboto_Slab } from "next/font/google"
-import { useAppDispatch, useAppSelector } from '../../../../Redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useMyContext } from '@/app/MyContextProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { DeleteProduct, GetAdminProducts } from '../../../../Redux/asyncThunk';
+import { DeleteProduct, GetAdminProducts } from '../../../Redux/asyncThunk';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Image from 'next/image';
 

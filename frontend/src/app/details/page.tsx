@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { FaStar } from "react-icons/fa"
 import { FaIndianRupeeSign } from "react-icons/fa6"
 import { MdShoppingCart } from "react-icons/md"
-import ReviewCard from '../components/ReviewCard'
-import Card2 from '../components/Card2'
+import ReviewCard from '../../components/ReviewCard'
+import Card2 from '../../components/Card2'
 import { Roboto_Slab } from 'next/font/google'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { AddToCart, DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../../Redux/asyncThunk'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
+import { AddToCart, DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../Redux/asyncThunk'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useMyContext } from '../MyContextProvider'
 import Image from 'next/image'

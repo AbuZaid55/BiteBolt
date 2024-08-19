@@ -1,13 +1,13 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Roboto_Slab } from "next/font/google"
-import Card1 from "./components/Card1"
-import Card2 from "./components/Card2"
+import Card1 from "../components/Card1"
+import Card2 from "../components/Card2"
 import { FaTruck } from "react-icons/fa"
 import { FaDollarSign } from "react-icons/fa"
 import { FaHeadset } from "react-icons/fa6"
 import Link from "next/link"
-import { useAppSelector } from "../../Redux/hook"
+import { useAppSelector } from "../Redux/hook"
 import Image from "next/image"
 
 const robotoSlab = Roboto_Slab({

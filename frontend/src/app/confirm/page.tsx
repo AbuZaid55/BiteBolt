@@ -1,14 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import AddressCard from '../components/AddressCard'
+import AddressCard from '../../components/AddressCard'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { Roboto_Slab } from 'next/font/google'
 import Link from 'next/link';
-import { useAppSelector,useAppDispatch } from '../../../Redux/hook';
+import { useAppSelector,useAppDispatch } from '../../Redux/hook';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
-import { CreatePayment, GetCartItems, Verifypayment } from '../../../Redux/asyncThunk';
+import { CreatePayment, GetCartItems, Verifypayment } from '../../Redux/asyncThunk';
 import { toast } from 'react-toastify';
 import Script from "next/script";
 import Image from 'next/image';

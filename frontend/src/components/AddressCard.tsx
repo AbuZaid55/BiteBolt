@@ -3,9 +3,9 @@ import React from 'react'
 import { Roboto_Slab } from "next/font/google"
 import { GoTrash } from "react-icons/go";
 import { usePathname } from 'next/navigation';
-import { useMyContext } from '../MyContextProvider';
-import { useAppDispatch } from '../../../Redux/hook';
-import { RemoveAddress } from '../../../Redux/asyncThunk';
+import { useMyContext } from '../app/MyContextProvider';
+import { useAppDispatch } from '../Redux/hook';
+import { RemoveAddress } from '../Redux/asyncThunk';
 
 const robotoSlab = Roboto_Slab({
     weight: "500",

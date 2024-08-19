@@ -24,7 +24,7 @@ import {
     API_DELETE_USER,
     API_GET_USERS_LENGTH,
     API_CONTACT,
-} from '../api/userApi'
+} from '../api/userApi';
 
 import { 
     API_ADD_CATEGORY, 
@@ -80,7 +80,7 @@ export const RemoveAddress = createAsyncThunk('user/removeaddress', API_REMOVE_A
 export const UploadFile = createAsyncThunk('user/uploadfile', API_UPLOAD_FILE);
 export const SendLink = createAsyncThunk('user/sendlink', API_SEND_LINK);
 export const ChangePass = createAsyncThunk('user/updatepass', API_CHANGE_PASS);
-export const LogOut = createAsyncThunk('user/updatepass', API_LOGOUT);
+export const LogOut = createAsyncThunk('user/logout', API_LOGOUT);
 export const AddToCart = createAsyncThunk('user/addtocart',API_ADDTOCART)
 export const GetCartItems = createAsyncThunk('user/getcartitems',API_GETCARTITEMS)
 export const UpdateQty = createAsyncThunk('user/updateqty',API_UPDATE_QTY)

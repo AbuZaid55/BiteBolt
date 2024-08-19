@@ -4,11 +4,11 @@ import { BsFillCameraFill } from 'react-icons/bs'
 import { MdOutlineEditNote } from 'react-icons/md'
 import Link from 'next/link'
 import { Roboto_Slab } from "next/font/google"
-import AddressCard from '../components/AddressCard'
-import AddAddressForm from '../components/AddAddressForm'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
+import AddressCard from '../../components/AddressCard'
+import AddAddressForm from '../../components/AddAddressForm'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { useRouter } from 'next/navigation'
-import { ChangeName, GetUser, LogOut, UploadFile } from '../../../Redux/asyncThunk'
+import { ChangeName, GetUser, LogOut, UploadFile } from '../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
 
 const robotoSlab = Roboto_Slab({

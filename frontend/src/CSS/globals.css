@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.springAnimation{
+    animation: springMotion 0.8s ;
+    transition: all;
+}
+@keyframes springMotion {
+    0%{
+        scale: 0;
+        rotate: -180deg;
+        display: block;
+    }
+    100%{
+        scale: 1;
+        rotate: 0;
+    }
+}
+
+.printPage{ 
+    display: none;
+    padding: 2rem;
+}
+.printPage > h1{
+    font-family: serif;
+    font-size: 3rem;
+    color: #44b678;
+    font-weight:700;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+.printPage > div{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.printPage > div h1{
+    font-size: 1.5rem;
+
+}
+.printPage > div .shipping{
+    margin-top: 2rem;
+}
+.printPage > div .shipping div{
+    width:100%;
+    margin-left: 10rem;
+}
+.printPage .date{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem;
+    font-size: 1.5rem;
+}

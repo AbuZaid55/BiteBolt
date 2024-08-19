@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import Card3 from '../components/Card3'
+import Card3 from '../../components/Card3'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { GetWishListItems, RemoveWishlistItem } from '../../../Redux/asyncThunk'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
+import { GetWishListItems, RemoveWishlistItem } from '../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
 
 interface Product {

@@ -9,7 +9,7 @@ import { Roboto_Slab } from 'next/font/google'
 import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
-import { useAppSelector } from "../../../Redux/hook";
+import { useAppSelector } from "../Redux/hook";
 import Image from "next/image";
 
 const robotoSlab = Roboto_Slab({

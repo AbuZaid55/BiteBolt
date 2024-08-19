@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react'
-import { useAppDispatch } from '../../../Redux/hook'
+import { useAppDispatch } from '../../Redux/hook'
 import { useMyContext } from '../MyContextProvider'
-import { Contact } from '../../../Redux/asyncThunk'
+import { Contact } from '../../Redux/asyncThunk'
 import Image from 'next/image'
 
 const Page = () => {

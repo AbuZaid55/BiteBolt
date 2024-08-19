@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react"
 import { Roboto_Slab } from "next/font/google"
 import { FaTrash } from "react-icons/fa"
-import AdminSiderbar from "../../components/AdminSiderbar"
+import AdminSiderbar from "../../../components/AdminSiderbar"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
 import Link from "next/link"
-import { useAppDispatch, useAppSelector } from "../../../../Redux/hook"
+import { useAppDispatch, useAppSelector } from "../../../Redux/hook"
 import { useMyContext } from "@/app/MyContextProvider"
-import { DeleteCat, DeleteSubCat, GetCategories } from "../../../../Redux/asyncThunk"
+import { DeleteCat, DeleteSubCat, GetCategories } from "../../../Redux/asyncThunk"
 import { useRouter } from "next/navigation"
 
 const robotoSlab = Roboto_Slab({

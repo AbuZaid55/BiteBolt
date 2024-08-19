@@ -1,9 +1,9 @@
 "use client"
 import React, {useEffect, useState} from 'react'
-import Card1 from '../components/Card1'
+import Card1 from '../../components/Card1'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { setPage } from '../../../Redux/Slice/productSlice'
+import { useAppDispatch, useAppSelector } from '../../Redux/hook'
+import { setPage } from '../../Redux/Slice/productSlice'
 
 const Page = () => {
   const dispatch = useAppDispatch()

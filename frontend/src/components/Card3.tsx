@@ -5,10 +5,10 @@ import { MdShoppingCart } from "react-icons/md"
 import { MdOutlineRemoveRedEye } from "react-icons/md"
 import { GoTrash } from "react-icons/go";
 import Link from 'next/link'
-import { useMyContext } from '../MyContextProvider'
+import { useMyContext } from '../app/MyContextProvider'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
-import { AddToCart} from '../../../Redux/asyncThunk'
+import { useAppDispatch, useAppSelector } from '../Redux/hook'
+import { AddToCart} from '../Redux/asyncThunk'
 import Image from 'next/image'
 
 interface Product {

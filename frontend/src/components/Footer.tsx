@@ -4,7 +4,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
-import Wave from '../../../svgs/Wave';
+import Wave from '../svgs/Wave';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
