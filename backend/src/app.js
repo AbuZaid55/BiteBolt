@@ -6,7 +6,7 @@ const cookie = require('cookie-parser')
 const cors = require('cors')
 const app = express()
 
-const PORT = process.env.PORT || 5002
+const PORT = process.env.PORT || 8001
 const HOST = process.env.HOST || '0.0.0.0' 
 
 dbConnect()
@@ -37,5 +37,5 @@ app.get('*',(req,res)=>{
 })
 
 app.listen(PORT,HOST,()=>{
-    console.log(`Backend is listening on http://${HOST}:${PORT}`)
+    console.log(`Backend is listening on http:/localhost:${PORT}`)
 })

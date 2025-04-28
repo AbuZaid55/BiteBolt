@@ -64,7 +64,9 @@ const logIn = async(req,res) =>{
         const token = user.generateToken()
         res.cookie('BiteBoltToken',token,{
             expires:new Date(Date.now() + Number(process.env.EXPIRE_COOKIE_TIME)),
-            httpOnly:true
+            httpOnly:true,
+            secure: true,
+            sameSite: "None", 
         })
         sendSuccess(res,"Login successfully")
     } catch (error) {
@@ -172,7 +174,11 @@ const uploadFile = async(req,res) => {
 
 const logOut = async(req,res)=>{
     try {
-        res.clearCookie("BiteBoltToken")
+        res.clearCookie("BiteBoltToken",{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+          })
         sendSuccess(res,"Logout successfully")
     } catch (error) {
         sendError(res,error.message)

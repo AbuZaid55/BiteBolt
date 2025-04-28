@@ -1,7 +1,7 @@
 import throwError from "./throwError";
 import axios from "axios";
 import {toast} from 'react-toastify'
-import { API_GET_FILTERPRODUCT, API_SUBMIT_REVIEW, API_UPDATE_PRODUCT } from './typeAlias'
+import type { API_GET_FILTERPRODUCT, API_SUBMIT_REVIEW, API_UPDATE_PRODUCT } from './typeAlias'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND 
 

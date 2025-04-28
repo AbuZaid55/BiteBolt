@@ -1,7 +1,7 @@
 import axios from "axios"
 import throwError from "./throwError"
 import {toast} from 'react-toastify'
-import {
+import type {
    API_SEND_OTP,
    API_SING_UP,
    API_LOGIN,

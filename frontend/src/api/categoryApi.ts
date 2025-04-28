@@ -1,7 +1,7 @@
 import axios from "axios"
 import throwError from "./throwError"
 import {toast} from 'react-toastify'
-import { 
+import type { 
     API_ADD_CATEGORY, 
     API_ADD_SUBCATEGORY,
 } from './typeAlias'

@@ -1,7 +1,7 @@
 import throwError from "./throwError";
 import axios from "axios";
 import {toast} from 'react-toastify'
-import { 
+import type { 
     API_CREATE_PAYMENT, API_UPDATE_DETAILS,
 } from './typeAlias'
 

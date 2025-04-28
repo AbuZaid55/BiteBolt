@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "5002:5002"
+      - "8001:8001"
     container_name: bitebolt-backend
     env_file:
       - ./backend/.env
@@ -18,7 +18,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3002:3002"
+      - "3001:3001"
     container_name: bitebolt-frontend
     env_file: 
       - ./frontend/.env
