@@ -45,6 +45,9 @@ const Page = () => {
         const result = await dispatch(LogOut())
         if(result.meta.requestStatus==="fulfilled"){
             router.push('/')
+            setTimeout(() => {
+                window.location.reload()
+            }, 500);
         }
         setLoader(false)
     }
