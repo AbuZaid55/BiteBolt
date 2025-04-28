@@ -9,7 +9,7 @@ import { ChangeStatus, GetAdminOrders } from '../../../Redux/asyncThunk';
 import Image from 'next/image';
 import QRCode from "react-qr-code";
 import { FaPrint } from "react-icons/fa";
-import { useReactToPrint } from 'react-to-print';
+import { useReactToPrint , UseReactToPrintOptions} from 'react-to-print';
 
 const Page = () => {
 
@@ -52,14 +52,11 @@ const Page = () => {
         }
         setLoader(false)
     }
-    const print = useReactToPrint({
-        content: () => ref.current,
-        documentTitle: "BiteBolt_Order_Slip"
-      })
+    const print = useReactToPrint({contentRef:ref,documentTitle:"BiteBolt_Order_Slip"})
       const printPDF = (elementId:any) => {
         const element = document.getElementById(elementId)
-       if(element?.style){
-        element.style.display = 'block'
+        if(element?.style){
+            element.style.display = 'block'
         ref.current = element as HTMLDivElement
         print()
         element.style.display = 'none'
@@ -181,7 +178,7 @@ const Page = () => {
                   </h1>
                   <div className="border w-full">
                     {order.item.map((item:any)=>(
-                        <div key={item._id} className="flex items-center justify-between my-2 px-4 py-1">
+                        <div key={item._id} className="flex items-center justify-between my-2 py-1 px-4">
                             <span>{item.productId.name}</span>
                             <span className="flex items-center font-semibold ">
                             &#8377; {item.productId.price} x {item.qty} = {item.productId.price * item.qty}
@@ -189,7 +186,7 @@ const Page = () => {
                       </div>
                     ))}
                   </div>
-                  <h1 className="flex items-center justify-between my-2 px-4 py-2 font-bold text-xl border">
+                  <h1 className="flex items-center justify-between my-2 py-2 font-bold text-xl border px-4">
                     <span>Total Amount</span>
                     <span className="flex items-center">
                       &#8377;
