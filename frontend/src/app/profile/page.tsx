@@ -3,19 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { BsFillCameraFill } from 'react-icons/bs'
 import { MdOutlineEditNote } from 'react-icons/md'
 import Link from 'next/link'
-import { Roboto_Slab } from "next/font/google"
 import AddressCard from '../../components/AddressCard'
 import AddAddressForm from '../../components/AddAddressForm'
 import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { useRouter } from 'next/navigation'
 import { ChangeName, GetUser, LogOut, UploadFile } from '../../Redux/asyncThunk'
 import { useMyContext } from '../MyContextProvider'
-
-const robotoSlab = Roboto_Slab({
-    weight: "500",
-    subsets: ["greek"],
-    display: "swap",
-  })
 
 const Page = () => {
     const router = useRouter()
@@ -80,7 +73,7 @@ const Page = () => {
                 <div className='w-1/2 overflow-y-auto h-full'></div>
             </div>
             <div className='flex items-center justify-center flex-col py-10'>
-                <h1 className={`text-4xl md:text-6xl font-semibold text-main-800 ${robotoSlab.className}`}>{user.name}</h1>
+                <h1 className={`text-4xl md:text-6xl font-semibold text-main-800 font-robotoSlab`}>{user.name}</h1>
                 <h1 className='md:text-xl mt-2'>{user.email}</h1>
                 <div className='flex items-center justify-center'>
                     <Link href="/orders" className=' w-36 mx-2 bg-slate-700 text-white py-1 sm:py-2 rounded-md flex items-center justify-center mt-2 border-2 border-slate-700  hover:text-slate-700 hover:bg-[#3341551f] transition-all duration-300 ease-in-out'>My Orders</Link>
@@ -96,7 +89,7 @@ const Page = () => {
                     <button onClick={()=>{submitForm()}} className=" mt-4 bg-main-800 text-white text-md font-semibold py-2 transition duration-300 ease-in-out border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] rounded">Submit</button>
                 </div>
             </div>
-            <h1 className={`bg-main-800 text-xl py-2 px-4 text-white ${robotoSlab.className}`}>Shipping Details</h1>
+            <h1 className={`bg-main-800 text-xl py-2 px-4 text-white font-robotoSlab`}>Shipping Details</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 p-4 gap-4'>
                {user.shippingDetails.map((data:any,i:number)=><span key={i}><AddressCard data={data}/></span>)}
             </div>

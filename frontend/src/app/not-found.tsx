@@ -1,24 +1,18 @@
 import React from 'react'
-import { Roboto_Slab } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 
-const robotoSlab = Roboto_Slab({
-    weight: "500",
-    subsets: ["greek"],
-    display: 'swap'
-  })
 
 const NotFound = () => {
   return (
     <div className='bg-slate-200 flex items-center justify-center flex-col pb-[350px] mb-[-350px] pt-[150px]'>
       <div className='flex items-center justify-center'>
         <Image width={35} height={35} priority={true} src="/logo.png" alt="logo" />
-        <h1 className={` text-xl sm:text-3xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1>
+        <h1 className={` text-xl sm:text-3xl text-slate-700 font-robotoSlab`}>BiteBolt</h1>
       </div>
 
       <div className='text-center text-slate-700 -mt-3'>
-        <h1 className={` text-9xl ${robotoSlab.className}`}>404</h1>
+        <h1 className={` text-9xl font-robotoSlab`}>404</h1>
         <p className='text-slate-500 text-2xl -mt-3'>Page Not Found</p>
       </div>
 

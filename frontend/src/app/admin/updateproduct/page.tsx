@@ -1,17 +1,11 @@
 "use client"
 import AdminSiderbar from '../../../components/AdminSiderbar'
 import React,{useEffect, useState} from 'react'
-import { Roboto_Slab } from "next/font/google"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { GetSingleProduct, UpdateProduct } from '../../../Redux/asyncThunk'
 import { useMyContext } from '@/app/MyContextProvider'
 
-const robotoSlab = Roboto_Slab({
-    weight: "500",
-    subsets: ["greek"],
-    display: "swap",
-})
 
 interface productDetail {
     _id:string,
@@ -88,7 +82,7 @@ const Page = () => {
             <AdminSiderbar />
             <div className='pl-20 sm:pl-24 pr-4 w-full min-h-[100vh] text-slate-700 bg-slate-200'>
                 <div >
-                    <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Update product</h1>
+                    <h1 className={`font-robotoSlab text-4xl sm:text-5xl text-center my-6 text-main-800`}>Update product</h1>
 
                     <div >
                         <label className=' text-xl text-main-800 font-semibold' htmlFor="name">Enter Product Name</label>

@@ -1,17 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Roboto_Slab } from "next/font/google"
 import AdminSiderbar from '../../../components/AdminSiderbar'
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook'
 import { useMyContext } from '@/app/MyContextProvider'
 import { AddNewCategory, AddSubCategory } from '../../../Redux/asyncThunk'
 import { useRouter } from 'next/navigation'
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: "swap",
-})
 
 const Page = () => {
   const {setLoader}=useMyContext()
@@ -52,7 +45,7 @@ const Page = () => {
       <AdminSiderbar />
       <div className='pl-20 sm:pl-24 pr-4 w-full min-h-[100vh] text-slate-700 bg-slate-200'>
         <div >
-          <h1 className={`${robotoSlab.className} text-3xl sm:text-5xl text-center my-6 text-main-800`}>Add Category</h1>
+          <h1 className={`font-robotoSlab text-3xl sm:text-5xl text-center my-6 text-main-800`}>Add Category</h1>
 
           <div >
             <label className=' text-xl text-main-800 font-semibold' htmlFor="name">Enter Category Name</label>
@@ -64,7 +57,7 @@ const Page = () => {
         </div>
 
         <div>
-          <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Add SubCategory</h1>
+          <h1 className={`font-robotoSlab text-4xl sm:text-5xl text-center my-6 text-main-800`}>Add SubCategory</h1>
 
           <div >
             <label className=' text-xl text-main-800 font-semibold' htmlFor="name">Select Category</label>

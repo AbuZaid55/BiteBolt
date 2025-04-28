@@ -2,18 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import { FaTrash} from "react-icons/fa";
 import AdminSiderbar from '../../../components/AdminSiderbar';
-import { Roboto_Slab } from "next/font/google"
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMyContext } from '@/app/MyContextProvider';
 import { ChangeUserType, DeleteUser, GetAllUser, SearchUser } from '../../../Redux/asyncThunk';
 import Image from 'next/image';
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: "swap",
-})
 
 const Page = () => {
 
@@ -106,7 +99,7 @@ const Page = () => {
     <div className='flex bg-slate-200'>
       <AdminSiderbar />
       <div className='pl-16 sm:pl-20 w-full min-h-[100vh] overflow-hidden overflow-y-scroll text-slate-700' >
-        <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800`}>Users</h1>
+        <h1 className={`font-robotoSlab text-4xl sm:text-5xl text-center my-6 text-main-800`}>Users</h1>
             <div className='w-full flex flex-col items-start p-4'>
               <input value={search} onChange={(e)=>{setSearch(e.target.value)}} className=" outline-none w-full py-1 px-4 text-xl border-2 border-main-800 rounded-md rounded-bl-none shadow-md max-w-[600px]" type="search"  placeholder='Search Users' />
               <label className='bg-main-800 text-white py-1 px-2 sm:px-4 rounded-b-md sm:text-xl shadow-md'>Filter:- 

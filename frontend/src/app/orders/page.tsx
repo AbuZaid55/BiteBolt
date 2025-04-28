@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
-import { Roboto_Slab } from 'next/font/google'
 import { IoLocation } from "react-icons/io5";
 import { CiEdit } from "react-icons/ci";
 import Link from 'next/link';
@@ -11,13 +10,6 @@ import { useRouter } from 'next/navigation';
 import { useMyContext } from '../MyContextProvider';
 import { CancleOrder, GetOrders } from '../../Redux/asyncThunk';
 import Image from 'next/image';
-
-const robotoSlab = Roboto_Slab({
-    weight: "500",
-    subsets: ["greek"],
-    display: 'swap'
-})
-
 
 
 const Page = () => {
@@ -75,8 +67,8 @@ const Page = () => {
                             return <div  key={item._id} className='flex items-center border-x-2 border-slate-700'>
                             <Image width={100} height={100} priority={true} className='p-2' src={(item.productId)? item.productId.thumbnail.secure_url:'/img/5.jpg'} alt="Image" />
                             <div>
-                                <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
-                                <h1 className={`flex items-center font-bold${robotoSlab.className} mt-2`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
+                                <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`font-robotoSlab text-3xl`}>{item.productId && item.productId.name}</Link>
+                                <h1 className={`flex items-center font-boldfont-robotoSlab mt-2`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
                             </div>
                         </div>
                         })
@@ -87,7 +79,7 @@ const Page = () => {
                         <Link className='flex items-center border-2 border-main-800 text-main-800 rounded-md px-3' href={`/editorder?orderId=${order._id}&addressId=${order.shippingDetails._id}`}><CiEdit /> Edit</Link>
                         <button onClick={()=>{cancleOrder(order._id)}} className='flex items-center border-2 border-red-800 text-red-800 rounded-md px-3'><RxCross1 /> Cancle</button>
                     </div>
-                    <h1 className={`border-2 text-xl border-slate-700 py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Paid Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {order.totalPaidAmount}</span></h1>
+                    <h1 className={`border-2 text-xl border-slate-700 py-2 px-4 flex items-center font-robotoSlab`}>Total Paid Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {order.totalPaidAmount}</span></h1>
                 </div>
                 })
                }

@@ -5,7 +5,6 @@ import { FaIndianRupeeSign } from "react-icons/fa6"
 import { MdShoppingCart } from "react-icons/md"
 import ReviewCard from '../../components/ReviewCard'
 import Card2 from '../../components/Card2'
-import { Roboto_Slab } from 'next/font/google'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { AddToCart, DeleteReview, GetSingleProduct, SimilarProducts, SubmitReview } from '../../Redux/asyncThunk'
@@ -13,11 +12,6 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { useMyContext } from '../MyContextProvider'
 import Image from 'next/image'
 
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: 'swap'
-})
 
 interface productDetail {
   _id:string,
@@ -162,7 +156,7 @@ const Page = () => {
           }
         </div>
         <div className='md:w-1/2 mt-4 md:mt-auto'>
-          <h1 className={`text-5xl font-bold text-slate-700 ${robotoSlab.className}`}>{product.name}</h1>
+          <h1 className={`text-5xl font-bold text-slate-700 font-robotoSlab`}>{product.name}</h1>
           <div className="flex items-center text-xl my-2">
             <FaStar className={`${(product.rating>=1)?"text-main-800":"text-slate-700"}`} />
             <FaStar className={`${(product.rating>=2)?"text-main-800":"text-slate-700"}`} />
@@ -215,7 +209,7 @@ const Page = () => {
       </section>
       
       <section className={(simiProduct.length==0)?"hidden":""}>
-          <h1 className={`text-3xl font-bold text-slate-700 py-4 px-4 md:px-8 ${robotoSlab.className}`}>Similar Products</h1>
+          <h1 className={`text-3xl font-bold text-slate-700 py-4 px-4 md:px-8 font-robotoSlab`}>Similar Products</h1>
           <InfiniteScroll next={()=>{similarProduct(product._id)}} dataLength={simiProduct.length} hasMore={true} loader={<></>} className=' grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 lg:gap-10 place-items-center px-4'>
                 {simiProduct.map((product,i)=><Card2 key={i} product={product}/>)}
           </InfiniteScroll>

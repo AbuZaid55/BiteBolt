@@ -1,6 +1,5 @@
 "use client"
 import AdminSiderbar from "../../../components/AdminSiderbar"
-import { Roboto_Slab } from "next/font/google"
 import { HiOutlineClipboardList } from "react-icons/hi"
 import { BiSolidCategory } from "react-icons/bi"
 import { FaUserFriends, FaRupeeSign, FaNotesMedical, FaCcAmazonPay } from "react-icons/fa"
@@ -14,12 +13,6 @@ import Link from "next/link"
 
 const BarChart = dynamic(() => import("../../../chartJS/BarChart"), { ssr: false })
 const LineChart = dynamic(() => import("../../../chartJS/LineChart"), { ssr: false })
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: "swap",
-})
 
 const Page = () => {
   const user = useAppSelector((state) => state.user)
@@ -119,7 +112,7 @@ const Page = () => {
     <div className="bg-slate-200 h-[100vh] w-full flex text-slate-700">
       <AdminSiderbar />
       <div className="pl-20 sm:pl-24 pr-4 w-full text-slate-700 overflow-x-hidden">
-        <h1 className={`text-center text-4xl text-main-800 my-4 ${robotoSlab.className}`}>DASHBOARD</h1>
+        <h1 className={`text-center text-4xl text-main-800 my-4 font-robotoSlab`}>DASHBOARD</h1>
 
         <div className="grid grid-cols-6 gap-5">
           <Link href={'/admin/orders'} className="p-2 col-span-6 sm:col-span-3 lg:col-span-2 text-white bg-cyan-500 text-xl rounded-md shadow-lg cursor-pointer hover:shadow-2xl transition-all duration-300 ease-in-out">

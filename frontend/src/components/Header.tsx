@@ -5,18 +5,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
-import { Roboto_Slab } from 'next/font/google'
 import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
 import { useAppSelector } from "../Redux/hook";
 import Image from "next/image";
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: 'swap'
-})
 
 const Header = () => {
 
@@ -64,7 +57,7 @@ const Header = () => {
       <div className="h-full flex items-center justify-between">
         <div className="h-full flex items-center">
           <div className="w-[30px] h-[70%] sm:h-[80%] relative" > <Image fill={true} priority={true} sizes="100%" src="/logo.png" alt="logo" /></div>
-          <Link href="/"><h1 className={`text-2xl sm:text-3xl text-slate-700 ${robotoSlab.className}`}>BiteBolt</h1></Link>
+          <Link href="/"><h1 className={`text-2xl sm:text-3xl text-slate-700 font-robotoSlab`}>BiteBolt</h1></Link>
         </div>
 
         <div>

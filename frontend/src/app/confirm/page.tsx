@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import AddressCard from '../../components/AddressCard'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
-import { Roboto_Slab } from 'next/font/google'
 import Link from 'next/link';
 import { useAppSelector,useAppDispatch } from '../../Redux/hook';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -14,11 +13,6 @@ import Script from "next/script";
 import Image from 'next/image';
 
 
-const robotoSlab = Roboto_Slab({
-    weight: "500",
-    subsets: ["greek"],
-    display: 'swap'
-})
 interface Items {
     items:{
         productId:{
@@ -113,13 +107,13 @@ const Page = () => {
                         return <div key={item.productId && item.productId._id} className='flex items-center bg-white border-2 border-slate-700 border-b-0'>
                         <Image className='p-2' width={100} height={100} priority={true} src={(item.productId )? item.productId.thumbnail.secure_url:'/img/5.jpg'} alt="" />
                         <div >
-                            <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`${robotoSlab.className} text-3xl`}>{item.productId && item.productId.name}</Link>
-                            <h1 className={`flex items-center font-bold${robotoSlab.className}`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
+                            <Link href={`/details?_id=${item.productId && item.productId._id}`} className={`font-robotoSlab text-3xl`}>{item.productId && item.productId.name}</Link>
+                            <h1 className={`flex items-center font-boldfont-robotoSlab`}><FaIndianRupeeSign /> {item.productId && item.productId.price} <RxCross1 /> {item.qty} = {item.productId && item.productId.price*item.qty} </h1>
                         </div>
                     </div>
                     })
                 }
-                <h1 className={`border-2 text-xl border-slate-700 bg-white py-2 px-4 flex items-center ${robotoSlab.className}`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {items.totalAmount}</span></h1>
+                <h1 className={`border-2 text-xl border-slate-700 bg-white py-2 px-4 flex items-center font-robotoSlab`}>Total Amount :  <span className="text-main-800 flex items-center"><FaIndianRupeeSign /> {items.totalAmount}</span></h1>
             </div>
             <div className='flex items-center justify-center'>
                 <button onClick={()=>{createPayment()}} className=" text-center bg-main-800 shadow-lg text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Proceed to Payment</button>

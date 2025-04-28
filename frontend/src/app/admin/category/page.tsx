@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { Roboto_Slab } from "next/font/google"
 import { FaTrash } from "react-icons/fa"
 import AdminSiderbar from "../../../components/AdminSiderbar"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa"
@@ -10,11 +9,6 @@ import { useMyContext } from "@/app/MyContextProvider"
 import { DeleteCat, DeleteSubCat, GetCategories } from "../../../Redux/asyncThunk"
 import { useRouter } from "next/navigation"
 
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: "swap",
-})
 
 type DeleteCat = (value: { [key: string]: string }) => void
 
@@ -57,7 +51,7 @@ const Page = () => {
     <div className="flex">
       <AdminSiderbar />
       <div className="w-full text-slate-700 bg-slate-200 min-h-[100vh] pl-20 sm:pl-24 pr-4">
-        <h1 className={`${robotoSlab.className} text-4xl sm:text-5xl text-center my-6 text-main-800 `}>Category</h1>
+        <h1 className={`font-robotoSlab text-4xl sm:text-5xl text-center my-6 text-main-800 `}>Category</h1>
         <div className="text-white ">
           {categories.map((object) => {
             return (

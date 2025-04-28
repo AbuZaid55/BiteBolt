@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Roboto_Slab } from "next/font/google"
 import Card1 from "../components/Card1"
 import Card2 from "../components/Card2"
 import { FaTruck } from "react-icons/fa"
@@ -9,12 +8,6 @@ import { FaHeadset } from "react-icons/fa6"
 import Link from "next/link"
 import { useAppSelector } from "../Redux/hook"
 import Image from "next/image"
-
-const robotoSlab = Roboto_Slab({
-  weight: "500",
-  subsets: ["greek"],
-  display: "swap",
-})
 
 export default function Home() {
 
@@ -41,7 +34,7 @@ export default function Home() {
     <div className="overflow-hidden mb-[-350px]">
       <section className="h-[100vh] w-[100vw] overflow-hidden flex items-center justify-center">
         <div className="sm:w-1/2 px-10">
-          <h1 className={`${robotoSlab.className} text-main-800 text-xl`}>ENJOY YOUR HEALTHY</h1>
+          <h1 className={`font-robotoSlab text-main-800 text-xl`}>ENJOY YOUR HEALTHY</h1>
           <h1 className="text-5xl font-bold text-slate-700 my-3"> DILICIOUS FOOD</h1>
           <p className=" text-slate-500 mb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias deserunt itaque quidem atque quis accusamus placeat incidunt perferendis!</p>
           <Link href="/dishes" className=" text-center bg-main-800 text-white px-4 py-2 rounded-full my-4 cursor-pointer border-2 border-main-800 hover:text-main-800 hover:bg-[#44b67721] transition-all duration-300 ease-in-out">Order Now</Link>
@@ -56,7 +49,7 @@ export default function Home() {
       </section>
       {/* Dishes Section  */}
       <section className=" bg-slate-200 pt-10">
-        <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Dishes</h1>
+        <h1 className={`font-robotoSlab text-main-800 text-xl text-center`}>Our Dishes</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">POPULAR DISHES</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
               {
@@ -69,7 +62,7 @@ export default function Home() {
       </section>
       {/* About Section  */}
       <section className="w-full mb-6">
-        <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center mt-10`}>About Us</h1>
+        <h1 className={`font-robotoSlab text-main-800 text-xl text-center mt-10`}>About Us</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center ">WHY CHOOSE US?</h1>
         <div className="w-full flex items-center justify-center">
           <div className="w-1/2 hidden sm:block">
@@ -97,7 +90,7 @@ export default function Home() {
       </section>
       {/* Menu Section  */}
       <section className=" pt-10 bg-slate-200 pb-80">
-        <h1 className={`${robotoSlab.className} text-main-800 text-xl text-center`}>Our Menu</h1>
+        <h1 className={`font-robotoSlab text-main-800 text-xl text-center`}>Our Menu</h1>
         <h1 className="text-4xl font-bold text-slate-700 my-3 text-center">TODAY&apos;S SPECIALITY</h1>
         <div className=" grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5 lg:gap-10 mt-10 lg:max-w-[90%] xl:max-w-[70%] mx-auto px-3 pb-10 place-items-center">
           {
