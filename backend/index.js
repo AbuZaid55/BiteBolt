@@ -1,6 +1,6 @@
 require("dotenv").config()
 const express = require("express")
-const dbConnect = require('./db/db_conn.js')
+const dbConnect = require('./src/db/db_conn.js')
 const cloudinary = require("cloudinary")
 const cookie = require('cookie-parser')
 const cors = require('cors')
@@ -24,13 +24,13 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUDINARY_SECRET 
 });
 
-app.use("/user",require('./routes/userRouter.js')) 
-app.use("/otp",require('./routes/otpRouter.js')) 
-app.use("/changepass",require('./routes/changePassRouter.js')) 
-app.use("/category",require('./routes/categoryRouter.js')) 
-app.use("/product",require('./routes/productRouter.js')) 
-app.use("/order",require('./routes/orderRouter.js')) 
-app.use("/payment",require('./routes/paymentRouter.js')) 
+app.use("/user",require('./src/routes/userRouter.js')) 
+app.use("/otp",require('./src/routes/otpRouter.js')) 
+app.use("/changepass",require('./src/routes/changePassRouter.js')) 
+app.use("/category",require('./src/routes/categoryRouter.js')) 
+app.use("/product",require('./src/routes/productRouter.js')) 
+app.use("/order",require('./src/routes/orderRouter.js')) 
+app.use("/payment",require('./src/routes/paymentRouter.js')) 
 
 app.get('*',(req,res)=>{
     res.send("404 Page")
